@@ -140,6 +140,19 @@
 </div>
 
 <script>
+    function loadComments() {
+        let commentsContainer = document.getElementById("comments");
+        commentsContainer.innerHTML = ""; 
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        comments.forEach((comment, index) => {
+            let newComment = document.createElement("div");
+            newComment.classList.add("comment");
+            newComment.innerHTML = `<strong>${comment.name}</strong><br>${comment.text} 
+                <button class='delete-btn' onclick='deleteComment(${index})'>Sil</button>`;
+            commentsContainer.appendChild(newComment);
+        });
+    }
+
     function addComment() {
         let name = document.getElementById("name").value;
         let comment = document.getElementById("comment").value;
@@ -147,19 +160,24 @@
             alert("Zəhmət olmasa, adınızı və şərhinizi daxil edin!");
             return;
         }
-        let commentsContainer = document.getElementById("comments");
-        let newComment = document.createElement("div");
-        newComment.classList.add("comment");
-        newComment.innerHTML = `<strong>${name}</strong><br>${comment} <button class='delete-btn' onclick='deleteComment(this)'>Sil</button>`;
-        commentsContainer.appendChild(newComment);
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        comments.push({ name, text: comment });
+        localStorage.setItem("comments", JSON.stringify(comments));
+        loadComments();
         document.getElementById("name").value = "";
         document.getElementById("comment").value = "";
     }
 
-    function deleteComment(button) {
-        button.parentElement.remove();
+    function deleteComment(index) {
+        let comments = JSON.parse(localStorage.getItem("comments")) || [];
+        comments.splice(index, 1);
+        localStorage.setItem("comments", JSON.stringify(comments));
+        loadComments();
     }
+
+    document.addEventListener("DOMContentLoaded", loadComments);
 </script>
+
 
 <div class="footer">
     @by Kenan<br>
