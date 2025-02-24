@@ -18,10 +18,12 @@
 
         document.getElementById("comment-form").addEventListener("submit", async (e) => {
             e.preventDefault();
+            const nameInput = document.getElementById("name-input").value;
             const commentInput = document.getElementById("comment-input").value;
 
-            if (commentInput.trim() !== "") {
-                push(commentsRef, { text: commentInput, timestamp: Date.now() });
+            if (nameInput.trim() !== "" && commentInput.trim() !== "") {
+                push(commentsRef, { name: nameInput, text: commentInput, timestamp: Date.now() });
+                document.getElementById("name-input").value = "";
                 document.getElementById("comment-input").value = "";
             }
         });
@@ -30,8 +32,9 @@
             const commentsList = document.getElementById("comments-list");
             commentsList.innerHTML = "";
             snapshot.forEach((childSnapshot) => {
+                const data = childSnapshot.val();
                 const comment = document.createElement("p");
-                comment.textContent = childSnapshot.val().text;
+                comment.innerHTML = `<strong>${data.name}:</strong> ${data.text}`;
                 commentsList.appendChild(comment);
             });
         });
@@ -83,6 +86,7 @@
     <div id="schedule" class="schedule"></div>
     <h2>Şərhlər</h2>
     <form id="comment-form">
+        <input type="text" id="name-input" placeholder="Adınızı yazın" required />
         <input type="text" id="comment-input" placeholder="Şərhinizi yazın" required />
         <button type="submit">Göndər</button>
     </form>
