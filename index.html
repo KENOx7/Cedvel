@@ -4,6 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const commentsRef = ref(db, "comments");
+
+        document.getElementById("comment-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const commentInput = document.getElementById("comment-input").value;
+
+            if (commentInput.trim() !== "") {
+                push(commentsRef, { text: commentInput, timestamp: Date.now() });
+                document.getElementById("comment-input").value = "";
+            }
+        });
+
+        onValue(commentsRef, (snapshot) => {
+            const commentsList = document.getElementById("comments-list");
+            commentsList.innerHTML = "";
+            snapshot.forEach((childSnapshot) => {
+                const comment = document.createElement("p");
+                comment.textContent = childSnapshot.val().text;
+                commentsList.appendChild(comment);
+            });
+        });
+    </script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
         .header-bar {
@@ -49,6 +81,12 @@
     <h1>CƏDVƏL</h1>
     <h3 id="weekType"></h3>
     <div id="schedule" class="schedule"></div>
+    <h2>Şərhlər</h2>
+    <form id="comment-form">
+        <input type="text" id="comment-input" placeholder="Şərhinizi yazın" required />
+        <button type="submit">Göndər</button>
+    </form>
+    <div id="comments-list"></div>
 
     <script>
         const startDate = new Date("2024-02-24");
