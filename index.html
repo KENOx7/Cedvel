@@ -42,6 +42,33 @@
             height: 24px;
             margin-right: 8px;
         }
+        .comments-section {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .comment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+            position: relative;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -103,14 +130,45 @@
 
         dersleriGoster();
     </script>
-    <div class="footer">
-        @by Kenan<br>
-        <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-            Takib edin😎
-        </a>
-        <div class="footer-image">
-            <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
-        </div>
+
+<div class="comments-section">
+    <h3>Şərhlər</h3>
+    <input type="text" id="name" placeholder="Adınız" style="width: 100%; padding: 8px; margin-top: 5px;">
+    <textarea id="comment" placeholder="Şərhinizi yazın" style="width: 100%; padding: 8px; margin-top: 5px;"></textarea>
+    <button onclick="addComment()" style="width: 100%; padding: 10px; margin-top: 5px; background-color: blue; color: white; border: none; border-radius: 5px;">Göndər</button>
+    <div id="comments"></div>
+</div>
+
+<script>
+    function addComment() {
+        let name = document.getElementById("name").value;
+        let comment = document.getElementById("comment").value;
+        if (name.trim() === "" || comment.trim() === "") {
+            alert("Zəhmət olmasa, adınızı və şərhinizi daxil edin!");
+            return;
+        }
+        let commentsContainer = document.getElementById("comments");
+        let newComment = document.createElement("div");
+        newComment.classList.add("comment");
+        newComment.innerHTML = `<strong>${name}</strong><br>${comment} <button class='delete-btn' onclick='deleteComment(this)'>Sil</button>`;
+        commentsContainer.appendChild(newComment);
+        document.getElementById("name").value = "";
+        document.getElementById("comment").value = "";
+    }
+
+    function deleteComment(button) {
+        button.parentElement.remove();
+    }
+</script>
+
+<div class="footer">
+    @by Kenan<br>
+    <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+        Takib edin😎
+    </a>
+    <div class="footer-image">
+        <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
+    </div>
 </body>
 </html>
