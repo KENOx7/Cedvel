@@ -31,10 +31,17 @@
         onValue(commentsRef, (snapshot) => {
             const commentsList = document.getElementById("comments-list");
             commentsList.innerHTML = "";
+            const commentsArray = [];
             snapshot.forEach((childSnapshot) => {
-                const data = childSnapshot.val();
+                commentsArray.push(childSnapshot.val());
+            });
+            
+            commentsArray.sort((a, b) => b.timestamp - a.timestamp);
+            commentsArray.forEach((data) => {
                 const comment = document.createElement("p");
-                comment.innerHTML = `<strong>${data.name}:</strong> ${data.text}`;
+                const date = new Date(data.timestamp);
+                const formattedDate = date.toLocaleString("az-AZ");
+                comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
                 commentsList.appendChild(comment);
             });
         });
@@ -84,13 +91,14 @@
     <h1>CƏDVƏL</h1>
     <h3 id="weekType"></h3>
     <div id="schedule" class="schedule"></div>
-    <h2>Şərhlər</h2>
+    <h2>Qeydlər</h2>
     <form id="comment-form">
-        <input type="text" id="name-input" placeholder="Adınızı yazın" required />
-        <input type="text" id="comment-input" placeholder="Şərhinizi yazın" required />
+        <input type="text" id="name-input" placeholder="Adıvı yaz ə" required />
+        <input type="text" id="comment-input" placeholder="Yaz görək" required />
         <button type="submit">Göndər</button>
     </form>
     <div id="comments-list"></div>
+
 
     <script>
         const startDate = new Date("2024-02-24");
