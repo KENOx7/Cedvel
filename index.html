@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl</title>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
         .header-bar {
@@ -44,33 +42,6 @@
             height: 24px;
             margin-right: 8px;
         }
-        .comments-section {
-            margin-top: 20px;
-            text-align: left;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .comment {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-            position: relative;
-        }
-        .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
     </style>
 </head>
 <body>
@@ -80,18 +51,6 @@
     <div id="schedule" class="schedule"></div>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "SENIN_API_KEY",
-            authDomain: "yorumlar-8f969.firebaseapp.com",
-            databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/",
-            projectId: "yorumlar-8f969",
-            storageBucket: "yorumlar-8f969.appspot.com",
-            messagingSenderId: "SENIN_MESSAGING_SENDER_ID",
-            appId: "SENIN_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        
         const startDate = new Date("2024-02-24");
 
         const dersCedveli = {
@@ -144,59 +103,15 @@
 
         dersleriGoster();
     </script>
-<div class="comments-section">
-        <h3>Şərhlər</h3>
-        <input type="text" id="name" placeholder="Adınız" style="width: 100%; padding: 8px; margin-top: 5px;">
-        <textarea id="comment" placeholder="Şərhinizi yazın" style="width: 100%; padding: 8px; margin-top: 5px;"></textarea>
-        <button onclick="addComment()" style="width: 100%; padding: 10px; margin-top: 5px; background-color: blue; color: white; border: none; border-radius: 5px;">Göndər</button>
-        <div id="comments"></div>
-    </div>
 
-    <script>
-        function addComment() {
-            let name = document.getElementById("name").value;
-            let comment = document.getElementById("comment").value;
-            if (name.trim() === "" || comment.trim() === "") {
-                alert("Zəhmət olmasa, adınızı və şərhinizi daxil edin!");
-                return;
-            }
-            let newCommentRef = db.ref("comments").push();
-            newCommentRef.set({ name, comment });
-            document.getElementById("name").value = "";
-            document.getElementById("comment").value = "";
-        }
-
-        function loadComments() {
-            let commentsContainer = document.getElementById("comments");
-            commentsContainer.innerHTML = "";
-            db.ref("comments").on("value", function(snapshot) {
-                commentsContainer.innerHTML = "";
-                snapshot.forEach(function(childSnapshot) {
-                    let data = childSnapshot.val();
-                    let newComment = document.createElement("div");
-                    newComment.classList.add("comment");
-                    newComment.innerHTML = `<strong>${data.name}</strong><br>${data.comment} <button class='delete-btn' onclick='deleteComment("${childSnapshot.key}")'>Sil</button>`;
-                    commentsContainer.appendChild(newComment);
-                });
-            });
-        }
-
-        function deleteComment(commentId) {
-            db.ref("comments/" + commentId).remove();
-        }
-
-        loadComments();
-    </script>
-
-    <div class="footer">
-        @by Kenan<br>
-        <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-            Takib edin😎
-        </a>
-        <div class="footer-image">
-            <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
-        </div>
+<div class="footer">
+    @by Kenan<br>
+    <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+        Takib edin😎
+    </a>
+    <div class="footer-image">
+        <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
     </div>
 </body>
 </html>
