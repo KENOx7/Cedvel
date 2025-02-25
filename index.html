@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cədvəl və PDF</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .header-bar { background-color: blue; color: white; font-weight: bold; padding: 10px; font-size: 20px; }
         .menu { display: flex; justify-content: center; margin: 20px 0; }
         .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
         .container { display: none; margin: 20px; }
@@ -15,15 +17,27 @@
     </style>
 </head>
 <body>
+
+    <div class="menu">
+        <button onclick="showSection('schedule')">Cədvəl</button>
+        <button onclick="showSection('pdfs')">PDF</button>
+    </div>
+
+    <div id="schedule" class="container active">
+        <h1>Cədvəl</h1>
+        <h3 id="weekType"></h3>
+        <div id="scheduleContent"></div>
+    </div>
+
     <div id="pdfs" class="container">
         <h1>PDF Sənədləri</h1>
         <p>Aşağıdakı sənədlərə bax və yüklə:</p>
-        
+
         <div>
             <h3>PDF 1</h3>
-            <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/view?usp=sharing/preview"></iframe>
+            <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview"></iframe>
             <br>
-            <a href="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/view?usp=sharing" target="_blank">Yüklə</a>
+            <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" target="_blank">Yüklə</a>
         </div>
 
         <div>
@@ -44,12 +58,6 @@
     </script>
 
 </body>
-    
-
-    <div class="menu">
-        <button onclick="showSection('schedule')">Cədvəl</button>
-        <button onclick="showSection('pdfs')">PDF</button>
-    </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
