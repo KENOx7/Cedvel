@@ -1,20 +1,12 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cədvəl</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl və PDF</title>
-    <body>
-    <div class="header-bar">758/ITS</div>
-    <h1>CƏDVƏL</h1>
-    <h3 id="weekType"></h3>
-    <div id="schedule" class="schedule"></div>
-    </body>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+        .header-bar { background-color: #007bff; color: white; padding: 15px; font-size: 20px; font-weight: bold; }
         .menu { display: flex; justify-content: center; margin: 20px 0; }
         .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
         .container { display: none; margin: 20px; }
@@ -24,17 +16,22 @@
 </head>
 <body>
 
+    <div class="header-bar">758/ITS</div>
+
+    <!-- Cədvəl və PDF düymələri -->
     <div class="menu">
         <button onclick="showSection('schedule')">Cədvəl</button>
         <button onclick="showSection('pdfs')">PDF</button>
     </div>
 
+    <!-- Cədvəl bölməsi -->
     <div id="schedule" class="container active">
         <h1>Cədvəl</h1>
         <h3 id="weekType"></h3>
         <div id="scheduleContent"></div>
     </div>
 
+    <!-- PDF bölməsi -->
     <div id="pdfs" class="container">
         <h1>PDF Sənədləri</h1>
         <p>Aşağıdakı sənədlərə bax və yüklə:</p>
