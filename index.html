@@ -4,6 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+        .header-bar { background-color: blue; color: white; font-weight: bold; padding: 10px; font-size: 20px; }
+        .menu { display: flex; justify-content: center; margin: 20px 0; }
+        .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
+        .container { display: none; margin: 20px; }
+        .active { display: block; }
+        iframe { width: 100%; height: 600px; border: none; }
+    </style>
+</head>
+<body>
+    <div id="pdfs" class="container">
+        <h1>PDF Sənədləri</h1>
+        <p>Aşağıdakı sənədlərə bax və yüklə:</p>
+        
+        <div>
+            <h3>PDF 1</h3>
+            <iframe src="https://drive.google.com/file/d/PDF_LINK_1/preview"></iframe>
+            <br>
+            <a href="https://drive.google.com/uc?export=download&id=PDF_LINK_1" target="_blank">Yüklə</a>
+        </div>
+
+        <div>
+            <h3>PDF 2</h3>
+            <iframe src="https://drive.google.com/file/d/PDF_LINK_2/preview"></iframe>
+            <br>
+            <a href="https://drive.google.com/uc?export=download&id=PDF_LINK_2" target="_blank">Yüklə</a>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.container').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+
+</body>
+    <div class="header-bar">758/ITS</div>
+
+    <div class="menu">
+        <button onclick="showSection('schedule')">Cədvəl</button>
+        <button onclick="showSection('pdfs')">PDF</button>
+    </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
