@@ -6,51 +6,31 @@
     <title>Cədvəl və PDF</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .header-bar { background-color: #007bff; color: white; padding: 15px; font-size: 20px; font-weight: bold; }
+        .header-bar { background-color: blue; color: white; font-weight: bold; padding: 10px; font-size: 20px; }
         .menu { display: flex; justify-content: center; margin: 20px 0; }
         .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
         .container { display: none; margin: 20px; }
         .active { display: block; }
         iframe { width: 100%; height: 600px; border: none; }
+        .day { margin: 10px 0; padding: 15px; border: 1px solid #000; background-color: #f9f9f9; border-radius: 8px; }
     </style>
 </head>
 <body>
-
     <div class="header-bar">758/ITS</div>
-
-    <!-- Cədvəl və PDF düymələri -->
     <div class="menu">
         <button onclick="showSection('schedule')">Cədvəl</button>
         <button onclick="showSection('pdfs')">PDF</button>
     </div>
-
-    <!-- Cədvəl bölməsi -->
     <div id="schedule" class="container active">
         <h1>Cədvəl</h1>
         <h3 id="weekType"></h3>
         <div id="scheduleContent"></div>
     </div>
-
-    <!-- PDF bölməsi -->
     <div id="pdfs" class="container">
         <h1>PDF Sənədləri</h1>
-        <p>Aşağıdakı sənədlərə bax və yüklə:</p>
-
-        <div>
-            <h3>PDF 1</h3>
-            <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview"></iframe>
-            <br>
-            <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" target="_blank">Yüklə</a>
-        </div>
-
-        <div>
-            <h3>PDF 2</h3>
-            <iframe src="https://drive.google.com/file/d/PDF_LINK_2/preview"></iframe>
-            <br>
-            <a href="https://drive.google.com/uc?export=download&id=PDF_LINK_2" target="_blank">Yüklə</a>
-        </div>
+        <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview"></iframe>
+        <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" target="_blank">Yüklə</a>
     </div>
-
     <script>
         function showSection(sectionId) {
             document.querySelectorAll('.container').forEach(section => {
@@ -58,6 +38,11 @@
             });
             document.getElementById(sectionId).classList.add('active');
         }
+        function dersleriGoster() {
+            let scheduleContainer = document.getElementById("scheduleContent");
+            scheduleContainer.innerHTML = "<p>Dərs cədvəli buradadır.</p>";
+        }
+        dersleriGoster();
     </script>
 
 </body>
