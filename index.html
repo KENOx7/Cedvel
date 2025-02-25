@@ -49,10 +49,13 @@
 
     <script>
         function showSection(sectionId) {
-            document.querySelectorAll('.container').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
+            if (sectionId === "schedule") {
+                document.getElementById("content").classList.remove("hidden");
+                document.getElementById("pdfs").classList.add("hidden");
+            } else {
+                document.getElementById("content").classList.add("hidden");
+                document.getElementById("pdfs").classList.remove("hidden");
+            }
         }
     </script>
 
