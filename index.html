@@ -8,9 +8,11 @@
         body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
         .menu { display: flex; justify-content: center; margin: 20px 0; }
         .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
-        .content { display: block; } /* Əsas kontenti gizləmək üçün */
-        .hidden { display: none; } /* Tamamilə gizlətmək üçün */
+        .content { display: block; } 
+        .hidden { display: none; } 
         iframe { width: 100%; height: 600px; border: none; }
+        .pdf-container { margin-bottom: 20px; }
+        .pdf-container button { padding: 8px 12px; font-size: 14px; cursor: pointer; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -28,20 +30,22 @@
 
     <div id="pdfs" class="hidden">
         <h1>PDF Sənədləri</h1>
-        <p>Aşağıdakı sənədlərə bax və yüklə:</p>
+        <p>Aşağıdakı sənədlərə bax, yüklə və tam ekran aç:</p>
 
-        <div>
+        <div class="pdf-container">
             <h3>English for Information Technology 1</h3>
             <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview"></iframe>
             <br>
             <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" target="_blank">Yüklə</a>
+            <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
         </div>
 
-        <div>
-            <h3>Murphy(qirmizi kitab)</h3>
-            <iframe src="https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/view?usp=sharing/preview"></iframe>
+        <div class="pdf-container">
+            <h3>Murphy (qırmızı kitab)</h3>
+            <iframe src="https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview"></iframe>
             <br>
-            <a href="https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/view?usp=sharing" target="_blank">Yüklə</a>
+            <a href="https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e" target="_blank">Yüklə</a>
+            <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
         </div>
     </div>
 
@@ -54,6 +58,10 @@
                 document.getElementById("content").classList.add("hidden");
                 document.getElementById("pdfs").classList.remove("hidden");
             }
+        }
+
+        function openFullScreen(pdfUrl) {
+            window.open(pdfUrl, '_blank').focus();
         }
     </script>
 
