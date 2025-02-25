@@ -3,27 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cədvəl</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl və PDF</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .header-bar { background-color: blue; color: white; font-weight: bold; padding: 10px; font-size: 20px; }
-        .menu { display: flex; justify-content: center; margin: 20px 0; }
-        .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
-        .container { display: none; margin: 20px; }
-        .active { display: block; }
-        iframe { width: 100%; height: 600px; border: none; }
-    </style>
-</head>
-<body>
+    <body>
     <div class="header-bar">758/ITS</div>
-    
-    <div class="menu">
-        <button onclick="showSection('schedule')">Cədvəl</button>
-        <button onclick="showSection('pdfs')">PDF</button>
-    </div>
-
-    <div id="schedule" class="container active">
-        <h1>CƏDVƏL</h1>
+    <h1>CƏDVƏL</h1>
     <h3 id="weekType"></h3>
     <div id="schedule" class="schedule"></div>
     </body>
@@ -35,16 +21,31 @@
         .active { display: block; }
         iframe { width: 100%; height: 600px; border: none; }
     </style>
+</head>
+<body>
+
+    <div class="menu">
+        <button onclick="showSection('schedule')">Cədvəl</button>
+        <button onclick="showSection('pdfs')">PDF</button>
+    </div>
+
+    <div id="schedule" class="container active">
+        <h1>Cədvəl</h1>
+        <h3 id="weekType"></h3>
+        <div id="scheduleContent"></div>
+    </div>
 
     <div id="pdfs" class="container">
         <h1>PDF Sənədləri</h1>
         <p>Aşağıdakı sənədlərə bax və yüklə:</p>
+
         <div>
             <h3>PDF 1</h3>
             <iframe src="https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview"></iframe>
             <br>
             <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" target="_blank">Yüklə</a>
         </div>
+
         <div>
             <h3>PDF 2</h3>
             <iframe src="https://drive.google.com/file/d/PDF_LINK_2/preview"></iframe>
@@ -61,7 +62,7 @@
             document.getElementById(sectionId).classList.add('active');
         }
     </script>
-    
+
 </body>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
