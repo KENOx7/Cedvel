@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cədvəl, PDF və Oyun</title>
+  <title>Cədvəl</title>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
     .header-bar {
@@ -51,23 +51,20 @@
   </style>
 </head>
 <body>
-  <!-- Header və Menu -->
+  
   <div class="header-bar">758/ITS</div>
   <div class="menu">
     <button onclick="showSection('scheduleSection')">Cədvəl</button>
     <button onclick="showSection('pdfsSection')">PDF</button>
     <button onclick="showSection('oyunSection')">Oyun</button>
   </div>
-
-  <!-- Bölmələr -->
-  <!-- Cədvəl Bölməsi -->
+  
   <div id="scheduleSection" class="content">
     <h1>CƏDVƏL</h1>
     <h3 id="weekType"></h3>
     <div id="schedule" class="schedule"></div>
   </div>
 
-  <!-- PDF Bölməsi -->
   <div id="pdfsSection" class="content hidden">
     <h1>PDF Sənədləri</h1>
     <p>Qocunma la Ders oxu</p>
@@ -87,15 +84,12 @@
     </div>
   </div>
 
-  <!-- Oyun Bölməsi -->
   <div id="oyunSection" class="content hidden">
     <h1>Oyun</h1>
     <div id="oyunContainer">
-      <!-- İstifadəçi "Oyun" düyməsinə kliklədikdə aşağıdakı skript vasitəsilə oyun iframe-i yaradılacaq -->
     </div>
   </div>
 
-  <!-- Rəy Bölməsi -->
   <div id="commentsSection">
     <h2>Qeydlər</h2>
     <form id="comment-form">
@@ -106,9 +100,7 @@
     <div id="comments-list"></div>
   </div>
 
-  <!-- Funksionallıq üçün JavaScript kodları -->
   <script>
-    // Bölmələr arasında keçid funksiyası
     function showSection(sectionId) {
       const sections = ['scheduleSection', 'pdfsSection', 'oyunSection'];
       sections.forEach(id => {
@@ -123,7 +115,6 @@
       }
     }
 
-    // PDF-ləri yükləmək üçün funksiya
     function loadPDFs() {
       document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
       document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
@@ -131,7 +122,6 @@
       document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
     }
 
-    // Oyun səhifəsini yükləyən funksiya (yalnız düyməyə kliklənəndə)
     function loadOyun() {
       if (!document.getElementById("oyunIframe")) {
          var iframe = document.createElement("iframe");
@@ -144,13 +134,11 @@
       }
     }
 
-    // "Tam Ekran" düymələri üçün funksiya
     function openFullScreen(url) {
       window.open(url, '_blank').focus();
     }
   </script>
 
-  <!-- Firebase və Rəy Sistemi üçün Modul Skripti -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
@@ -194,7 +182,6 @@
     });
   </script>
 
-  <!-- Cədvəl (Schedule) üçün skript -->
   <script>
     const startDate = new Date("2024-02-24");
 
@@ -245,7 +232,6 @@
     dersleriGoster();
   </script>
 
-  <!-- Footer -->
   <div class="footer">
     @by Kenan<br>
     <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
