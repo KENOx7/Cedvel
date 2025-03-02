@@ -1,234 +1,201 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cədvəl və PDF</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .menu { display: flex; justify-content: center; margin: 20px 0; }
-        .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
-        .content { display: block; } 
-        .hidden { display: none; } 
-        iframe { width: 100%; height: 600px; border: none; }
-        .pdf-container { margin-bottom: 20px; }
-        .pdf-container button { padding: 8px 12px; font-size: 14px; cursor: pointer; margin-top: 5px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cədvəl, PDF və Oyun</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
+    .header-bar {
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      font-size: 20px;
+    }
+    .menu { display: flex; justify-content: center; margin: 20px 0; }
+    .menu button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; }
+    .content, .hidden { padding: 20px; }
+    .hidden { display: none; }
+    iframe { width: 100%; height: 600px; border: none; }
+    .pdf-container { margin-bottom: 20px; }
+    .pdf-container button { padding: 8px 12px; font-size: 14px; cursor: pointer; margin-top: 5px; }
+    .schedule { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+    .day {
+      margin: 10px 0;
+      padding: 15px;
+      border: 1px solid #000;
+      width: 90%;
+      max-width: 400px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      text-align: left;
+    }
+    .instagram-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .instagram-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body>
-    <div class="header-bar">758/ITS</div>
-    <div class="menu">
-        <button onclick="showSection('schedule')">Cədvəl</button>
-        <button onclick="showSection('pdfs')">PDF</button>
+  <div class="header-bar">758/ITS</div>
+
+  <!-- Menü: Cədvəl, PDF və Oyun -->
+  <div class="menu">
+    <button onclick="showSection('schedule')">Cədvəl</button>
+    <button onclick="showSection('pdfs')">PDF</button>
+    <button onclick="showSection('game')">Oyun</button>
+  </div>
+
+  <!-- CƏDVƏL Bölməsi -->
+  <div id="content" class="content">
+    <h1>CƏDVƏL</h1>
+    <h3 id="weekType"></h3>
+    <div id="schedule" class="schedule"></div>
+  </div>
+
+  <!-- PDF Bölməsi -->
+  <div id="pdfs" class="hidden">
+    <h1>PDF Sənədləri</h1>
+    <p>Qocunma la Ders oxu</p>
+
+    <div class="pdf-container">
+      <h3>English for Information Technology 1</h3>
+      <iframe id="pdf1"></iframe>
+      <br>
+      <a id="pdf1-download" target="_blank">Yüklə</a>
+      <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
     </div>
 
-    <div id="content" class="content">
-        <h1>CƏDVƏL</h1>
-        <h3 id="weekType"></h3>
-        <div id="schedule" class="schedule"></div>
+    <div class="pdf-container">
+      <h3>Murphy (qırmızı kitab)</h3>
+      <iframe id="pdf2"></iframe>
+      <br>
+      <a id="pdf2-download" target="_blank">Yüklə</a>
+      <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
     </div>
+  </div>
 
-    <div id="pdfs" class="hidden">
-        <h1>PDF Sənədləri</h1>
-        <p>Qocunma la Ders oxu</p>
+  <!-- OYUN Bölməsi -->
+  <div id="game" class="hidden">
+    <h1>Oyun</h1>
+    <!-- iframe src başlangıçta boş, butona tıklayınca yüklenecek -->
+    <iframe id="gameFrame" width="960" height="600" frameborder="0" allowfullscreen></iframe>
+  </div>
 
-        <div class="pdf-container">
-            <h3>English for Information Technology 1</h3>
-            <iframe id="pdf1"></iframe>
-            <br>
-            <a id="pdf1-download" target="_blank">Yüklə</a>
-            <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
-        </div>
+  <!-- Qeydlər Bölməsi -->
+  <h2>Qeydlər</h2>
+  <form id="comment-form">
+    <input type="text" id="name-input" placeholder="Adını yaz" required />
+    <input type="text" id="comment-input" placeholder="Yaz görək" required />
+    <button type="submit">Göndər</button>
+  </form>
+  <div id="comments-list"></div>
 
-        <div class="pdf-container">
-            <h3>Murphy (qırmızı kitab)</h3>
-            <iframe id="pdf2"></iframe>
-            <br>
-            <a id="pdf2-download" target="_blank">Yüklə</a>
-            <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
-        </div>
-    </div>
+  <!-- JavaScript -->
+  <script>
+    function showSection(sectionId) {
+      // Tüm bölümleri gizle
+      document.getElementById("content").classList.add("hidden");
+      document.getElementById("pdfs").classList.add("hidden");
+      document.getElementById("game").classList.add("hidden");
 
-    <script>
-        function showSection(sectionId) {
-            if (sectionId === "schedule") {
-                document.getElementById("content").classList.remove("hidden");
-                document.getElementById("pdfs").classList.add("hidden");
-            } else {
-                document.getElementById("content").classList.add("hidden");
-                document.getElementById("pdfs").classList.remove("hidden");
-                loadPDFs();
-            }
+      if (sectionId === "schedule") {
+        document.getElementById("content").classList.remove("hidden");
+      } else if (sectionId === "pdfs") {
+        document.getElementById("pdfs").classList.remove("hidden");
+        loadPDFs();
+      } else if (sectionId === "game") {
+        document.getElementById("game").classList.remove("hidden");
+        // Oyun bölümü ilk kez gösteriliyorsa Unity oyunun index dosyasını yükle
+        if (!document.getElementById("gameFrame").src) {
+          document.getElementById("gameFrame").src = "Build/index.html"; // Unity WebGL build dosyanızın yolunu buraya ekleyin
         }
+      }
+    }
 
-        function openFullScreen(pdfUrl) {
-            window.open(pdfUrl, '_blank').focus();
+    function openFullScreen(pdfUrl) {
+      window.open(pdfUrl, '_blank').focus();
+    }
+
+    function loadPDFs() {
+      document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
+      document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
+      
+      document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
+      document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
+    }
+
+    // CƏDVƏL bölümü için zaman ve ders bilgilerini gösteren fonksiyonlar (varsa)
+    const startDate = new Date("2024-02-24");
+    const dersCedveli = {
+      "alt": {
+        1: ["1) IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2) Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3) Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+        2: ["1) Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2) XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)"],
+        3: ["2) XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3) IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+        4: ["3) İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
+        5: ["2) Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3) İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      },
+      "ust": {
+        1: ["1) Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2) Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3) Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+        2: ["1) Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2) XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)", "3) Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
+        3: ["2) XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3) IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+        4: ["2) Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3) Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
+        5: ["2) Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3) İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      }
+    };
+
+    function hefteniTap(date) {
+      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
+      return diffDays % 2 === 0 ? "alt" : "ust";
+    }
+
+    function tarixFormatla(date) {
+      const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
+      const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+      return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    function dersleriGoster() {
+      let container = document.getElementById("schedule");
+      container.innerHTML = "";
+      let bugun = new Date();
+      let hefteniSec = hefteniTap(bugun);
+      document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
+      for (let i = 0; i < 7; i++) {
+        let tarix = new Date();
+        tarix.setDate(bugun.getDate() + i);
+        let gun = tarix.getDay();
+        if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
+          let dersler = dersCedveli[hefteniSec][gun].join("<br>");
+          container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
         }
+      }
+    }
+    dersleriGoster();
+  </script>
 
-        function loadPDFs() {
-            document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
-            document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
-            
-            document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
-            document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
-        }
-    </script>
-
-</body>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-
-        const firebaseConfig = {
-            databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const commentsRef = ref(db, "comments");
-
-        document.getElementById("comment-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const nameInput = document.getElementById("name-input").value;
-            const commentInput = document.getElementById("comment-input").value;
-
-            if (nameInput.trim() !== "" && commentInput.trim() !== "") {
-                push(commentsRef, { name: nameInput, text: commentInput, timestamp: Date.now() });
-                document.getElementById("name-input").value = "";
-                document.getElementById("comment-input").value = "";
-            }
-        });
-
-        onValue(commentsRef, (snapshot) => {
-            const commentsList = document.getElementById("comments-list");
-            commentsList.innerHTML = "";
-            const commentsArray = [];
-            snapshot.forEach((childSnapshot) => {
-                commentsArray.push(childSnapshot.val());
-            });
-            
-            commentsArray.sort((a, b) => b.timestamp - a.timestamp);
-            commentsArray.forEach((data) => {
-                const comment = document.createElement("p");
-                const date = new Date(data.timestamp);
-                const formattedDate = date.toLocaleString("az-AZ");
-                comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
-                commentsList.appendChild(comment);
-            });
-        });
-    </script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .header-bar {
-            background-color: blue;
-            color: white;
-            font-weight: bold;
-            padding: 10px;
-            font-size: 20px;
-        }
-        .schedule { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
-        .day {
-            margin: 10px 0;
-            padding: 15px;
-            border: 1px solid #000;
-            display: block;
-            width: 90%;
-            max-width: 400px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            text-align: left;
-        }
-        .footer { padding: 15px; font-size: 14px; }
-        .footer-image img { max-width: 100%; height: auto; border-radius: 10px; }
-        .instagram-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .instagram-link img {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Qeydlər</h2>
-    <form id="comment-form">
-        <input type="text" id="name-input" placeholder="Adıvı yaz ə" required />
-        <input type="text" id="comment-input" placeholder="Yaz görək" required />
-        <button type="submit">Göndər</button>
-    </form>
-    <div id="comments-list"></div>
-
-
-    <script>
-        const startDate = new Date("2024-02-24");
-
-        const dersCedveli = {
-            "alt": {
-                1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-                2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)"],
-                3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-                4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
-                5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
-            },
-            "ust": {
-                1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-                2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
-                3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-                4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
-                5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
-            }
-        };
-
-        function hefteniTap(date) {
-            const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-            return diffDays % 2 === 0 ? "alt" : "ust";
-        }
-
-        function tarixFormatla(date) {
-            const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
-            const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-            return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
-        }
-
-        function dersleriGoster() {
-            let container = document.getElementById("schedule");
-            container.innerHTML = "";
-            let bugun = new Date();
-            let hefteniSec = hefteniTap(bugun);
-
-            document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
-
-            for (let i = 0; i < 7; i++) {
-                let tarix = new Date();
-                tarix.setDate(bugun.getDate() + i);
-                let gun = tarix.getDay();
-                
-                if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
-                    let dersler = dersCedveli[hefteniSec][gun].join("<br>");
-                    container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
-                }
-            }
-        }
-
-        dersleriGoster();
-    </script>
-
-<div class="footer">
+  <!-- Firebase ve diğer scriptler buraya eklenebilir -->
+  <div class="footer">
     @by Kenan<br>
     <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-        Takib edin😎
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+      Takib edin😎
     </a>
     <div class="footer-image">
-        <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
+      <img src="https://r.resimlink.com/Gs5jAhC7L86.jpg" alt="Custom Shape">
     </div>
+  </div>
 </body>
 </html>
