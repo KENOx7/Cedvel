@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cədvəl</title>
-  <!-- FingerprintJS kitabxanası -->
   <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
   <style>
     body { 
@@ -169,24 +168,19 @@
   <div id="commentsSection">
     <h2>Qeydlər</h2>
     <form id="comment-form">
-      <input type="text" id="name-input" placeholder="Adını yaz" required />
+      <input type="text" id="name-input" placeholder="Adıvı yaz ə" required />
       <input type="text" id="comment-input" placeholder="Yaz görək" required />
-      <!-- Şəkil yükləmək üçün əlavə input -->
-      <input type="file" id="image-input" accept="image/*" />
       <button type="submit">Göndər</button>
     </form>
     <div id="comments-list"></div>
   </div>
 
-  <!-- LocalStorage və IP ünvanını əldə edirik. Bu məlumatlar yalnız datada saxlanılacaq. -->
   <script>
-    // LocalStorage-dən unikal identifikatorı alırıq, yoxdursa yaradırıq
     let clientId = localStorage.getItem('clientId');
     if (!clientId) {
       clientId = 'client-' + Math.random().toString(36).substr(2, 9);
       localStorage.setItem('clientId', clientId);
     }
-    // Əgər IP ünvanı localStorage-də yoxdursa, ipify API vasitəsilə əldə edirik
     let clientIP = localStorage.getItem('clientIP');
     if (!clientIP) {
       fetch('https://api.ipify.org?format=json')
@@ -257,7 +251,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
     const firebaseConfig = {
       databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/"
@@ -266,45 +259,22 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const commentsRef = ref(db, "comments");
-    const storage = getStorage(app);
 
     document.getElementById("comment-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const nameInput = document.getElementById("name-input").value;
       const commentInput = document.getElementById("comment-input").value;
-      const fileInput = document.getElementById("image-input");
-      const file = fileInput.files[0];
 
       if (nameInput.trim() !== "" && commentInput.trim() !== "") {
-        if (file) {
-          // Şəkli Firebase Storage-a yükləyirik
-          const imageRef = storageRef(storage, 'commentImages/' + Date.now() + '-' + file.name);
-          try {
-            const snapshot = await uploadBytes(imageRef, file);
-            const downloadURL = await getDownloadURL(snapshot.ref);
-            push(commentsRef, { 
-              name: nameInput, 
-              text: commentInput, 
-              image: downloadURL,
-              timestamp: Date.now(),
-              ip: clientIP,
-              clientId: clientId
-            });
-          } catch (error) {
-            console.error("Şəkil yüklənərkən xəta baş verdi: ", error);
-          }
-        } else {
-          push(commentsRef, { 
-              name: nameInput, 
-              text: commentInput, 
-              timestamp: Date.now(),
-              ip: clientIP,
-              clientId: clientId
-          });
-        }
+        push(commentsRef, { 
+          name: nameInput, 
+          text: commentInput, 
+          timestamp: Date.now(),
+          ip: clientIP,
+          clientId: clientId
+        });
         document.getElementById("name-input").value = "";
         document.getElementById("comment-input").value = "";
-        fileInput.value = "";
       }
     });
 
@@ -321,11 +291,7 @@
         const comment = document.createElement("p");
         const date = new Date(data.timestamp);
         const formattedDate = date.toLocaleString("az-AZ");
-        let commentHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
-        if (data.image) {
-          commentHTML += `<br><img src="${data.image}" alt="Şəkil" style="max-width:200px; max-height:200px; margin-top:10px;" />`;
-        }
-        comment.innerHTML = commentHTML;
+        comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
         commentsList.appendChild(comment);
       });
     });
