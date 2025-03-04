@@ -42,7 +42,6 @@
     }
     .content { 
       display: block; 
-      
     }
     .hidden { 
       display: none; 
@@ -126,7 +125,8 @@
   <div class="menu">
     <button onclick="showSection('scheduleSection')">Cədvəl</button>
     <button onclick="showSection('pdfsSection')">PDF</button>
-    <button onclick="showSection('oyunSection')">Oyun</button>
+    <button onclick="showSection('flappySection')">Flappy Ramin</button>
+    <button onclick="showSection('bagikSection')">Bagik Run</button>
   </div>
   
   <div id="scheduleSection" class="content">
@@ -154,10 +154,14 @@
     </div>
   </div>
 
-  <div id="oyunSection" class="content hidden">
-    <h1>Oyun</h1>
-    <div id="oyunContainer">
-    </div>
+  <div id="flappySection" class="content hidden">
+    <h1>Flappy Ramin</h1>
+    <div id="flappyContainer"></div>
+  </div>
+  
+  <div id="bagikSection" class="content hidden">
+    <h1>Bagik Run</h1>
+    <div id="bagikContainer"></div>
   </div>
 
   <div id="commentsSection">
@@ -172,7 +176,7 @@
 
   <script>
     function showSection(sectionId) {
-      const sections = ['scheduleSection', 'pdfsSection', 'oyunSection'];
+      const sections = ['scheduleSection', 'pdfsSection', 'flappySection', 'bagikSection'];
       sections.forEach(id => {
          document.getElementById(id).classList.add('hidden');
       });
@@ -180,8 +184,10 @@
       
       if (sectionId === 'pdfsSection') {
          loadPDFs();
-      } else if (sectionId === 'oyunSection') {
-         loadOyun();
+      } else if (sectionId === 'flappySection') {
+         loadFlappy();
+      } else if (sectionId === 'bagikSection') {
+         loadBagik();
       }
     }
 
@@ -192,15 +198,27 @@
       document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
     }
 
-    function loadOyun() {
-      if (!document.getElementById("oyunIframe")) {
+    function loadFlappy() {
+      if (!document.getElementById("flappyIframe")) {
          var iframe = document.createElement("iframe");
-         iframe.id = "oyunIframe";
+         iframe.id = "flappyIframe";
          iframe.src = "https://kenox7.github.io/FlappyRaminn/";
          iframe.style.width = "100%";
          iframe.style.height = "600px";
          iframe.style.border = "none";
-         document.getElementById("oyunContainer").appendChild(iframe);
+         document.getElementById("flappyContainer").appendChild(iframe);
+      }
+    }
+    
+    function loadBagik() {
+      if (!document.getElementById("bagikIframe")) {
+         var iframe = document.createElement("iframe");
+         iframe.id = "bagikIframe";
+         iframe.src = "https://kenox7.github.io/BagikRun/";
+         iframe.style.width = "100%";
+         iframe.style.height = "600px";
+         iframe.style.border = "none";
+         document.getElementById("bagikContainer").appendChild(iframe);
       }
     }
 
