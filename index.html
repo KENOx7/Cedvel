@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cədvəl</title>
-  <!-- FingerprintJS kitabxanasını əlavə edirik -->
-  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
   <style>
     body { 
       font-family: Arial, sans-serif; 
@@ -177,17 +175,6 @@
   </div>
 
   <script>
-    // FingerprintJS ilə istifadəçi fingerprintini əldə edirik
-    let visitorFingerprint = "";
-    FingerprintJS.load().then(fp => {
-      fp.get().then(result => {
-        visitorFingerprint = result.visitorId;
-        console.log("Visitor fingerprint: " + visitorFingerprint);
-      });
-    });
-  </script>
-
-  <script>
     function showSection(sectionId) {
       const sections = ['scheduleSection', 'pdfsSection', 'flappySection', 'bagikSection'];
       sections.forEach(id => {
@@ -258,13 +245,7 @@
       const commentInput = document.getElementById("comment-input").value;
 
       if (nameInput.trim() !== "" && commentInput.trim() !== "") {
-        // Fingerprint məlumatı də push edilir
-        push(commentsRef, { 
-          name: nameInput, 
-          text: commentInput, 
-          fingerprint: visitorFingerprint,
-          timestamp: Date.now() 
-        });
+        push(commentsRef, { name: nameInput, text: commentInput, timestamp: Date.now() });
         document.getElementById("name-input").value = "";
         document.getElementById("comment-input").value = "";
       }
@@ -283,8 +264,7 @@
         const comment = document.createElement("p");
         const date = new Date(data.timestamp);
         const formattedDate = date.toLocaleString("az-AZ");
-        // Fingerprint də məlumat kimi əlavə olunur (istəyə bağlı olaraq göstərilə bilər)
-        comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate} | Fingerprint: ${data.fingerprint}</small>`;
+        comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
         commentsList.appendChild(comment);
       });
     });
