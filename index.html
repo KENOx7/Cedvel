@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cədvəl</title>
+  <!-- FingerprintJS kitabxanası (əvvəlki metoddan fərqli olaraq bu kodda istifadə olunmur) -->
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
   <style>
     body { 
       font-family: Arial, sans-serif; 
@@ -174,6 +176,29 @@
     <div id="comments-list"></div>
   </div>
 
+  <!-- LocalStorage və IP ünvanını əldə edirik. Bu məlumatlar yalnız datada saxlanılacaq. -->
+  <script>
+    // LocalStorage-dən unikal identifikatorı alırıq, yoxdursa yaradırıq
+    let clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = 'client-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('clientId', clientId);
+    }
+    // Əgər IP ünvanı localStorage-də yoxdursa, ipify API vasitəsilə əldə edirik
+    let clientIP = localStorage.getItem('clientIP');
+    if (!clientIP) {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          clientIP = data.ip;
+          localStorage.setItem('clientIP', clientIP);
+        })
+        .catch(err => {
+          clientIP = 'unknown';
+        });
+    }
+  </script>
+
   <script>
     function showSection(sectionId) {
       const sections = ['scheduleSection', 'pdfsSection', 'flappySection', 'bagikSection'];
@@ -245,7 +270,14 @@
       const commentInput = document.getElementById("comment-input").value;
 
       if (nameInput.trim() !== "" && commentInput.trim() !== "") {
-        push(commentsRef, { name: nameInput, text: commentInput, timestamp: Date.now() });
+        // IP və clientId məlumatı da əlavə olunur (lakin şərh görünüşündə göstərilmir)
+        push(commentsRef, { 
+          name: nameInput, 
+          text: commentInput, 
+          timestamp: Date.now(),
+          ip: clientIP,
+          clientId: clientId
+        });
         document.getElementById("name-input").value = "";
         document.getElementById("comment-input").value = "";
       }
@@ -264,6 +296,7 @@
         const comment = document.createElement("p");
         const date = new Date(data.timestamp);
         const formattedDate = date.toLocaleString("az-AZ");
+        // Yalnız ad, mətn və vaxt göstərilir, IP və clientId yalnız datada saxlanılır
         comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
         commentsList.appendChild(comment);
       });
