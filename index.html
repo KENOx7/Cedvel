@@ -297,70 +297,68 @@
     });
   </script>
 
-  <!-- Dərs cədvəli üçün skript: Həftənin növü tapılması düzəlişi ilə -->
+  <!-- Dərs cədvəli üçün skript: Həftənin növü tapılması (düzəlişlə) -->
   <script>
-  <!-- Dərs cədvəli üçün skript: Həftənin növü tapılması düzəlişi ilə -->
-<script>
-  // Başlanğıc tarix: Həftənin növü hesablanması üçün tarixi Bazar ertəsi kimi təyin edirik
-  const startDate = new Date("2024-02-19");
+    // Həftənin başlanğıc tarixi – Bazar ertəsi (alt həftə olaraq başlasın deyə)
+    const startDate = new Date("2024-02-19");
 
-  const dersCedveli = {
-    "alt": {
-        1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-        2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)"],
-        3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-        4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
-        5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
-    },
-    "ust": {
-        1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-        2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
-        3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-        4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
-        5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+    const dersCedveli = {
+      "alt": {
+          1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+          2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 117)"],
+          3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+          4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
+          5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      },
+      "ust": {
+          1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+          2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
+          3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+          4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
+          5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      }
+    };
+
+    // Verilmiş tarixdən həmin həftənin Bazar ertəsi tarixini tapır
+    function getMonday(date) {
+      let d = new Date(date);
+      let day = d.getDay(); // Bazar: 0, Bazar ertəsi: 1, ...
+      let diff = d.getDate() - (day === 0 ? 6 : day - 1);
+      return new Date(d.setDate(diff));
     }
-  };
 
-  // Funksiya: Verilmiş tarixdən həmin həftənin Bazar ertəsi tarixini tapır
-  function getMonday(date) {
-    let d = new Date(date);
-    let day = d.getDay(); // Bazar: 0, Bazar ertəsi: 1, ...
-    let diff = d.getDate() - (day === 0 ? 6 : day - 1);
-    return new Date(d.setDate(diff));
-  }
+    // Cari həftənin Bazar ertəsi ilə startDate-in Bazar ertəsi arasındakı fərqə əsaslanaraq
+    // həftənin növünü ("alt" və ya "ust") müəyyən edir
+    function hefteniTap(date) {
+      let currentMonday = getMonday(date);
+      let startMonday = getMonday(startDate);
+      const diffWeeks = Math.floor((currentMonday - startMonday) / (7 * 24 * 60 * 60 * 1000));
+      return diffWeeks % 2 === 0 ? "alt" : "ust";
+    }
 
-  // Həftənin növünü (alt/ust) tapır: cari həftənin Bazar ertəsi ilə startDate-in Bazar ertəsi arasındakı fərqə əsaslanır
-  function hefteniTap(date) {
-    let currentMonday = getMonday(date);
-    let startMonday = getMonday(startDate);
-    const diffWeeks = Math.floor((currentMonday - startMonday) / (7 * 24 * 60 * 60 * 1000));
-    // Fərq 0, 2, 4,... olduqda "alt", 1, 3, 5,... olduqda "ust" qaytarır
-    return diffWeeks % 2 === 0 ? "alt" : "ust";
-  }
+    function tarixFormatla(date) {
+      const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
+      const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
+      return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
+    }
 
-  function tarixFormatla(date) {
-    const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
-    const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-    return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
-  }
-
-  function dersleriGoster() {
-    let container = document.getElementById("schedule");
-    container.innerHTML = "";
-    let bugun = new Date();
-    let hefteniSec = hefteniTap(bugun);
-    document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
-    for (let i = 0; i < 7; i++) {
-      let tarix = new Date();
-      tarix.setDate(bugun.getDate() + i);
-      let gun = tarix.getDay();
-      if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
-        let dersler = dersCedveli[hefteniSec][gun].join("<br>");
-        container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
+    function dersleriGoster() {
+      let container = document.getElementById("schedule");
+      container.innerHTML = "";
+      let bugun = new Date();
+      let hefteniSec = hefteniTap(bugun);
+      document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
+      for (let i = 0; i < 7; i++) {
+          let tarix = new Date();
+          tarix.setDate(bugun.getDate() + i);
+          let gun = tarix.getDay();
+          if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
+              let dersler = dersCedveli[hefteniSec][gun].join("<br>");
+              container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
+          }
       }
     }
-  }
-  dersleriGoster();
+    dersleriGoster();
   </script>
 
   <div class="footer">
