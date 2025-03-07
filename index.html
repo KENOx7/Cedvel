@@ -318,8 +318,9 @@
     };
 
     function hefteniTap(date) {
-      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-      return diffDays % 2 === 0 ? "alt" : "ust";
+  const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
+  return diffDays % 2 === 0 ? "alt" : "ust";
+}
     }
 
     function tarixFormatla(date) {
