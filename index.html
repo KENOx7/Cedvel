@@ -297,10 +297,8 @@
     });
   </script>
 
-  <!-- Dərs cədvəli üçün skript: Həftənin növü tapılması (düzəlişlə) -->
   <script>
-    // Həftənin başlanğıc tarixi – Bazar ertəsi (alt həftə olaraq başlasın deyə)
-    const startDate = new Date("2024-03-10");
+    const startDate = new Date("2025-03-10");
 
     const dersCedveli = {
       "alt": {
@@ -319,20 +317,8 @@
       }
     };
 
-    // Verilmiş tarixdən həmin həftənin Bazar ertəsi tarixini tapır
-    function getMonday(date) {
-      let d = new Date(date);
-      let day = d.getDay(); // Bazar: 0, Bazar ertəsi: 1, ...
-      let diff = d.getDate() - (day === 0 ? 6 : day - 1);
-      return new Date(d.setDate(diff));
-    }
-
-    // Cari həftənin Bazar ertəsi ilə startDate-in Bazar ertəsi arasındakı fərqə əsaslanaraq
-    // həftənin növünü ("alt" və ya "ust") müəyyən edir
     function hefteniTap(date) {
-      let currentMonday = getMonday(date);
-      let startMonday = getMonday(startDate);
-      const diffWeeks = Math.floor((currentMonday - startMonday) / (7 * 24 * 60 * 60 * 1000));
+      const diffWeeks = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
       return diffWeeks % 2 === 0 ? "alt" : "ust";
     }
 
