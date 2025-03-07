@@ -298,7 +298,7 @@
   </script>
 
   <script>
-    const startDate = new Date("2025-03-10");
+    const startDate = new Date("2025-03-03");
 
     const dersCedveli = {
       "alt": {
@@ -318,8 +318,8 @@
     };
 
     function hefteniTap(date) {
-      const diffWeeks = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-      return diffWeeks % 2 === 0 ? "alt" : "ust";
+      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
+      return diffDays % 2 === 0 ? "alt" : "ust";
     }
 
     function tarixFormatla(date) {
