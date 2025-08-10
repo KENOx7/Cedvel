@@ -1,367 +1,250 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>758/ITS — Cədvəl</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cədvəl</title>
+  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
   <style>
-    :root{
-      --glass-bg: rgba(255,255,255,0.06);
-      --accent-1: #007BFF;
-      --accent-2: #00C6FF;
-      --success: #28a745;
-      --danger: #ff4d4d;
-      --card-radius: 12px;
-      --max-width: 1100px;
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 0; 
+      padding: 0; 
+      background: url("https://r.resimlink.com/S9ExOsnI.jpg") no-repeat center center fixed;
+      background-size: cover; 
+      background-position: center; 
+      background-repeat: no-repeat; 
+      background-attachment: fixed; 
     }
-
-    *{box-sizing: border-box}
-    html,body{height:100%}
-    body {
-      margin:0;
-      padding:0;
-      font-family: 'Poppins', sans-serif;
+    .header-bar {
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      font-size: 20px;
+    }
+    .menu { 
+      display: flex; 
+      justify-content: center; 
+      margin: 20px 0; 
+    }
+    .menu button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+      border-radius: 20px;
+      -webkit-appearance: none;
+      outline: none;
+      border: none;
+      background-color: #007BFF;
       color: #fff;
-      min-height:100%;
-      background: linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url("https://r.resimlink.com/S9ExOsnI.jpg") center/cover fixed no-repeat;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
     }
-
-    .container{
-      width:100%;
-      max-width:var(--max-width);
-      padding:18px;
+    .content { 
+      display: block; 
     }
-
-    .header-bar{
-      width:100%;
-      background: linear-gradient(135deg, rgba(0,12,60,0.6), rgba(0,60,120,0.35));
-      backdrop-filter: blur(6px);
-      padding:16px 18px;
-      border-radius:14px;
-      box-shadow: 0 6px 24px rgba(2,6,23,0.6);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
+    .hidden { 
+      display: none; 
     }
-    .brand {
-      display:flex;
-      gap:12px;
-      align-items:center;
+    iframe { 
+      width: 100%; 
+      height: 600px; 
+      border: none; 
     }
-    .logo {
-      width:48px;
-      height:48px;
-      border-radius:10px;
-      background: linear-gradient(135deg,var(--accent-1),var(--accent-2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    .pdf-container { 
+      margin-bottom: 20px; 
     }
-    .brand h1{font-size:18px;margin:0;letter-spacing:0.6px}
-    .brand p{margin:0;font-size:12px;opacity:0.9}
-
-    .menu {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+    .pdf-container button { 
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 5px;
+      border-radius: 20px;
+      -webkit-appearance: none;
+      outline: none;
+      border: none;
+      background-color: #28a745;
+      color: #fff;
     }
-    .menu button{
-      border:none;
-      padding:10px 16px;
-      border-radius:999px;
-      font-weight:600;
-      cursor:pointer;
-      background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
-      color:#fff;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-      transition: transform .15s, box-shadow .15s;
+    .schedule { 
+      margin-top: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
     }
-    .menu button.secondary{
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.12);
+    .day {
+      margin: 10px 0;
+      padding: 15px;
+      border: 1px solid #000;
+      width: 90%;
+      max-width: 400px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      text-align: left;
     }
-    .menu button:hover{ transform: translateY(-3px); }
-
-    main{
-      width:100%;
-      margin-top:14px;
-      display:flex;
-      gap:20px;
-      align-items:flex-start;
-      justify-content:space-between;
+    .instagram-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 16px;
     }
-
-    .left-column, .right-column{
-      width:100%;
+    .instagram-link img {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
     }
-    .left-column{max-width:680px}
-    .card{
-      background: var(--glass-bg);
-      border-radius: var(--card-radius);
-      padding:16px;
-      margin-bottom:18px;
-      box-shadow: 0 6px 22px rgba(1,6,20,0.45);
-      border: 1px solid rgba(255,255,255,0.04);
+    .footer { 
+      padding: 15px; 
+      font-size: 14px; 
     }
-
-    h2{margin:0 0 8px 0;font-size:18px}
-    p.lead{margin:0 0 12px 0;color:rgba(255,255,255,0.9)}
-
-    .schedule { display:flex; flex-direction:column; gap:10px; }
-    .day{
-      padding:12px;
-      border-radius:10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.03);
+    .footer-image img { 
+      max-width: 100%; 
+      height: auto; 
+      border-radius: 10px; 
     }
-    .day strong{display:block;margin-bottom:6px}
-
-    .pdf-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
-    .pdf-card{display:flex; flex-direction:column; gap:8px}
-    .pdf-actions{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{
-      padding:8px 12px;border-radius:999px;border:none;font-weight:600;cursor:pointer;
-    }
-    .btn.primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#fff}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.08); color:#fff}
-
-    iframe.viewer{
-      width:100%;
-      height:480px;
-      border-radius:8px;
-      border:none;
-      background:#fff;
-    }
-
-    .game-embed{
-      width:100%;
-      height:480px;
-      border-radius:8px;
-      border:none;
-    }
-
-    #comments-list{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
-    .comment{
-      background: rgba(0,0,0,0.25);
-      padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);
-    }
-    .comment small{opacity:0.8;color:#ddd}
-
-    .footer{
-      width:100%;
-      max-width:var(--max-width);
-      margin:22px auto 40px;
-      text-align:center;
-      color:rgba(255,255,255,0.9);
-      font-size:14px;
-      opacity:0.95;
-    }
-
-    @media (max-width:980px){
-      main{flex-direction:column}
-      .left-column{max-width:100%}
-      iframe.viewer, .game-embed{height:340px}
-    }
-    @media (max-width:520px){
-      .menu{justify-content:center}
-      .header-bar{flex-direction:column;gap:10px;align-items:center}
-      .logo{width:44px;height:44px}
-      .brand h1{font-size:16px}
-      iframe.viewer, .game-embed{height:280px}
+    #comment-form button {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 20px;
+      -webkit-appearance: none;
+      outline: none;
+      border: none;
+      background-color: #dc3545;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header-bar">
-      <div class="brand">
-        <div class="logo">758</div>
-        <div>
-          <h1>758 / ITS</h1>
-          <p style="font-size:12px;margin-top:4px;">Cədvəl, PDF & oyunlar — by Kenan</p>
-        </div>
-      </div>
+  
+  <div class="header-bar">758/ITS</div>
+  <div class="menu">
+    <button onclick="showSection('scheduleSection')">Cədvəl</button>
+    <button onclick="showSection('pdfsSection')">PDF</button>
+    <button onclick="showSection('flappySection')">Flappy Ramin</button>
+    <button onclick="showSection('bagikSection')">Bagik Run</button>
+  </div>
+  
+  <div id="scheduleSection" class="content">
+    <h1>CƏDVƏL</h1>
+    <h3 id="weekType"></h3>
+    <div id="schedule" class="schedule"></div>
+  </div>
 
-      <div class="menu" role="navigation" aria-label="Main menu">
-        <button onclick="showSection('scheduleSection')" class="primary">Cədvəl</button>
-        <button onclick="showSection('pdfsSection')" class="secondary">PDF</button>
-        <button onclick="showSection('flappySection')" class="secondary">Flappy Ramin</button>
-        <button onclick="showSection('bagikSection')" class="secondary">Bagik Run</button>
-      </div>
+  <div id="pdfsSection" class="content hidden">
+    <h1>PDF Sənədləri</h1>
+    <p>Qocunma la Ders oxu</p>
+    <div class="pdf-container">
+      <h3>English for Information Technology 1</h3>
+      <iframe id="pdf1"></iframe>
+      <br>
+      <a id="pdf1-download" target="_blank">Yüklə</a>
+      <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
     </div>
+    <div class="pdf-container">
+      <h3>Murphy (qırmızı kitab)</h3>
+      <iframe id="pdf2"></iframe>
+      <br>
+      <a id="pdf2-download" target="_blank">Yüklə</a>
+      <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
+    </div>
+  </div>
 
-    <main>
-      <div class="left-column">
-        <section id="scheduleSection" class="card" aria-labelledby="scheduleTitle">
-          <h2 id="scheduleTitle">CƏDVƏL</h2>
-          <p class="lead" id="weekType">Yüklənir...</p>
-          <div id="schedule" class="schedule" aria-live="polite"></div>
-        </section>
+  <div id="flappySection" class="content hidden">
+    <h1>Flappy Ramin</h1>
+    <div id="flappyContainer"></div>
+  </div>
+  
+  <div id="bagikSection" class="content hidden">
+    <h1>Bagik Run</h1>
+    <div id="bagikContainer"></div>
+  </div>
 
-        <section id="pdfsSection" class="card hidden" aria-labelledby="pdfsTitle">
-          <h2 id="pdfsTitle">PDF Sənədləri</h2>
-          <p class="lead">Dərsliklər və resurslar. Tam ekran üçün "Tam Ekran" düyməsinə basın.</p>
-
-          <div class="pdf-grid">
-            <div class="pdf-card pdf-container card" id="pdfCard1">
-              <h3>English for Information Technology 1</h3>
-              <iframe id="pdf1" class="viewer" title="English for IT 1"></iframe>
-              <div class="pdf-actions">
-                <a id="pdf1-download" class="btn ghost" target="_blank" rel="noopener">Yüklə</a>
-                <button class="btn primary" onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
-              </div>
-            </div>
-
-            <div class="pdf-card pdf-container card" id="pdfCard2">
-              <h3>Murphy (qırmızı kitab)</h3>
-              <iframe id="pdf2" class="viewer" title="Murphy"></iframe>
-              <div class="pdf-actions">
-                <a id="pdf2-download" class="btn ghost" target="_blank" rel="noopener">Yüklə</a>
-                <button class="btn primary" onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="flappySection" class="card hidden" aria-labelledby="flappyTitle">
-          <h2 id="flappyTitle">Flappy Ramin</h2>
-          <p class="lead">Flappy Ramin oyununu oynamaq üçün yuxarı hissədəki düyməyə klik edin</p>
-          <div id="flappyContainer">
-          </div>
-        </section>
-
-        <section id="bagikSection" class="card hidden" aria-labelledby="bagikTitle">
-          <h2 id="bagikTitle">Bagik Run</h2>
-          <p class="lead">Bagik Run oyununu oynamaq üçün yuxarı hissədəki düyməyə klik edin</p>
-          <div id="bagikContainer"></div>
-        </section>
-      </div>
-
-      <aside class="right-column" style="max-width:380px;">
-        <div class="card" id="commentsSection">
-          <h2>Qeydlər</h2>
-          <form id="comment-form" aria-label="Comment form">
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <input id="name-input" name="name" placeholder="Adın" required style="flex:1;padding:10px;border-radius:10px;border:none;"/>
-              <input id="comment-input" name="comment" placeholder="Nərbaladı e qadan alım" required style="flex:2;padding:10px;border-radius:10px;border:none;"/>
-            </div>
-            <div style="margin-top:10px;display:flex;gap:8px;justify-content:flex-end;">
-              <button type="submit" class="btn primary">Göndər</button>
-            </div>
-          </form>
-
-          <div id="comments-list" aria-live="polite" style="margin-top:12px;"></div>
-        </div>
-
-        <div class="card" style="text-align:center;">
-          <h3>Takib atin :D</h3>
-          <a href="https://www.instagram.com/keno.akhmadov/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:600;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="IG" style="width:28px;height:28px;border-radius:6px;"/>
-            @keno.akhmadov
-          </a>
-          <div style="margin-top:12px;">
-            <img src="https://i.hizliresim.com/h4hr0s2.jpg" alt="footer" style="width:100%;border-radius:8px;"/>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <div class="footer">© <strong>Kenan</strong> — hazırlayan: Kənan Əhmədov :)</div>
+  <div id="commentsSection">
+    <h2>Qeydlər</h2>
+    <form id="comment-form">
+      <input type="text" id="name-input" placeholder="Adıvı yaz ə" required />
+      <input type="text" id="comment-input" placeholder="Yaz görək" required />
+      <button type="submit">Göndər</button>
+    </form>
+    <div id="comments-list"></div>
   </div>
 
   <script>
-    function showSection(sectionId){
-      const ids = ['scheduleSection','pdfsSection','flappySection','bagikSection'];
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if(!el) return;
-        if(id === sectionId) el.classList.remove('hidden'); else el.classList.add('hidden');
-      });
-
-      if(sectionId === 'pdfsSection') loadPDFs();
-      if(sectionId === 'flappySection') loadFlappy();
-      if(sectionId === 'bagikSection') loadBagik();
-    }
-
-    function openFullScreen(url){
-      window.open(url, '_blank').focus();
-    }
-  </script>
-
-  <script>
     let clientId = localStorage.getItem('clientId');
-    if(!clientId){
-      clientId = 'client-' + Math.random().toString(36).slice(2,11);
+    if (!clientId) {
+      clientId = 'client-' + Math.random().toString(36).substr(2, 9);
       localStorage.setItem('clientId', clientId);
     }
-
     let clientIP = localStorage.getItem('clientIP');
-    if(!clientIP){
+    if (!clientIP) {
       fetch('https://api.ipify.org?format=json')
-        .then(r => r.json())
+        .then(response => response.json())
         .then(data => {
-          if(data && data.ip){
-            clientIP = data.ip;
-            localStorage.setItem('clientIP', clientIP);
-          } else {
-            clientIP = 'unknown';
-          }
-        }).catch(err => { clientIP = 'unknown'; });
+          clientIP = data.ip;
+          localStorage.setItem('clientIP', clientIP);
+        })
+        .catch(err => {
+          clientIP = 'unknown';
+        });
     }
   </script>
 
   <script>
-    function loadPDFs(){
-      const pdf1 = document.getElementById('pdf1');
-      const pdf1Download = document.getElementById('pdf1-download');
-      const pdf2 = document.getElementById('pdf2');
-      const pdf2Download = document.getElementById('pdf2-download');
-
-      if(pdf1 && !pdf1.src){
-        pdf1.src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
-        pdf1Download.href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
-      }
-      if(pdf2 && !pdf2.src){
-        pdf2.src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
-        pdf2Download.href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
-      }
-    }
-
-    function loadFlappy(){
-      const container = document.getElementById('flappyContainer');
-      if(!container.querySelector('iframe')){
-        const iframe = document.createElement('iframe');
-        iframe.className = 'game-embed';
-        iframe.src = 'https://kenox7.github.io/FlappyRaminn/';
-        iframe.title = 'Flappy Ramin';
-        iframe.loading = 'lazy';
-        container.appendChild(iframe);
+    function showSection(sectionId) {
+      const sections = ['scheduleSection', 'pdfsSection', 'flappySection', 'bagikSection'];
+      sections.forEach(id => {
+         document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+      
+      if (sectionId === 'pdfsSection') {
+         loadPDFs();
+      } else if (sectionId === 'flappySection') {
+         loadFlappy();
+      } else if (sectionId === 'bagikSection') {
+         loadBagik();
       }
     }
 
-    function loadBagik(){
-      const container = document.getElementById('bagikContainer');
-      if(!container.querySelector('iframe')){
-        const iframe = document.createElement('iframe');
-        iframe.className = 'game-embed';
-        iframe.src = 'https://kenox7.github.io/BagikRun/';
-        iframe.title = 'Bagik Run';
-        iframe.loading = 'lazy';
-        container.appendChild(iframe);
+    function loadPDFs() {
+      document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
+      document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
+      document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
+      document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
+    }
+
+    function loadFlappy() {
+      if (!document.getElementById("flappyIframe")) {
+         var iframe = document.createElement("iframe");
+         iframe.id = "flappyIframe";
+         iframe.src = "https://kenox7.github.io/FlappyRaminn/";
+         iframe.style.width = "100%";
+         iframe.style.height = "600px";
+         iframe.style.border = "none";
+         document.getElementById("flappyContainer").appendChild(iframe);
       }
+    }
+    
+    function loadBagik() {
+      if (!document.getElementById("bagikIframe")) {
+         var iframe = document.createElement("iframe");
+         iframe.id = "bagikIframe";
+         iframe.src = "https://kenox7.github.io/BagikRun/";
+         iframe.style.width = "100%";
+         iframe.style.height = "600px";
+         iframe.style.border = "none";
+         document.getElementById("bagikContainer").appendChild(iframe);
+      }
+    }
+
+    function openFullScreen(url) {
+      window.open(url, '_blank').focus();
     }
   </script>
 
@@ -377,54 +260,45 @@
     const db = getDatabase(app);
     const commentsRef = ref(db, "comments");
 
-    const form = document.getElementById('comment-form');
-    form.addEventListener('submit', async (e) => {
+    document.getElementById("comment-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const name = document.getElementById('name-input').value.trim();
-      const text = document.getElementById('comment-input').value.trim();
-      if(!name || !text) return;
+      const nameInput = document.getElementById("name-input").value;
+      const commentInput = document.getElementById("comment-input").value;
 
-      const clientIdLocal = localStorage.getItem('clientId') || 'unknown';
-      const clientIPLocal = localStorage.getItem('clientIP') || 'unknown';
-
-      push(commentsRef, {
-        name,
-        text,
-        timestamp: Date.now(),
-        ip: clientIPLocal,
-        clientId: clientIdLocal
-      });
-
-      document.getElementById('name-input').value = '';
-      document.getElementById('comment-input').value = '';
+      if (nameInput.trim() !== "" && commentInput.trim() !== "") {
+        push(commentsRef, { 
+          name: nameInput, 
+          text: commentInput, 
+          timestamp: Date.now(),
+          ip: clientIP,
+          clientId: clientId
+        });
+        document.getElementById("name-input").value = "";
+        document.getElementById("comment-input").value = "";
+      }
     });
+
     onValue(commentsRef, (snapshot) => {
-      const commentsList = document.getElementById('comments-list');
-      commentsList.innerHTML = '';
-      const arr = [];
-      snapshot.forEach(child => {
-        arr.push(child.val());
+      const commentsList = document.getElementById("comments-list");
+      commentsList.innerHTML = "";
+      const commentsArray = [];
+      snapshot.forEach((childSnapshot) => {
+        commentsArray.push(childSnapshot.val());
       });
-      arr.sort((a,b)=> (b.timestamp||0)-(a.timestamp||0));
-      arr.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'comment';
-        const date = item.timestamp ? new Date(item.timestamp).toLocaleString('az-AZ') : '';
-        div.innerHTML = `<strong>${escapeHtml(item.name)}</strong> <small style="float:right">${date}</small><div style="margin-top:8px;">${escapeHtml(item.text)}</div>`;
-        commentsList.appendChild(div);
+      
+      commentsArray.sort((a, b) => b.timestamp - a.timestamp);
+      commentsArray.forEach((data) => {
+        const comment = document.createElement("p");
+        const date = new Date(data.timestamp);
+        const formattedDate = date.toLocaleString("az-AZ");
+        comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
+        commentsList.appendChild(comment);
       });
     });
-    function escapeHtml(str=''){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#039;');
-    }
   </script>
+
   <script>
-    const startDate = new Date("2024-02-24T00:00:00");
+    const startDate = new Date("2024-02-24");
 
     const dersCedveli = {
       "alt": {
@@ -443,39 +317,45 @@
       }
     };
 
-    function hefteniTap(date){
-      const diff = Math.floor((date - startDate) / (7*24*60*60*1000));
-      return (diff % 2 === 0) ? 'alt' : 'ust';
+    function hefteniTap(date) {
+      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
+      return diffDays % 2 === 0 ? "alt" : "ust";
     }
 
-    function tarixFormatla(date){
-      const gunler = ["Bazar günü","1-ci Gün Bazar ertəsi","2-ci Gün Çərşənbə axşamı","3-cü Gün Çərşənbə","4-cü Gün Cümə axşamı","5-ci Gün Cümə","Şənbə"];
-      const aylar = ["Yanvar","Fevral","Mart","Aprel","May","İyun","İyul","Avqust","Sentyabr","Oktyabr","Noyabr","Dekabr"];
+    function tarixFormatla(date) {
+      const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
+      const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
       return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
     }
 
-    function dersleriGoster(){
-      const container = document.getElementById('schedule');
-      container.innerHTML = '';
-      const bugun = new Date();
-      const hafta = hefteniTap(bugun);
-      document.getElementById('weekType').innerText = `Bu həftə: ${hafta.toUpperCase()} həftədir`;
-
-      for(let i=0;i<7;i++){
-        const t = new Date();
-        t.setDate(bugun.getDate() + i);
-        const g = t.getDay();
-        if(g > 0 && g < 6 && dersCedveli[hafta] && dersCedveli[hafta][g]){
-          const dersler = dersCedveli[hafta][g].join('<br>');
-          const div = document.createElement('div');
-          div.className = 'day';
-          div.innerHTML = `<strong>${tarixFormatla(t)}</strong>${dersler ? '<div style="margin-top:8px;">'+dersler+'</div>' : ''}`;
-          container.appendChild(div);
-        }
+    function dersleriGoster() {
+      let container = document.getElementById("schedule");
+      container.innerHTML = "";
+      let bugun = new Date();
+      let hefteniSec = hefteniTap(bugun);
+      document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
+      for (let i = 0; i < 7; i++) {
+          let tarix = new Date();
+          tarix.setDate(bugun.getDate() + i);
+          let gun = tarix.getDay();
+          if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
+              let dersler = dersCedveli[hefteniSec][gun].join("<br>");
+              container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
+          }
       }
     }
     dersleriGoster();
   </script>
+
+  <div class="footer">
+    @by Kenan<br>
+    <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+      Takib edin😎
+    </a>
+    <div class="footer-image">
+      <img src="https://i.hizliresim.com/h4hr0s2.jpg" alt="Custom Shape">
+    </div>
+  </div>
 </body>
 </html>
-
