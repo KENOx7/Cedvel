@@ -91,7 +91,7 @@
       <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
       <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
         <input type="text" id="name-input" placeholder="Adın..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-        <input type="text" id="comment-input" placeholder="Fikrini yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+        <input type="text" id="comment-input" placeholder="Birşeylər yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
         <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Göndər</button>
       </form>
       <div id="comments-list"></div>
@@ -99,7 +99,9 @@
   </main>
   
   <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-1.5 2.75a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-5.43 2.14a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96Zm10.86 0a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96ZM12 17a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+  <path d="M6 4v16h2v-6h2.5l5.5 6h3l-6-7 6-9h-3l-5 7H8V4H6z" fill="white"/>
+</svg>
   </button>
 
   <div id="chatModal" class="fixed bottom-20 right-6 w-[calc(100%-3rem)] max-w-lg h-[70vh] bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col transition-transform transform scale-95 opacity-0 hidden" style="transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
@@ -198,7 +200,7 @@
     }
 
     function tarixFormatla(date) {
-      const gunler = ["Bazar", "Bazar ertəsi", "Çərşənbə axşamı", "Çərşənbə", "Cümə axşamı", "Cümə", "Şənbə"];
+      const gunler = ["Bazar", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Cümə", "Şənbə"];
       return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
     }
 
@@ -400,5 +402,6 @@
   </script>
 </body>
 </html>
+
 
 
