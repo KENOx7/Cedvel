@@ -4,211 +4,150 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cədvəl</title>
-  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      text-align: center; 
-      margin: 0; 
-      padding: 0; 
-      background: url("https://r.resimlink.com/S9ExOsnI.jpg") no-repeat center center fixed;
-      background-size: cover; 
-      background-position: center; 
-      background-repeat: no-repeat; 
-      background-attachment: fixed; 
+    ::-webkit-scrollbar {
+      width: 8px;
     }
-    .header-bar {
-      background-color: blue;
+    ::-webkit-scrollbar-track {
+      background: #111827; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #374151; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4b5563; 
+    }
+    ::selection {
+      background-color: #3b82f6;
       color: white;
-      font-weight: bold;
-      padding: 10px;
-      font-size: 20px;
     }
-    .menu { 
-      display: flex; 
-      justify-content: center; 
-      margin: 20px 0; 
-    }
-    .menu button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 5px;
-      border-radius: 20px;
-      -webkit-appearance: none;
-      outline: none;
-      border: none;
-      background-color: #007BFF;
-      color: #fff;
-    }
-    .content { 
-      display: block; 
-    }
-    .hidden { 
-      display: none; 
-    }
-    iframe { 
-      width: 100%; 
-      height: 600px; 
-      border: none; 
-    }
-    .pdf-container { 
-      margin-bottom: 20px; 
-    }
-    .pdf-container button { 
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-top: 5px;
-      border-radius: 20px;
-      -webkit-appearance: none;
-      outline: none;
-      border: none;
-      background-color: #28a745;
-      color: #fff;
-    }
-    .schedule { 
-      margin-top: 20px; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-    }
-    .day {
-      margin: 10px 0;
-      padding: 15px;
-      border: 1px solid #000;
-      width: 90%;
-      max-width: 400px;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      text-align: left;
-    }
-    .instagram-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 10px;
-      text-decoration: none;
-      color: black;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    .instagram-link img {
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-    }
-    .footer { 
-      padding: 15px; 
-      font-size: 14px; 
-    }
-    .footer-image img { 
-      max-width: 100%; 
-      height: auto; 
-      border-radius: 10px; 
-    }
-    #comment-form button {
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 20px;
-      -webkit-appearance: none;
-      outline: none;
-      border: none;
-      background-color: #dc3545;
-      color: #fff;
-    }
+     .prose { max-width: 100%; }
+     .prose h3 { margin-top: 1em; margin-bottom: 0.5em;}
+     .prose ul { margin-top: 0.5em; }
   </style>
 </head>
-<body>
-  
-  <div class="header-bar">758/ITS</div>
-  <div class="menu">
-    <button onclick="showSection('scheduleSection')">Cədvəl</button>
-    <button onclick="showSection('pdfsSection')">PDF</button>
-    <button onclick="showSection('flappySection')">Flappy Ramin</button>
-    <button onclick="showSection('bagikSection')">Bagik Run</button>
-  </div>
-  
-  <div id="scheduleSection" class="content">
-    <h1>CƏDVƏL</h1>
-    <h3 id="weekType"></h3>
-    <div id="schedule" class="schedule"></div>
-  </div>
+<body class="bg-gray-900 text-gray-200 font-sans antialiased">
 
-  <div id="pdfsSection" class="content hidden">
-    <h1>PDF Sənədləri</h1>
-    <p>Qocunma la Ders oxu</p>
-    <div class="pdf-container">
-      <h3>English for Information Technology 1</h3>
-      <iframe id="pdf1"></iframe>
-      <br>
-      <a id="pdf1-download" target="_blank">Yüklə</a>
-      <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')">Tam Ekran</button>
+  <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
+    758/ITS
+  </header>
+
+  <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
+    <button onclick="showSection('kurs2Section')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">2-ci KURS</button>
+    <button onclick="showSection('kurs1Section')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">1-ci kurs</button>
+    <button onclick="showSection('pdfsSection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">PDF</button>
+    <button onclick="showSection('flappySection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">Flappy Ramin</button>
+    <button onclick="showSection('bagikSection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">Bagik Run</button>
+  </nav>
+
+  <main class="container mx-auto px-4">
+    <div id="kurs2Section" class="content">
+      <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">2-ci KURS CƏDVƏLİ</h1>
+      <h3 id="weekType" class="text-xl text-center mb-6 text-yellow-400 font-semibold"></h3>
+      <div id="schedule_kurs2" class="max-w-2xl mx-auto"></div>
     </div>
-    <div class="pdf-container">
-      <h3>Murphy (qırmızı kitab)</h3>
-      <iframe id="pdf2"></iframe>
-      <br>
-      <a id="pdf2-download" target="_blank">Yüklə</a>
-      <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')">Tam Ekran</button>
+
+    <div id="kurs1Section" class="content hidden">
+      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">1-ci KURS CƏDVƏLİ</h1>
+      <div id="schedule_kurs1" class="max-w-2xl mx-auto"></div>
     </div>
-  </div>
 
-  <div id="flappySection" class="content hidden">
-    <h1>Flappy Ramin</h1>
-    <div id="flappyContainer"></div>
-  </div>
+    <div id="pdfsSection" class="content hidden">
+      <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">PDF Sənədləri</h1>
+      <p class="text-center mb-6 text-gray-400">Qocunma la Ders oxu</p>
+      <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
+          <h3 class="text-xl font-bold mb-3 text-blue-300">English for Information Technology 1</h3>
+          <iframe id="pdf1" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
+          <div class="mt-4 flex gap-2">
+            <a id="pdf1-download" target="_blank" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
+            <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Tam Ekran</button>
+          </div>
+        </div>
+        <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
+          <h3 class="text-xl font-bold mb-3 text-blue-300">Murphy (qırmızı kitab)</h3>
+          <iframe id="pdf2" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
+          <div class="mt-4 flex gap-2">
+            <a id="pdf2-download" target="_blank" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
+            <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Tam Ekran</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="flappySection" class="content hidden">
+      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Flappy Ramin</h1>
+      <div id="flappyContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700"></div>
+    </div>
+    
+    <div id="bagikSection" class="content hidden">
+      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Bagik Run</h1>
+      <div id="bagikContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700"></div>
+    </div>
+
+    <div id="commentsSection" class="max-w-3xl mx-auto mt-12 pt-6 border-t border-gray-700">
+      <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
+      <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
+        <input type="text" id="name-input" placeholder="Adın..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+        <input type="text" id="comment-input" placeholder="Fikrini yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Göndər</button>
+      </form>
+      <div id="comments-list"></div>
+    </div>
+  </main>
   
-  <div id="bagikSection" class="content hidden">
-    <h1>Bagik Run</h1>
-    <div id="bagikContainer"></div>
-  </div>
+  <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-1.5 2.75a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-5.43 2.14a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96Zm10.86 0a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96ZM12 17a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+  </button>
 
-  <div id="commentsSection">
-    <h2>Qeydlər</h2>
-    <form id="comment-form">
-      <input type="text" id="name-input" placeholder="Adıvı yaz ə" required />
-      <input type="text" id="comment-input" placeholder="Yaz görək" required />
-      <button type="submit">Göndər</button>
+  <div id="chatModal" class="fixed bottom-20 right-6 w-[calc(100%-3rem)] max-w-lg h-[70vh] bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col transition-transform transform scale-95 opacity-0 hidden" style="transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
+    <div class="p-4 bg-gray-700 rounded-t-2xl flex justify-between items-center">
+      <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">KENO AI ilə Söhbət</h2>
+      <button onclick="toggleChat()" class="text-gray-400 hover:text-white text-3xl font-bold leading-none p-1">&times;</button>
+    </div>
+    <div id="chatHistory" class="flex-grow p-4 overflow-y-auto">
+    </div>
+    <div id="chatLoader" class="p-4 text-center hidden">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+    </div>
+    <form id="chatForm" class="p-4 border-t border-gray-700 flex gap-2">
+        <input type="text" id="chatInput" placeholder="Sualını yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-lg transition-colors flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" /></svg>
+        </button>
     </form>
-    <div id="comments-list"></div>
   </div>
 
-  <script>
-    let clientId = localStorage.getItem('clientId');
-    if (!clientId) {
-      clientId = 'client-' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('clientId', clientId);
-    }
-    let clientIP = localStorage.getItem('clientIP');
-    if (!clientIP) {
-      fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-          clientIP = data.ip;
-          localStorage.setItem('clientIP', clientIP);
-        })
-        .catch(err => {
-          clientIP = 'unknown';
-        });
-    }
-  </script>
+
+  <footer class="text-center p-8 mt-10 text-gray-400">
+    <p>@by Kenan</p>
+    <a href="https://www.instagram.com/keno.akhmadov/" class="inline-flex items-center justify-center gap-2 mt-2 text-lg text-blue-300 hover:text-blue-400 transition-colors" target="_blank">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.316-2.427.364-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 15.093 2 14.74 2 12.315s.013-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.316 2.427-.364C8.907 2.013 9.26 2 12.315 2zM12 7.177a4.823 4.823 0 100 9.646 4.823 4.823 0 000-9.646zM12 15a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" clip-rule="evenodd" /></svg>
+      <span>Takib edin😎</span>
+    </a>
+    <div class="mt-4">
+      <img src="https://i.hizliresim.com/h4hr0s2.jpg" alt="Custom Shape" class="max-w-xs mx-auto rounded-lg shadow-lg">
+    </div>
+  </footer>
 
   <script>
     function showSection(sectionId) {
-      const sections = ['scheduleSection', 'pdfsSection', 'flappySection', 'bagikSection'];
+      const sections = ['kurs1Section', 'kurs2Section', 'pdfsSection', 'flappySection', 'bagikSection'];
       sections.forEach(id => {
-         document.getElementById(id).classList.add('hidden');
+          document.getElementById(id).classList.add('hidden');
       });
       document.getElementById(sectionId).classList.remove('hidden');
-      
-      if (sectionId === 'pdfsSection') {
-         loadPDFs();
-      } else if (sectionId === 'flappySection') {
-         loadFlappy();
-      } else if (sectionId === 'bagikSection') {
-         loadBagik();
+
+      if (sectionId === 'pdfsSection' && !document.getElementById("pdf1").src) {
+        loadPDFs();
+      } else if (sectionId === 'flappySection' && !document.getElementById("flappyIframe")) {
+        loadFlappy();
+      } else if (sectionId === 'bagikSection' && !document.getElementById("bagikIframe")) {
+        loadBagik();
+      } else if (sectionId === 'kurs1Section' && !document.getElementById('schedule_kurs1').hasChildNodes()) {
+        dersleriGosterKurs1();
       }
     }
 
@@ -219,33 +158,188 @@
       document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
     }
 
-    function loadFlappy() {
-      if (!document.getElementById("flappyIframe")) {
-         var iframe = document.createElement("iframe");
-         iframe.id = "flappyIframe";
-         iframe.src = "https://kenox7.github.io/FlappyRaminn/";
-         iframe.style.width = "100%";
-         iframe.style.height = "600px";
-         iframe.style.border = "none";
-         document.getElementById("flappyContainer").appendChild(iframe);
+    function createGameIframe(containerId, iframeId, src) {
+      if (!document.getElementById(iframeId)) {
+        const iframe = document.createElement("iframe");
+        iframe.id = iframeId;
+        iframe.src = src;
+        iframe.className = "w-full h-full";
+        iframe.style.border = "none";
+        document.getElementById(containerId).appendChild(iframe);
       }
     }
-    
+
+    function loadFlappy() {
+      createGameIframe("flappyContainer", "flappyIframe", "https://kenox7.github.io/FlappyRaminn/");
+    }
+
     function loadBagik() {
-      if (!document.getElementById("bagikIframe")) {
-         var iframe = document.createElement("iframe");
-         iframe.id = "bagikIframe";
-         iframe.src = "https://kenox7.github.io/BagikRun/";
-         iframe.style.width = "100%";
-         iframe.style.height = "600px";
-         iframe.style.border = "none";
-         document.getElementById("bagikContainer").appendChild(iframe);
-      }
+      createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/");
     }
 
     function openFullScreen(url) {
       window.open(url, '_blank').focus();
     }
+    
+    const dersCedveliKurs1 = {
+      "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
+      "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
+    };
+    
+    const startDate = new Date("2024-02-24");
+    const dersCedveliKurs2 = {
+      "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
+      "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
+    };
+
+    function hefteniTap(date) {
+      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
+      return diffDays % 2 === 0 ? "alt" : "ust";
+    }
+
+    function tarixFormatla(date) {
+      const gunler = ["Bazar", "Bazar ertəsi", "Çərşənbə axşamı", "Çərşənbə", "Cümə axşamı", "Cümə", "Şənbə"];
+      return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
+    }
+
+    function dersleriGosterKurs1() {
+        let container = document.getElementById("schedule_kurs1");
+        container.innerHTML = "";
+        const gunler = ["", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə"];
+        
+        const renderWeek = (weekType) => {
+            container.innerHTML += `<h2 class="text-2xl font-semibold my-4 mt-6 text-center text-yellow-400">${weekType.toUpperCase()} HƏFTƏ</h2>`;
+            for (let day = 1; day <= 5; day++) {
+                let dersler = dersCedveliKurs1[weekType][day] ? dersCedveliKurs1[weekType][day].map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
+                container.innerHTML += `
+                    <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border border-gray-700'>
+                        <strong class="text-blue-300 text-lg">${gunler[day]}</strong>
+                        <div class="mt-2 text-gray-300">${dersler}</div>
+                    </div>`;
+            }
+        };
+
+        renderWeek("alt");
+        renderWeek("ust");
+    }
+
+    function dersleriGosterKurs2() {
+      let container = document.getElementById("schedule_kurs2");
+      container.innerHTML = "";
+      let bugun = new Date();
+      let hefteniSec = hefteniTap(bugun);
+      document.getElementById("weekType").innerText = `Bu Həftə: ${hefteniSec.toUpperCase()} Həftədir`;
+      
+      for (let i = 0; i < 7; i++) {
+        let tarix = new Date();
+        tarix.setDate(bugun.getDate() + i);
+        let gun = tarix.getDay();
+        if (gun > 0 && gun < 6 && dersCedveliKurs2[hefteniSec] && dersCedveliKurs2[hefteniSec][gun]) {
+          let isToday = tarix.toDateString() === bugun.toDateString();
+          let dersler = dersCedveliKurs2[hefteniSec][gun].map(d => `<p>${d}</p>`).join("");
+          container.innerHTML += `
+            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
+              <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarix)}</strong>
+              <div class="mt-2 text-gray-300">${dersler}</div>
+            </div>`;
+        }
+      }
+    }
+    
+    const chatModal = document.getElementById('chatModal');
+    const chatHistory = document.getElementById('chatHistory');
+    const chatInput = document.getElementById('chatInput');
+    const chatForm = document.getElementById('chatForm');
+    const chatLoader = document.getElementById('chatLoader');
+
+    function toggleChat() {
+        const isHidden = chatModal.classList.contains('hidden');
+        if (isHidden) {
+            chatModal.classList.remove('hidden');
+            setTimeout(() => {
+                chatModal.classList.remove('opacity-0', 'scale-95');
+            }, 10);
+        } else {
+            chatModal.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                chatModal.classList.add('hidden');
+            }, 200);
+        }
+    }
+    
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userQuery = chatInput.value.trim();
+        if (!userQuery) return;
+        
+        appendMessage(userQuery, 'user');
+        chatInput.value = '';
+        chatLoader.classList.remove('hidden');
+        
+        try {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: "You are a helpful assistant for university students in Azerbaijan. Respond in Azerbaijani. Keep answers concise and informative. Use HTML for formatting like <strong>, <ul>, <li> when appropriate." }] },
+            };
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            const candidate = result.candidates?.[0];
+            
+            if (candidate && candidate.content?.parts?.[0]?.text) {
+                appendMessage(candidate.content.parts[0].text, 'model');
+            } else {
+                throw new Error("Süni intellektdən cavab alına bilmədi.");
+            }
+            
+        } catch (error) {
+            console.error("Gemini Chat Error:", error);
+            appendMessage(`<p class="text-red-400">Xəta baş verdi: ${error.message}</p>`, 'model');
+        } finally {
+            chatLoader.classList.add('hidden');
+        }
+    });
+    
+    function appendMessage(content, sender) {
+        const messageDiv = document.createElement('div');
+        const bubbleDiv = document.createElement('div');
+        
+        messageDiv.classList.add('flex', 'mb-4');
+        bubbleDiv.classList.add('rounded-lg', 'p-3', 'max-w-md', 'prose');
+        
+        if (sender === 'user') {
+            messageDiv.classList.add('justify-end');
+            bubbleDiv.classList.add('bg-blue-600', 'text-white');
+            bubbleDiv.textContent = content;
+        } else {
+            messageDiv.classList.add('justify-start');
+            bubbleDiv.classList.add('bg-gray-700', 'text-gray-200');
+            bubbleDiv.innerHTML = content;
+        }
+        
+        messageDiv.appendChild(bubbleDiv);
+        chatHistory.appendChild(messageDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showSection('kurs2Section');
+      dersleriGosterKurs2();
+    });
   </script>
 
   <script type="module">
@@ -259,22 +353,27 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const commentsRef = ref(db, "comments");
+    
+    let clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = 'client-' + Math.random().toString(36).substring(2, 11);
+      localStorage.setItem('clientId', clientId);
+    }
 
-    document.getElementById("comment-form").addEventListener("submit", async (e) => {
+    document.getElementById("comment-form").addEventListener("submit", (e) => {
       e.preventDefault();
-      const nameInput = document.getElementById("name-input").value;
-      const commentInput = document.getElementById("comment-input").value;
+      const nameInput = document.getElementById("name-input");
+      const commentInput = document.getElementById("comment-input");
 
-      if (nameInput.trim() !== "" && commentInput.trim() !== "") {
-        push(commentsRef, { 
-          name: nameInput, 
-          text: commentInput, 
+      if (nameInput.value.trim() !== "" && commentInput.value.trim() !== "") {
+        push(commentsRef, {
+          name: nameInput.value,
+          text: commentInput.value,
           timestamp: Date.now(),
-          ip: clientIP,
           clientId: clientId
         });
-        document.getElementById("name-input").value = "";
-        document.getElementById("comment-input").value = "";
+        nameInput.value = "";
+        commentInput.value = "";
       }
     });
 
@@ -285,77 +384,20 @@
       snapshot.forEach((childSnapshot) => {
         commentsArray.push(childSnapshot.val());
       });
-      
-      commentsArray.sort((a, b) => b.timestamp - a.timestamp);
-      commentsArray.forEach((data) => {
-        const comment = document.createElement("p");
+
+      commentsArray.sort((a, b) => b.timestamp - a.timestamp).forEach((data) => {
+        const commentDiv = document.createElement("div");
+        commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
         const date = new Date(data.timestamp);
-        const formattedDate = date.toLocaleString("az-AZ");
-        comment.innerHTML = `<strong>${data.name}:</strong> ${data.text} <br><small>${formattedDate}</small>`;
-        commentsList.appendChild(comment);
+        const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
+        commentDiv.innerHTML = `
+            <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
+            <small class="text-gray-500">${formattedDate}</small>
+        `;
+        commentsList.appendChild(commentDiv);
       });
     });
   </script>
-
-  <script>
-    const startDate = new Date("2024-02-24");
-
-    const dersCedveli = {
-      "alt": {
-          1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-          2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"],
-          3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-          4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
-          5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
-      },
-      "ust": {
-          1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
-          2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
-          3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
-          4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
-          5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
-      }
-    };
-
-    function hefteniTap(date) {
-      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-      return diffDays % 2 === 0 ? "alt" : "ust";
-    }
-
-    function tarixFormatla(date) {
-      const gunler = ["Bazar günü", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə", "Şənbə"];
-      const aylar = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr"];
-      return `${gunler[date.getDay()]}, ${date.getDate()} ${aylar[date.getMonth()]} ${date.getFullYear()}`;
-    }
-
-    function dersleriGoster() {
-      let container = document.getElementById("schedule");
-      container.innerHTML = "";
-      let bugun = new Date();
-      let hefteniSec = hefteniTap(bugun);
-      document.getElementById("weekType").innerText = `Bu Həftə ${hefteniSec.toUpperCase()} Həftədi`;
-      for (let i = 0; i < 7; i++) {
-          let tarix = new Date();
-          tarix.setDate(bugun.getDate() + i);
-          let gun = tarix.getDay();
-          if (gun > 0 && gun < 6 && dersCedveli[hefteniSec][gun]) {
-              let dersler = dersCedveli[hefteniSec][gun].join("<br>");
-              container.innerHTML += `<div class='day'><strong>${tarixFormatla(tarix)}</strong><br>${dersler}</div>`;
-          }
-      }
-    }
-    dersleriGoster();
-  </script>
-
-  <div class="footer">
-    @by Kenan<br>
-    <a href="https://www.instagram.com/keno.akhmadov/" class="instagram-link" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-      Takib edin😎
-    </a>
-    <div class="footer-image">
-      <img src="https://i.hizliresim.com/h4hr0s2.jpg" alt="Custom Shape">
-    </div>
-  </div>
 </body>
 </html>
+
