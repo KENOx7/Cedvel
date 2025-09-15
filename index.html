@@ -159,13 +159,11 @@
     function loadBagik() { createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/"); }
     function openFullScreen(url) { window.open(url, '_blank').focus(); }
   
-    // ========= Dərs cədvəlləri =========
     const dersCedveliKurs1 = {
       "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
       "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
     };
   
-    // startDate: referens (saat hissəsini dəyişdirmirik burada)
     const startDate = new Date("2024-02-24");
   
     const dersCedveliKurs2 = {
@@ -173,7 +171,6 @@
       "ust": { 1: ["1)Sistem Proqramlaşdırma (mühazirə) - Həsənova Vüsalə (12:45-14:05, Otaq 431)"], 2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)"], 3: ["Əlavə olunacaq..."], 4: ["Əlavə olunacaq..."], 5: ["Əlavə olunacaq..."] },
     };
   
-    // Köməkçi: tarixi günü sıfırlamış yeni obyekt kimi qaytarır (orijinalı dəyişmir)
     function startOfDayCopy(d) {
       const c = new Date(d);
       c.setHours(0,0,0,0);
@@ -181,12 +178,10 @@
     }
   
     function hefteniTap(date) {
-      // burada heç bir global date-i dəyişmirik — hamısı kopiya ilə
-      const ref = startOfDayCopy(startDate); // referens kopiyası
+      const ref = startOfDayCopy(startDate);
       const d = startOfDayCopy(date);
       const diffMs = d.getTime() - ref.getTime();
       const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
-      // cüt həftə -> alt, tək -> ust
       return (diffWeeks % 2 === 0) ? "alt" : "ust";
     }
   
@@ -216,7 +211,6 @@
       renderWeek("ust");
     }
   
-    // ======= YENI: tarixə görə həftə tipi ilə göstərən funksya (sabitləşdirildi) =======
     function dersleriGosterKurs2() {
       let container = document.getElementById("schedule_kurs2");
       container.innerHTML = "";
@@ -224,16 +218,14 @@
       const bugunWeekType = hefteniTap(bugun);
       document.getElementById("weekType").innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
   
-      // göstəriləcək aralığı təmiz və stabil şəkildə yaradırıq:
       for (let i = 0; i < 7; i++) {
-        const tarix = new Date(); // yeni obyekt
+        const tarix = new Date();
         tarix.setDate(bugun.getDate() + i);
-        // sıfırlanmış kopya lazım olduğu üçün:
         const tarihDay = startOfDayCopy(tarix);
-        const gun = tarihDay.getDay(); // 0..6
+        const gun = tarihDay.getDay();
   
-        if (gun > 0 && gun < 6) { // iş günləri: 1..5
-          const haftaTipi = hefteniTap(tarihDay); // kopiya ilə çağırırıq
+        if (gun > 0 && gun < 6) {
+          const haftaTipi = hefteniTap(tarihDay);
           const derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
           const dersler = derslerArr ? derslerArr.map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
   
@@ -249,8 +241,6 @@
         }
       }
     }
-  
-    // ============================================================
   
     const chatModal = document.getElementById('chatModal');
     const chatHistory = document.getElementById('chatHistory');
@@ -424,4 +414,5 @@ Siz Keno AI-siniz.
     
 </body>
 </html>
+
 
