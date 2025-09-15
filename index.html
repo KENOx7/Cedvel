@@ -224,27 +224,32 @@
     }
 
     function dersleriGosterKurs2() {
-      let container = document.getElementById("schedule_kurs2");
-      container.innerHTML = "";
-      let bugun = new Date();
-      let hefteniSec = hefteniTap(bugun);
-      document.getElementById("weekType").innerText = `Bu Həftə: ${hefteniSec.toUpperCase()} Həftədir`;
-      
-      for (let i = 0; i < 7; i++) {
-        let tarix = new Date();
-        tarix.setDate(bugun.getDate() + i);
-        let gun = tarix.getDay();
-        if (gun > 0 && gun < 6 && dersCedveliKurs2[hefteniSec] && dersCedveliKurs2[hefteniSec][gun]) {
-          let isToday = tarix.toDateString() === bugun.toDateString();
-          let dersler = dersCedveliKurs2[hefteniSec][gun].map(d => `<p>${d}</p>`).join("");
-          container.innerHTML += `
-            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
-              <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarix)}</strong>
-              <div class="mt-2 text-gray-300">${dersler}</div>
-            </div>`;
-        }
-      }
+  let container = document.getElementById("schedule_kurs2");
+  container.innerHTML = "";
+  let bugun = new Date();
+  let hefteniSec = hefteniTap(bugun);
+  document.getElementById("weekType").innerText = `Bu Həftə: ${hefteniSec.toUpperCase()} Həftədir`;
+  for (let i = 0; i < 7; i++) {
+    let tarix = new Date();
+    tarih.setDate(bugun.getDate() + i);
+    let gun = tarix.getDay();
+    if (gun > 0 && gun < 6) {
+      let haftaTipi = hefteniTap(tarix);
+      let derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
+      let dersler = derslerArr ? derslerArr.map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
+      let isToday = tarih.toDateString() === bugun.toDateString();
+      container.innerHTML += `
+        <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
+          <div class="flex justify-between items-baseline">
+            <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarix)}</strong>
+            <span class="text-sm text-yellow-300 font-semibold">${haftaTipi.toUpperCase()} həftə</span>
+          </div>
+          <div class="mt-2 text-gray-300">${dersler}</div>
+        </div>`;
     }
+  }
+}
+
     
     const chatModal = document.getElementById('chatModal');
     const chatHistory = document.getElementById('chatHistory');
@@ -400,4 +405,5 @@
   </script>
 </body>
 </html>
+
 
