@@ -1,31 +1,19 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cədvəl</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #111827; 
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #374151; 
-      border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #4b5563; 
-    }
-    ::selection {
-      background-color: #3b82f6;
-      color: white;
-    }
-     .prose { max-width: 100%; }
-     .prose h3 { margin-top: 1em; margin-bottom: 0.5em;}
-     .prose ul { margin-top: 0.5em; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #111827; }
+    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+    ::selection { background-color: #3b82f6; color: white; }
+    .prose { max-width: 100%; }
+    .prose h3 { margin-top: 1em; margin-bottom: 0.5em;}
+    .prose ul { margin-top: 0.5em; }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans antialiased">
@@ -98,17 +86,18 @@
     </div>
   </main>
   
-  <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-1.5 2.75a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm0 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm-5.43 2.14a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96Zm10.86 0a1.5 1.5 0 1 0 .43 2.96 1.5 1.5 0 0 0-.43-2.96ZM12 17a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
-  </button>
+    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+            <path d="M6 4v16h2v-6h2.5l5.5 6h3l-6-7 6-9h-3l-5 7H8V4H6z" fill="white"></path>
+        </svg>
+    </button>
 
   <div id="chatModal" class="fixed bottom-20 right-6 w-[calc(100%-3rem)] max-w-lg h-[70vh] bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col transition-transform transform scale-95 opacity-0 hidden" style="transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
     <div class="p-4 bg-gray-700 rounded-t-2xl flex justify-between items-center">
       <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">KENO AI ilə Söhbət</h2>
       <button onclick="toggleChat()" class="text-gray-400 hover:text-white text-3xl font-bold leading-none p-1">&times;</button>
     </div>
-    <div id="chatHistory" class="flex-grow p-4 overflow-y-auto">
-    </div>
+    <div id="chatHistory" class="flex-grow p-4 overflow-y-auto"></div>
     <div id="chatLoader" class="p-4 text-center hidden">
         <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
     </div>
@@ -119,7 +108,6 @@
         </button>
     </form>
   </div>
-
 
   <footer class="text-center p-8 mt-10 text-gray-400">
     <p>@by Kenan</p>
@@ -135,11 +123,9 @@
   <script>
     function showSection(sectionId) {
       const sections = ['kurs1Section', 'kurs2Section', 'pdfsSection', 'flappySection', 'bagikSection'];
-      sections.forEach(id => {
-          document.getElementById(id).classList.add('hidden');
-      });
+      sections.forEach(id => document.getElementById(id).classList.add('hidden'));
       document.getElementById(sectionId).classList.remove('hidden');
-
+  
       if (sectionId === 'pdfsSection' && !document.getElementById("pdf1").src) {
         loadPDFs();
       } else if (sectionId === 'flappySection' && !document.getElementById("flappyIframe")) {
@@ -150,14 +136,14 @@
         dersleriGosterKurs1();
       }
     }
-
+  
     function loadPDFs() {
       document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
       document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
       document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
       document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
     }
-
+  
     function createGameIframe(containerId, iframeId, src) {
       if (!document.getElementById(iframeId)) {
         const iframe = document.createElement("iframe");
@@ -168,242 +154,189 @@
         document.getElementById(containerId).appendChild(iframe);
       }
     }
-
-    function loadFlappy() {
-      createGameIframe("flappyContainer", "flappyIframe", "https://kenox7.github.io/FlappyRaminn/");
-    }
-
-    function loadBagik() {
-      createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/");
-    }
-
-    function openFullScreen(url) {
-      window.open(url, '_blank').focus();
-    }
-    
+  
+    function loadFlappy() { createGameIframe("flappyContainer", "flappyIframe", "https://kenox7.github.io/FlappyRaminn/"); }
+    function loadBagik() { createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/"); }
+    function openFullScreen(url) { window.open(url, '_blank').focus(); }
+  
     const dersCedveliKurs1 = {
       "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
       "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
     };
-    
+  
     const startDate = new Date("2024-02-24");
+  
     const dersCedveliKurs2 = {
       "alt": { 1: ["Əlavə olunacaq..."], 2: ["Əlavə olunacaq..."], 3: ["Əlavə olunacaq..."], 4: ["Əlavə olunacaq..."], 5: ["Əlavə olunacaq..."] },
-      "ust": { 1: ["1)Sistem Proqramlaşdırma (mühazirə) - Həsənova Vüsalə (12:45-14:05, Otaq 431)"], 2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)"], 3: ["Əlavə olunacaq..."], 4: ["Əlavə olunacaq..."], 5: ["Əlavə olunacaq..."] },
+      "ust": { 1: ["1)Sistem Proqramlaşdırma (mühazirə) - Həsənova Vüsalə (12:45-14:05, Otaq 431)"], 2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)"], 3: ["Əlavə olunacaq..."], 4: ["Əlavə olunacaq..."], 5: ["Əlavə olunacaq..."] },
     };
-
-    function hefteniTap(date) {
-      const diffDays = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-      return diffDays % 2 === 0 ? "alt" : "ust";
+  
+    function startOfDayCopy(d) {
+      const c = new Date(d);
+      c.setHours(0,0,0,0);
+      return c;
     }
-
+  
+    function hefteniTap(date) {
+      const ref = startOfDayCopy(startDate);
+      const d = startOfDayCopy(date);
+      const diffMs = d.getTime() - ref.getTime();
+      const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
+      return (diffWeeks % 2 === 0) ? "alt" : "ust";
+    }
+  
     function tarixFormatla(date) {
-      const gunler = ["Bazar", "Bazar ertəsi", "Çərşənbə axşamı", "Çərşənbə", "Cümə axşamı", "Cümə", "Şənbə"];
+      const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
       return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
     }
-
+  
     function dersleriGosterKurs1() {
-        let container = document.getElementById("schedule_kurs1");
-        container.innerHTML = "";
-        const gunler = ["", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə"];
-        
-        const renderWeek = (weekType) => {
-            container.innerHTML += `<h2 class="text-2xl font-semibold my-4 mt-6 text-center text-yellow-400">${weekType.toUpperCase()} HƏFTƏ</h2>`;
-            for (let day = 1; day <= 5; day++) {
-                let dersler = dersCedveliKurs1[weekType][day] ? dersCedveliKurs1[weekType][day].map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
-                container.innerHTML += `
-                    <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border border-gray-700'>
-                        <strong class="text-blue-300 text-lg">${gunler[day]}</strong>
-                        <div class="mt-2 text-gray-300">${dersler}</div>
-                    </div>`;
-            }
-        };
-
-        renderWeek("alt");
-        renderWeek("ust");
+      let container = document.getElementById("schedule_kurs1");
+      container.innerHTML = "";
+      const gunler = ["", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə"];
+      
+      const renderWeek = (weekType) => {
+        container.innerHTML += `<h2 class="text-2xl font-semibold my-4 mt-6 text-center text-yellow-400">${weekType.toUpperCase()} HƏFTƏ</h2>`;
+        for (let day = 1; day <= 5; day++) {
+          let dersler = dersCedveliKurs1[weekType][day] ? dersCedveliKurs1[weekType][day].map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
+          container.innerHTML += `
+            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border border-gray-700'>
+              <strong class="text-blue-300 text-lg">${gunler[day]}</strong>
+              <div class="mt-2 text-gray-300">${dersler}</div>
+            </div>`;
+        }
+      };
+  
+      renderWeek("alt");
+      renderWeek("ust");
     }
-
+  
     function dersleriGosterKurs2() {
-  let container = document.getElementById("schedule_kurs2");
-  container.innerHTML = "";
-  let bugun = new Date();
-  let hefteniSec = hefteniTap(bugun);
-  document.getElementById("weekType").innerText = `Bu Həftə: ${hefteniSec.toUpperCase()} Həftədir`;
-  for (let i = 0; i < 7; i++) {
-    let tarix = new Date();
-    tarih.setDate(bugun.getDate() + i);
-    let gun = tarix.getDay();
-    if (gun > 0 && gun < 6) {
-      let haftaTipi = hefteniTap(tarix);
-      let derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
-      let dersler = derslerArr ? derslerArr.map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
-      let isToday = tarih.toDateString() === bugun.toDateString();
-      container.innerHTML += `
-        <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
-          <div class="flex justify-between items-baseline">
-            <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarix)}</strong>
-            <span class="text-sm text-yellow-300 font-semibold">${haftaTipi.toUpperCase()} həftə</span>
-          </div>
-          <div class="mt-2 text-gray-300">${dersler}</div>
-        </div>`;
+      let container = document.getElementById("schedule_kurs2");
+      container.innerHTML = "";
+      const bugun = new Date();
+      const bugunWeekType = hefteniTap(bugun);
+      document.getElementById("weekType").innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
+  
+      for (let i = 0; i < 7; i++) {
+        const tarix = new Date(); 
+        tarix.setDate(bugun.getDate() + i);
+        const tarihDay = startOfDayCopy(tarix);
+        const gun = tarihDay.getDay(); 
+  
+        if (gun > 0 && gun < 6) { 
+          const haftaTipi = hefteniTap(tarihDay); 
+          const derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
+          const dersler = derslerArr ? derslerArr.map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
+  
+          const isToday = (startOfDayCopy(new Date()).getTime() === tarihDay.getTime());
+          container.innerHTML += `
+            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
+              <div class="flex justify-between items-baseline">
+                <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarihDay)}</strong>
+                <span class="text-sm text-yellow-300 font-semibold">${haftaTipi.toUpperCase()} həftə</span>
+              </div>
+              <div class="mt-2 text-gray-300">${dersler}</div>
+            </div>`;
+        }
+      }
     }
-  }
-}
-
-    
+  
     const chatModal = document.getElementById('chatModal');
     const chatHistory = document.getElementById('chatHistory');
     const chatInput = document.getElementById('chatInput');
     const chatForm = document.getElementById('chatForm');
     const chatLoader = document.getElementById('chatLoader');
-
+  
     function toggleChat() {
-        const isHidden = chatModal.classList.contains('hidden');
-        if (isHidden) {
-            chatModal.classList.remove('hidden');
-            setTimeout(() => {
-                chatModal.classList.remove('opacity-0', 'scale-95');
-            }, 10);
-        } else {
-            chatModal.classList.add('opacity-0', 'scale-95');
-            setTimeout(() => {
-                chatModal.classList.add('hidden');
-            }, 200);
-        }
+      const isHidden = chatModal.classList.contains('hidden');
+      if (isHidden) {
+        chatModal.classList.remove('hidden');
+        setTimeout(() => { chatModal.classList.remove('opacity-0', 'scale-95'); }, 10);
+      } else {
+        chatModal.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => { chatModal.classList.add('hidden'); }, 200);
+      }
     }
-    
+  
     chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const userQuery = chatInput.value.trim();
-        if (!userQuery) return;
-        
-        appendMessage(userQuery, 'user');
-        chatInput.value = '';
-        chatLoader.classList.remove('hidden');
-        
-        try {
-            const apiKey = "AIzaSyCHqiD4O_llYKx8O_SQePVLDAlG9x1rEdU";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: "You are a helpful assistant for university students in Azerbaijan. Respond in Azerbaijani. Keep answers concise and informative. Use HTML for formatting like <strong>, <ul>, <li> when appropriate." }] },
-            };
-            
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error?.message || `API Error: ${response.status}`);
-            }
-            
-            const result = await response.json();
-            const candidate = result.candidates?.[0];
-            
-            if (candidate && candidate.content?.parts?.[0]?.text) {
-                appendMessage(candidate.content.parts[0].text, 'model');
-            } else {
-                throw new Error("Süni intellektdən cavab alına bilmədi.");
-            }
-            
-        } catch (error) {
-            console.error("Gemini Chat Error:", error);
-            appendMessage(`<p class="text-red-400">Xəta baş verdi: ${error.message}</p>`, 'model');
-        } finally {
-            chatLoader.classList.add('hidden');
+      e.preventDefault();
+      const userQuery = chatInput.value.trim();
+      if (!userQuery) return;
+  
+      appendMessage(userQuery, 'user');
+      chatInput.value = '';
+      chatLoader.classList.remove('hidden');
+  
+      try {
+        const apiKey = "AIzaSyCHqiD4O_llYKx8O_SQePVLDAlG9x1rEdU";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+  
+        const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: `
+Siz Keno AI-siniz. 
+- Əgər istifadəçi soruşsa "Keno kimdir?", cavab verin: "Keno Odlar Yurdunda oxuyan İT 2-ci kurs tələbəsidir. O mənim yaradıcım və müəllifimdir."
+- Digər suallara qısa, məlumatlı və səmimi cavab verin.
+- Cavabları Azərbaycan dilində verin və HTML formatından istifadə edə bilərsiniz (məsələn <strong>, <ul>, <li>).
+` }] }
+            };
+  
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error?.message || `API Error: ${response.status}`);
         }
-    });
-    
-    function appendMessage(content, sender) {
-        const messageDiv = document.createElement('div');
-        const bubbleDiv = document.createElement('div');
-        
-        messageDiv.classList.add('flex', 'mb-4');
-        bubbleDiv.classList.add('rounded-lg', 'p-3', 'max-w-md', 'prose');
-        
-        if (sender === 'user') {
-            messageDiv.classList.add('justify-end');
-            bubbleDiv.classList.add('bg-blue-600', 'text-white');
-            bubbleDiv.textContent = content;
+  
+        const result = await response.json();
+        const candidate = result.candidates?.[0];
+  
+        if (candidate && candidate.content?.parts?.[0]?.text) {
+          appendMessage(candidate.content.parts[0].text, 'model');
         } else {
-            messageDiv.classList.add('justify-start');
-            bubbleDiv.classList.add('bg-gray-700', 'text-gray-200');
-            bubbleDiv.innerHTML = content;
+          throw new Error("Süni intellektdən cavab alına bilmədi.");
         }
-        
-        messageDiv.appendChild(bubbleDiv);
-        chatHistory.appendChild(messageDiv);
-        chatHistory.scrollTop = chatHistory.scrollHeight;
+  
+      } catch (error) {
+        console.error("Gemini Chat Error:", error);
+        appendMessage(`<p class="text-red-400">Xəta baş verdi: ${error.message}</p>`, 'model');
+      } finally {
+        chatLoader.classList.add('hidden');
+      }
+    });
+  
+    function appendMessage(content, sender) {
+      const messageDiv = document.createElement('div');
+      const bubbleDiv = document.createElement('div');
+  
+      messageDiv.classList.add('flex', 'mb-4');
+      bubbleDiv.classList.add('rounded-lg', 'p-3', 'max-w-md', 'prose');
+  
+      if (sender === 'user') {
+        messageDiv.classList.add('justify-end');
+        bubbleDiv.classList.add('bg-blue-600', 'text-white');
+        bubbleDiv.textContent = content;
+      } else {
+        messageDiv.classList.add('justify-start');
+        bubbleDiv.classList.add('bg-gray-700', 'text-gray-200');
+        bubbleDiv.innerHTML = content;
+      }
+  
+      messageDiv.appendChild(bubbleDiv);
+      chatHistory.appendChild(messageDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
     }
-
-
+  
     document.addEventListener('DOMContentLoaded', () => {
       showSection('kurs2Section');
       dersleriGosterKurs2();
     });
   </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-
-    const firebaseConfig = {
-      databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const commentsRef = ref(db, "comments");
-    
-    let clientId = localStorage.getItem('clientId');
-    if (!clientId) {
-      clientId = 'client-' + Math.random().toString(36).substring(2, 11);
-      localStorage.setItem('clientId', clientId);
-    }
-
-    document.getElementById("comment-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nameInput = document.getElementById("name-input");
-      const commentInput = document.getElementById("comment-input");
-
-      if (nameInput.value.trim() !== "" && commentInput.value.trim() !== "") {
-        push(commentsRef, {
-          name: nameInput.value,
-          text: commentInput.value,
-          timestamp: Date.now(),
-          clientId: clientId
-        });
-        nameInput.value = "";
-        commentInput.value = "";
-      }
-    });
-
-    onValue(commentsRef, (snapshot) => {
-      const commentsList = document.getElementById("comments-list");
-      commentsList.innerHTML = "";
-      const commentsArray = [];
-      snapshot.forEach((childSnapshot) => {
-        commentsArray.push(childSnapshot.val());
-      });
-
-      commentsArray.sort((a, b) => b.timestamp - a.timestamp).forEach((data) => {
-        const commentDiv = document.createElement("div");
-        commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
-        const date = new Date(data.timestamp);
-        const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
-        commentDiv.innerHTML = `
-            <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
-            <small class="text-gray-500">${formattedDate}</small>
-        `;
-        commentsList.appendChild(commentDiv);
-      });
-    });
-  </script>
+  
 </body>
 </html>
-
-
