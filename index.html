@@ -1,3 +1,32 @@
+<!--
+  _  __ ______ _   _  ____  
+ | |/ /| ____|| \ | ||  _ \ 
+ | ' / |  _|  |  \| || | | |
+ | . \ | |___ | |\  || |_| |
+ |_|\_\|_____||_| \_||____/ 
+  _  __ ______ _   _  ____  
+ | |/ /| ____|| \ | ||  _ \ 
+ | ' / |  _|  |  \| || | | |
+ | . \ | |___ | |\  || |_| |
+ |_|\_\|_____||_| \_||____/ 
+  _  __ ______ _   _  ____  
+ | |/ /| ____|| \ | ||  _ \ 
+ | ' / |  _|  |  \| || | | |
+ | . \ | |___ | |\  || |_| |
+ |_|\_\|_____||_| \_||____/ 
+  _  __ ______ _   _  ____  
+ | |/ /| ____|| \ | ||  _ \ 
+ | ' / |  _|  |  \| || | | |
+ | . \ | |___ | |\  || |_| |
+ |_|\_\|_____||_| \_||____/ 
+  _  __ ______ _   _  ____  
+ | |/ /| ____|| \ | ||  _ \ 
+ | ' / |  _|  |  \| || | | |
+ | . \ | |___ | |\  || |_| |
+ |_|\_\|_____||_| \_||____/ 
+-->
+
+
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -20,6 +49,8 @@
   <meta name="msapplication-TileColor" content="#111827">
   <meta name="msapplication-TileImage" content="favicon.png">
   <meta name="theme-color" content="#111827">
+
+
   
   <style>
     ::-webkit-scrollbar { width: 8px; }
@@ -263,4 +294,186 @@
   
           const isToday = (startOfDayCopy(new Date()).getTime() === tarihDay.getTime());
           container.innerHTML += `
-            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'
+            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
+              <div class="flex justify-between items-baseline">
+                <strong class="text-lg ${isToday ? 'text-blue-300' : 'text-gray-300'}">${tarixFormatla(tarihDay)}</strong>
+                <span class="text-sm text-yellow-300 font-semibold">${haftaTipi.toUpperCase()} həftə</span>
+              </div>
+              <div class="mt-1">${dersler}</div>
+            </div>`;
+        }
+      }
+    }
+  
+    const chatModal = document.getElementById('chatModal');
+    const chatHistory = document.getElementById('chatHistory');
+    const chatInput = document.getElementById('chatInput');
+    const chatForm = document.getElementById('chatForm');
+    const chatLoader = document.getElementById('chatLoader');
+  
+    function toggleChat() {
+      const isHidden = chatModal.classList.contains('hidden');
+      if (isHidden) {
+        chatModal.classList.remove('hidden');
+        setTimeout(() => { chatModal.classList.remove('opacity-0', 'scale-95'); }, 10);
+      } else {
+        chatModal.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => { chatModal.classList.add('hidden'); }, 200);
+      }
+    }
+  
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userQuery = chatInput.value.trim();
+      if (!userQuery) return;
+  
+      appendMessage(userQuery, 'user');
+      chatInput.value = '';
+      chatLoader.classList.remove('hidden');
+  
+      try {
+        const apiKey = "AIzaSyCHqiD4O_llYKx8O_SQePVLDAlG9x1rEdU";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+  
+        const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: `
+Siz Keno AI-siniz. 
+- Əgər istifadəçi soruşsa "Keno kimdir?", cavab verin: 
+  "Keno, tam adı <strong>Kənan Əhmədov</strong>, Odlar Yurdu Universitetində İT fakültəsinin 2-ci kurs tələbəsidir. O mənim yaradıcım və müəllifimdir."
+- Əgər istifadəçi soruşsa "Sen kimsen?", cavab verin:
+  "Mən <strong>Keno AI</strong> modeliyəm. Mən Kənan tərəfindən yaradılmışam və onun tərəfindən verilən tapşırıqları yerinə yetirirəm."
+- Cavablarınızı Azərbaycan dilində verin, qısa, məlumatlı və səmimi olun.
+- Cavablarda HTML elementlərindən istifadə edin:
+  <ul>
+    <li><strong>Qalın mətn:</strong> vacib məlumatları vurğulamaq üçün</li>
+    <li><em>Meyilli mətn:</em> qeyd və nümunələr üçün</li>
+    <li><ul>/<li> siyahılar:</li> məlumatları sadalamaq üçün</li>
+  </ul>
+- İstifadəçi şəxsi məlumat soruşarsa, yalnız ümumi və təhlükəsiz məlumat verin.
+- Məsələn:
+  <ul>
+    <li>Sual: "Keno harada oxuyur?"  
+        Cavab: "Keno <strong>Odlar Yurdu Universiteti</strong>-də təhsil alır."</li>
+    <li>Sual: "Keno neçə yaşındadır?"  
+        Cavab: "Bu barədə məlumatım yoxdur."</li>
+    <li>Sual: "Sen Keno-nun yaratdığısən?"  
+        Cavab: "Bəli, mən <strong>Keno AI</strong> modeliyəm və onun tərəfindən yaradılmışam."</li>
+  </ul>
+` }] }
+            };
+  
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+        }
+  
+        const result = await response.json();
+        const candidate = result.candidates?.[0];
+  
+        if (candidate && candidate.content?.parts?.[0]?.text) {
+          appendMessage(candidate.content.parts[0].text, 'model');
+        } else {
+          throw new Error("Süni intellektdən cavab alına bilmədi.");
+        }
+  
+      } catch (error) {
+        console.error("Gemini Chat Error:", error);
+        appendMessage(`<p class="text-red-400">Xəta baş verdi: ${error.message}</p>`, 'model');
+      } finally {
+        chatLoader.classList.add('hidden');
+      }
+    });
+  
+    function appendMessage(content, sender) {
+      const messageDiv = document.createElement('div');
+      const bubbleDiv = document.createElement('div');
+  
+      messageDiv.classList.add('flex', 'mb-4');
+      bubbleDiv.classList.add('rounded-lg', 'p-3', 'max-w-md', 'prose');
+  
+      if (sender === 'user') {
+        messageDiv.classList.add('justify-end');
+        bubbleDiv.classList.add('bg-blue-600', 'text-white');
+        bubbleDiv.textContent = content;
+      } else {
+        messageDiv.classList.add('justify-start');
+        bubbleDiv.classList.add('bg-gray-700', 'text-gray-200');
+        bubbleDiv.innerHTML = content;
+      }
+  
+      messageDiv.appendChild(bubbleDiv);
+      chatHistory.appendChild(messageDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      showSection('kurs2Section');
+      dersleriGosterKurs2();
+    });
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    
+    const firebaseConfig = {
+      databaseURL: "https://yorumlar-8f969-default-rtdb.firebaseio.com/"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const commentsRef = ref(db, "comments");
+    
+    let clientId = localStorage.getItem('clientId');
+    if (!clientId) {
+      clientId = 'client-' + Math.random().toString(36).substring(2, 11);
+      localStorage.setItem('clientId', clientId);
+    }
+    
+    document.getElementById("comment-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("name-input");
+      const commentInput = document.getElementById("comment-input");
+    
+      if (nameInput.value.trim() !== "" && commentInput.value.trim() !== "") {
+        push(commentsRef, {
+          name: nameInput.value,
+          text: commentInput.value,
+          timestamp: Date.now(),
+          clientId: clientId
+        });
+        nameInput.value = "";
+        commentInput.value = "";
+      }
+    });
+    
+    onValue(commentsRef, (snapshot) => {
+      const commentsList = document.getElementById("comments-list");
+      commentsList.innerHTML = "";
+      const commentsArray = [];
+      snapshot.forEach((childSnapshot) => {
+        commentsArray.push(childSnapshot.val());
+      });
+    
+      commentsArray.sort((a, b) => b.timestamp - a.timestamp).forEach((data) => {
+        const commentDiv = document.createElement("div");
+        commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
+        const date = new Date(data.timestamp);
+        const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
+        commentDiv.innerHTML = `
+            <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
+            <small class="text-gray-500">${formattedDate}</small>
+        `;
+        commentsList.appendChild(commentDiv);
+      });
+    });
+    </script>
+    
+</body>
+</html>
