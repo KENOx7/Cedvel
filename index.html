@@ -1,32 +1,3 @@
-<!--
-  _  __ ______ _   _  ____  
- | |/ /| ____|| \ | ||  _ \ 
- | ' / |  _|  |  \| || | | |
- | . \ | |___ | |\  || |_| |
- |_|\_\|_____||_| \_||____/ 
-  _  __ ______ _   _  ____  
- | |/ /| ____|| \ | ||  _ \ 
- | ' / |  _|  |  \| || | | |
- | . \ | |___ | |\  || |_| |
- |_|\_\|_____||_| \_||____/ 
-  _  __ ______ _   _  ____  
- | |/ /| ____|| \ | ||  _ \ 
- | ' / |  _|  |  \| || | | |
- | . \ | |___ | |\  || |_| |
- |_|\_\|_____||_| \_||____/ 
-  _  __ ______ _   _  ____  
- | |/ /| ____|| \ | ||  _ \ 
- | ' / |  _|  |  \| || | | |
- | . \ | |___ | |\  || |_| |
- |_|\_\|_____||_| \_||____/ 
-  _  __ ______ _   _  ____  
- | |/ /| ____|| \ | ||  _ \ 
- | ' / |  _|  |  \| || | | |
- | . \ | |___ | |\  || |_| |
- |_|\_\|_____||_| \_||____/ 
--->
-
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -36,22 +7,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="icon" type="image/png" href="favicon.png">
-  
   <link rel="manifest" href="site.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-  
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Cədvəl">
-  
   <meta name="msapplication-TileColor" content="#111827">
   <meta name="msapplication-TileImage" content="favicon.png">
   <meta name="theme-color" content="#111827">
 
-
-  
   <style>
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #111827; }
@@ -71,11 +37,7 @@
 
   <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
     <button onclick="showSection('kurs2Section')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">2-ci KURS</button>
-    <button 
-    onclick="window.location.href='https://kenox7.github.io/herkes/'" 
-    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-    Qayıblar
-    </button>
+    <button onclick="window.location.href='https://kenox7.github.io/herkes/'" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">Qayıblar</button>
     <button onclick="showSection('kurs1Section')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">1-ci kurs</button>
     <button onclick="showSection('pdfsSection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">PDF</button>
     <button onclick="showSection('flappySection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">Flappy Ramin</button>
@@ -138,11 +100,11 @@
     </div>
   </main>
   
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-            <path d="M6 4v16h2v-6h2.5l5.5 6h3l-6-7 6-9h-3l-5 7H8V4H6z" fill="white"></path>
-        </svg>
-    </button>
+  <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+      <path d="M6 4v16h2v-6h2.5l5.5 6h3l-6-7 6-9h-3l-5 7H8V4H6z" fill="white"></path>
+    </svg>
+  </button>
 
   <div id="chatModal" class="fixed bottom-20 right-6 w-[calc(100%-3rem)] max-w-lg h-[70vh] bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col transition-transform transform scale-95 opacity-0 hidden" style="transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
     <div class="p-4 bg-gray-700 rounded-t-2xl flex justify-between items-center">
@@ -151,13 +113,13 @@
     </div>
     <div id="chatHistory" class="flex-grow p-4 overflow-y-auto"></div>
     <div id="chatLoader" class="p-4 text-center hidden">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
     </div>
     <form id="chatForm" class="p-4 border-t border-gray-700 flex gap-2">
-        <input type="text" id="chatInput" placeholder="Sualını yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-lg transition-colors flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" /></svg>
-        </button>
+      <input type="text" id="chatInput" placeholder="Sualını yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-lg transition-colors flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" /></svg>
+      </button>
     </form>
   </div>
 
@@ -174,7 +136,7 @@
       const sections = ['kurs1Section', 'kurs2Section', 'pdfsSection', 'flappySection', 'bagikSection'];
       sections.forEach(id => document.getElementById(id).classList.add('hidden'));
       document.getElementById(sectionId).classList.remove('hidden');
-  
+
       if (sectionId === 'pdfsSection' && !document.getElementById("pdf1").src) {
         loadPDFs();
       } else if (sectionId === 'flappySection' && !document.getElementById("flappyIframe")) {
@@ -185,14 +147,14 @@
         dersleriGosterKurs1();
       }
     }
-  
+
     function loadPDFs() {
       document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
       document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
       document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
       document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
     }
-  
+
     function createGameIframe(containerId, iframeId, src) {
       if (!document.getElementById(iframeId)) {
         const iframe = document.createElement("iframe");
@@ -203,38 +165,53 @@
         document.getElementById(containerId).appendChild(iframe);
       }
     }
-  
+
     function loadFlappy() { createGameIframe("flappyContainer", "flappyIframe", "https://kenox7.github.io/FlappyRaminn/"); }
     function loadBagik() { createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/"); }
     function openFullScreen(url) { window.open(url, '_blank').focus(); }
-  
+
     const dersCedveliKurs1 = {
-      "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
-      "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
+      "alt": {
+        1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+        2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"],
+        3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+        4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"],
+        5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      },
+      "ust": {
+        1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"],
+        2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"],
+        3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"],
+        4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"],
+        5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"]
+      }
     };
-  
+
     const startDate = new Date("2024-02-24");
-  
+
     const dersCedveliKurs2 = {
-      "alt": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"], 
-              2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"], 
-              4: ["1)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (12:45-14:05, Otaq ???)", "2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)"], 
-              5: ["1)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (12:45-14:05, Otaq ???)", "2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"] },
-      
-      "ust": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"], 
-              2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"], 
-              4: ["1)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (12:45-14:05, Otaq 433)", "2)XDİAK-3 (seminar) - Səlimzadə Aydan (14:20-15:40, Otaq 584)", "3)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (15:55-17:15, Otaq 432)"], 
-              5: ["2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"] },
+      "alt": {
+        1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"],
+        2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"],
+        3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"],
+        4: ["1)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (12:45-14:05, Otaq 432)", "2)XDİAK-3 (seminar) - Səlimzadə Aydan (14:20-15:40, Otaq 584)"],
+        5: ["1)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (12:45-14:05, Otaq ???)", "2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"]
+      },
+      "ust": {
+        1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"],
+        2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"],
+        3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"],
+        4: ["1)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (12:45-14:05, Otaq 433)", "2)XDİAK-3 (seminar) - Səlimzadə Aydan (14:20-15:40, Otaq 584)", "3)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (15:55-17:15, Otaq 432)"],
+        5: ["2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"]
+      }
     };
-  
+
     function startOfDayCopy(d) {
       const c = new Date(d);
       c.setHours(0,0,0,0);
       return c;
     }
-  
+
     function hefteniTap(date) {
       const ref = startOfDayCopy(startDate);
       const d = startOfDayCopy(date);
@@ -242,262 +219,12 @@
       const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
       return (diffWeeks % 2 === 0) ? "alt" : "ust";
     }
-  
+
     function tarixFormatla(date) {
       const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
       return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
     }
-  
-    function dersleriGosterKurs1() {
-      let container = document.getElementById("schedule_kurs1");
-      container.innerHTML = "";
-      const gunler = ["", "1-ci Gün Bazar ertəsi", "2-ci Gün Çərşənbə axşamı", "3-cü Gün Çərşənbə", "4-cü Gün Cümə axşamı", "5-ci Gün Cümə"];
-      
-      const renderWeek = (weekType) => {
-        container.innerHTML += `<h2 class="text-2xl font-semibold my-4 mt-6 text-center text-yellow-400">${weekType.toUpperCase()} HƏFTƏ</h2>`;
-        for (let day = 1; day <= 5; day++) {
-          let dersler = dersCedveliKurs1[weekType][day] ? dersCedveliKurs1[weekType][day].map(d => `<p>${d}</p>`).join("") : "<p>Dərs yoxdur</p>";
-          container.innerHTML += `
-            <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border border-gray-700'>
-              <strong class="text-blue-300 text-lg">${gunler[day]}</strong>
-              <div class="mt-2 text-gray-300">${dersler}</div>
-            </div>`;
-        }
-      };
-  
-      renderWeek("alt");
-      renderWeek("ust");
-    }
-  
-    function dersleriGosterKurs2() {
-      let container = document.getElementById("schedule_kurs2");
-      container.innerHTML = "";
-      const bugun = new Date();
-      const bugunWeekType = hefteniTap(bugun);
-      document.getElementById("weekType").innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
-  
-      for (let i =
-<!DOCTYPE html>
-<html lang="az">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cədvəl</title>
-  <script src="https://cdn.tailwindcss.com"></script>
 
-  <link rel="icon" type="image/png" href="favicon.png">
-  
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Cədvəl">
-  
-  <meta name="msapplication-TileColor" content="#111827">
-  <meta name="msapplication-TileImage" content="favicon.png">
-  <meta name="theme-color" content="#111827">
-
-
-  
-  <style>
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #111827; }
-    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
-    ::selection { background-color: #3b82f6; color: white; }
-    .prose { max-width: 100%; }
-    .prose h3 { margin-top: 1em; margin-bottom: 0.5em;}
-    .prose ul { margin-top: 0.5em; }
-  </style>
-</head>
-<body class="bg-gray-900 text-gray-200 font-sans antialiased">
-
-  <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
-    758/ITS
-  </header>
-
-  <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
-    <button onclick="showSection('kurs2Section')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">2-ci KURS</button>
-    <button 
-    onclick="window.location.href='https://kenox7.github.io/herkes/'" 
-    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400">
-    Qayıblar
-    </button>
-    <button onclick="showSection('kurs1Section')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">1-ci kurs</button>
-    <button onclick="showSection('pdfsSection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">PDF</button>
-    <button onclick="showSection('flappySection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">Flappy Ramin</button>
-    <button onclick="showSection('bagikSection')" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition-transform transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">Bagik Run</button>
-  </nav>
-
-  <main class="container mx-auto px-4">
-    <div id="kurs2Section" class="content">
-      <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">2-ci KURS CƏDVƏLİ</h1>
-      <h3 id="weekType" class="text-xl text-center mb-6 text-yellow-400 font-semibold"></h3>
-      <div id="schedule_kurs2" class="max-w-2xl mx-auto"></div>
-    </div>
-
-    <div id="kurs1Section" class="content hidden">
-      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">1-ci KURS CƏDVƏLİ</h1>
-      <div id="schedule_kurs1" class="max-w-2xl mx-auto"></div>
-    </div>
-
-    <div id="pdfsSection" class="content hidden">
-      <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">PDF Sənədləri</h1>
-      <p class="text-center mb-6 text-gray-400">Qocunma la Ders oxu</p>
-      <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
-          <h3 class="text-xl font-bold mb-3 text-blue-300">English for Information Technology 1</h3>
-          <iframe id="pdf1" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
-          <div class="mt-4 flex gap-2">
-            <a id="pdf1-download" target="_blank" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
-            <button onclick="openFullScreen('https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Tam Ekran</button>
-          </div>
-        </div>
-        <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
-          <h3 class="text-xl font-bold mb-3 text-blue-300">Murphy (qırmızı kitab)</h3>
-          <iframe id="pdf2" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
-          <div class="mt-4 flex gap-2">
-            <a id="pdf2-download" target="_blank" class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
-            <button onclick="openFullScreen('https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Tam Ekran</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="flappySection" class="content hidden">
-      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Flappy Ramin</h1>
-      <div id="flappyContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700"></div>
-    </div>
-    
-    <div id="bagikSection" class="content hidden">
-      <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Bagik Run</h1>
-      <div id="bagikContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700"></div>
-    </div>
-
-    <div id="commentsSection" class="max-w-3xl mx-auto mt-12 pt-6 border-t border-gray-700">
-      <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
-      <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
-        <input type="text" id="name-input" placeholder="Adın..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-        <input type="text" id="comment-input" placeholder="Fikrini yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Göndər</button>
-      </form>
-      <div id="comments-list"></div>
-    </div>
-  </main>
-  
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-transform focus:outline-none focus:ring-4 focus:ring-blue-400">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
-            <path d="M6 4v16h2v-6h2.5l5.5 6h3l-6-7 6-9h-3l-5 7H8V4H6z" fill="white"></path>
-        </svg>
-    </button>
-
-  <div id="chatModal" class="fixed bottom-20 right-6 w-[calc(100%-3rem)] max-w-lg h-[70vh] bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col transition-transform transform scale-95 opacity-0 hidden" style="transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
-    <div class="p-4 bg-gray-700 rounded-t-2xl flex justify-between items-center">
-      <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">KENO AI ilə Söhbət</h2>
-      <button onclick="toggleChat()" class="text-gray-400 hover:text-white text-3xl font-bold leading-none p-1">&times;</button>
-    </div>
-    <div id="chatHistory" class="flex-grow p-4 overflow-y-auto"></div>
-    <div id="chatLoader" class="p-4 text-center hidden">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
-    </div>
-    <form id="chatForm" class="p-4 border-t border-gray-700 flex gap-2">
-        <input type="text" id="chatInput" placeholder="Sualını yaz..." required class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-lg transition-colors flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" /></svg>
-        </button>
-    </form>
-  </div>
-
-  <footer class="text-center p-8 mt-10 text-gray-400">
-    <p>@by Kenan</p>
-    <a href="https://www.instagram.com/keno.akhmadov/" class="inline-flex items-center justify-center gap-2 mt-2 text-lg text-blue-300 hover:text-blue-400 transition-colors" target="_blank">
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.316 1.363.364 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.316-2.427.364-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 15.093 2 14.74 2 12.315s.013-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363.316 2.427-.364C8.907 2.013 9.26 2 12.315 2zM12 7.177a4.823 4.823 0 100 9.646 4.823 4.823 0 000-9.646zM12 15a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" clip-rule="evenodd" /></svg>
-      <span>Takib edin😎</span>
-    </a>
-  </footer>
-
-  <script>
-    function showSection(sectionId) {
-      const sections = ['kurs1Section', 'kurs2Section', 'pdfsSection', 'flappySection', 'bagikSection'];
-      sections.forEach(id => document.getElementById(id).classList.add('hidden'));
-      document.getElementById(sectionId).classList.remove('hidden');
-  
-      if (sectionId === 'pdfsSection' && !document.getElementById("pdf1").src) {
-        loadPDFs();
-      } else if (sectionId === 'flappySection' && !document.getElementById("flappyIframe")) {
-        loadFlappy();
-      } else if (sectionId === 'bagikSection' && !document.getElementById("bagikIframe")) {
-        loadBagik();
-      } else if (sectionId === 'kurs1Section' && !document.getElementById('schedule_kurs1').hasChildNodes()) {
-        dersleriGosterKurs1();
-      }
-    }
-  
-    function loadPDFs() {
-      document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
-      document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
-      document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
-      document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
-    }
-  
-    function createGameIframe(containerId, iframeId, src) {
-      if (!document.getElementById(iframeId)) {
-        const iframe = document.createElement("iframe");
-        iframe.id = iframeId;
-        iframe.src = src;
-        iframe.className = "w-full h-full";
-        iframe.style.border = "none";
-        document.getElementById(containerId).appendChild(iframe);
-      }
-    }
-  
-    function loadFlappy() { createGameIframe("flappyContainer", "flappyIframe", "https://kenox7.github.io/FlappyRaminn/"); }
-    function loadBagik() { createGameIframe("bagikContainer", "bagikIframe", "https://kenox7.github.io/BagikRun/"); }
-    function openFullScreen(url) { window.open(url, '_blank').focus(); }
-  
-    const dersCedveliKurs1 = {
-      "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin (08:00, otaq 02KM)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["3)İnstrumental və tətbiqi proqramlar (seminar) - Göyüşlü Rəvanə (11:10, otaq 05KM)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] },
-      "ust": { 1: ["1)Xətti cəbr və analtik həndəsə (mühazirə) - Səmədzadə Fərahim (08:00, otaq 515)", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan (09:35, otaq 202)", "3)Fizika (mühazirə) - Əlizadə Leyla (11:10, otaq 413)"], 2: ["1)Xətti cəbr və analtik həndəsə (seminar) - Səmədzadə Fərahim (08:00, otaq 508)", "2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 115)", "3)Proqramlaşdırmanın əsasları (seminar) - Sənan Niyazi (11:10, otaq 06KM)"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə (09:35, otaq 503)", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin (11:10, otaq 05KM)"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov (09:35, otaq 329)", "3)Fizika Seminar (seminar) - Əlizadə Leyla (11:10, otaq 502)"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi (09:35, otaq 05KM)", "3)İnstrumental və tətbiqi proqramlar (mühazirə) - Göyüşlü Rəvanə (11:20, otaq 04KM)"] }
-    };
-  
-    const startDate = new Date("2024-02-24");
-  
-    const dersCedveliKurs2 = {
-      "alt": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"], 
-              2: ["2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"], 
-              4: ["1)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (12:45-14:05, Otaq 432)"], 
-              5: ["1)Kompüter arxitekturası-1 (seminar) - Vəlicanova Gülnarə (12:45-14:05, Otaq ???)", "2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"] },
-      
-      "ust": { 1: ["1)Ehtimal nəzəriyyəsi və statistika (mühazirə) - Məmmədov Mənsim (12:45-14:05, Otaq 406)", "2)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (14:20-15:40, Otaq 434)"], 
-              2: ["1)Ehtimal nəzəriyyəsi və statistika (seminar) - Məmmədov Mənsim (12:45-14:05, Otaq 432)", "2)Verilənlər bazası sistemləri (mühazirə) - Kazımov Ramin (14:20-15:40, Otaq 432)", "3)XDİAK-3 (seminar) - Səlimzadə Aydan (15:55-17:15, Otaq 506)"], 
-              3: ["1)Kompüter arxitekturası-1 (mühazirə) - Vəlicanova Gülnarə (12:45-14:05, Otaq 406)", "2)Verilənlər bazası sistemləri (seminar) - Kazımov Ramin (14:20-15:40, Otaq 431)"], 
-              4: ["1)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (12:45-14:05, Otaq 433)", "2)XDİAK-3 (seminar) - Səlimzadə Aydan (14:20-15:40, Otaq 584)", "3)Sistem proqramlaşdırma (mühazirə) - Həsənova Vüsalə (15:55-17:15, Otaq 432)"], 
-              5: ["2)Web sistemləri və texnologiyaları (seminar) - Nəcəfov Fuad (14:20-15:40, Otaq 431)", "3)Web sistemləri və texnologiyaları (mühazirə) - Nəcəfov Fuad (15:55-17:15, Otaq 431)"] },
-    };
-  
-    function startOfDayCopy(d) {
-      const c = new Date(d);
-      c.setHours(0,0,0,0);
-      return c;
-    }
-  
-    function hefteniTap(date) {
-      const ref = startOfDayCopy(startDate);
-      const d = startOfDayCopy(date);
-      const diffMs = d.getTime() - ref.getTime();
-      const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
-      return (diffWeeks % 2 === 0) ? "alt" : "ust";
-    }
-  
-    function tarixFormatla(date) {
-      const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
-      return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
-    }
-  
     function dersleriGosterKurs1() {
       let container = document.getElementById("schedule_kurs1");
       container.innerHTML = "";
@@ -517,31 +244,32 @@
             </div>`;
         }
       };
-  
+
       renderWeek("alt");
       renderWeek("ust");
     }
-  
+
     function dersleriGosterKurs2() {
       let container = document.getElementById("schedule_kurs2");
       container.innerHTML = "";
       const bugun = new Date();
       const bugunWeekType = hefteniTap(bugun);
       document.getElementById("weekType").innerText = `Bu Həftə: ${bugunWeekType.toUpperCase()} Həftədir`;
-  
+
+      // göstərmək üçün bugündən başlayaraq 7 gün (yalnız iş günləri: 1..5)
       for (let i = 0; i < 7; i++) {
         const tarix = new Date();
         tarix.setDate(bugun.getDate() + i);
         const tarihDay = startOfDayCopy(tarix);
         const gun = tarihDay.getDay();
-  
+
         if (gun > 0 && gun < 6) {
           const haftaTipi = hefteniTap(tarihDay);
           const derslerArr = (dersCedveliKurs2[haftaTipi] && dersCedveliKurs2[haftaTipi][gun]) ? dersCedveliKurs2[haftaTipi][gun] : null;
           const dersler = derslerArr 
             ? derslerArr.map(d => `<div class="bg-gray-700/50 p-3 rounded-lg mt-3">${d}</div>`).join("") 
             : "<p class='mt-2 text-gray-400'>Dərs yoxdur</p>";
-  
+
           const isToday = (startOfDayCopy(new Date()).getTime() === tarihDay.getTime());
           container.innerHTML += `
             <div class='bg-gray-800 p-5 rounded-xl shadow-lg mb-4 border ${isToday ? 'border-blue-500 scale-105' : 'border-gray-700'} transition-transform'>
@@ -554,13 +282,14 @@
         }
       }
     }
-  
+
+    // Chat modal logic
     const chatModal = document.getElementById('chatModal');
     const chatHistory = document.getElementById('chatHistory');
     const chatInput = document.getElementById('chatInput');
     const chatForm = document.getElementById('chatForm');
     const chatLoader = document.getElementById('chatLoader');
-  
+
     function toggleChat() {
       const isHidden = chatModal.classList.contains('hidden');
       if (isHidden) {
@@ -571,23 +300,24 @@
         setTimeout(() => { chatModal.classList.add('hidden'); }, 200);
       }
     }
-  
+
     chatForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const userQuery = chatInput.value.trim();
       if (!userQuery) return;
-  
+
       appendMessage(userQuery, 'user');
       chatInput.value = '';
       chatLoader.classList.remove('hidden');
-  
+
       try {
-        const apiKey = "AIzaSyCHqiD4O_llYKx8O_SQePVLDAlG9x1rEdU";
+        // **DİQQƏT**: öz açarını buraya qoy. İctimai repoya açarı əlavə etmə!
+        const apiKey = "AIzaSyCHqiD4O_llYKx8O_SQePVLDAlG9x1rEdU;
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-  
+
         const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: `
+          contents: [{ parts: [{ text: userQuery }] }],
+          systemInstruction: { parts: [{ text: `
 Siz Keno AI-siniz. 
 - Əgər istifadəçi soruşsa "Keno kimdir?", cavab verin: 
   "Keno, tam adı <strong>Kənan Əhmədov</strong>, Odlar Yurdu Universitetində İT fakültəsinin 2-ci kurs tələbəsidir. O mənim yaradıcım və müəllifimdir."
@@ -601,38 +331,29 @@ Siz Keno AI-siniz.
     <li><ul>/<li> siyahılar:</li> məlumatları sadalamaq üçün</li>
   </ul>
 - İstifadəçi şəxsi məlumat soruşarsa, yalnız ümumi və təhlükəsiz məlumat verin.
-- Məsələn:
-  <ul>
-    <li>Sual: "Keno harada oxuyur?"  
-        Cavab: "Keno <strong>Odlar Yurdu Universiteti</strong>-də təhsil alır."</li>
-    <li>Sual: "Keno neçə yaşındadır?"  
-        Cavab: "Bu barədə məlumatım yoxdur."</li>
-    <li>Sual: "Sen Keno-nun yaratdığısən?"  
-        Cavab: "Bəli, mən <strong>Keno AI</strong> modeliyəm və onun tərəfindən yaradılmışam."</li>
-  </ul>
 ` }] }
-            };
-  
+        };
+
         const response = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-  
+
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error?.message || `API Error: ${response.status}`);
+          const errorData = await response.json().catch(() => null);
+          throw new Error(errorData?.error?.message || `API Error: ${response.status}`);
         }
-  
+
         const result = await response.json();
         const candidate = result.candidates?.[0];
-  
+
         if (candidate && candidate.content?.parts?.[0]?.text) {
           appendMessage(candidate.content.parts[0].text, 'model');
         } else {
           throw new Error("Süni intellektdən cavab alına bilmədi.");
         }
-  
+
       } catch (error) {
         console.error("Gemini Chat Error:", error);
         appendMessage(`<p class="text-red-400">Xəta baş verdi: ${error.message}</p>`, 'model');
@@ -640,34 +361,38 @@ Siz Keno AI-siniz.
         chatLoader.classList.add('hidden');
       }
     });
-  
+
     function appendMessage(content, sender) {
       const messageDiv = document.createElement('div');
       const bubbleDiv = document.createElement('div');
-  
+
       messageDiv.classList.add('flex', 'mb-4');
       bubbleDiv.classList.add('rounded-lg', 'p-3', 'max-w-md', 'prose');
-  
+
       if (sender === 'user') {
         messageDiv.classList.add('justify-end');
         bubbleDiv.classList.add('bg-blue-600', 'text-white');
+        // istifadəçi mesajını plain text kimi göstər (HTML-injectdən qorunmaq üçün)
         bubbleDiv.textContent = content;
       } else {
         messageDiv.classList.add('justify-start');
         bubbleDiv.classList.add('bg-gray-700', 'text-gray-200');
         bubbleDiv.innerHTML = content;
       }
-  
+
       messageDiv.appendChild(bubbleDiv);
       chatHistory.appendChild(messageDiv);
       chatHistory.scrollTop = chatHistory.scrollHeight;
     }
-  
+
+    // Firebase comments (son script modulda import olunur)
     document.addEventListener('DOMContentLoaded', () => {
       showSection('kurs2Section');
       dersleriGosterKurs2();
     });
   </script>
+
+  <!-- Firebase module (ayrı script olaraq yüklənir) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
@@ -723,10 +448,6 @@ Siz Keno AI-siniz.
         commentsList.appendChild(commentDiv);
       });
     });
-    </script>
-    
+  </script>
 </body>
 </html>
-
-
-
