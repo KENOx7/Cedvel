@@ -63,7 +63,7 @@
             <p class="mt-2 text-gray-400">Cədvəl yüklənir...</p>
         </div>
 
-        <div id="kurs2Section" class="content">
+        <div id="kurs2Section" class="content hidden">
             <h1
                 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 2-ci KURS CƏDVƏLİ</h1>
@@ -257,6 +257,8 @@
                 console.error(e);
             } finally {
                 if (loader) loader.classList.add('hidden');
+                const section = document.getElementById('kurs2Section');
+                if (section) section.classList.remove('hidden');
             }
         }
 
