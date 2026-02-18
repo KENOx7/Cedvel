@@ -57,7 +57,6 @@
     </nav>
 
     <main class="container mx-auto px-4">
-        <!-- Loader -->
         <div id="loader" class="text-center py-10 hidden">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
             <p class="mt-2 text-gray-400">Cədvəl yüklənir...</p>
@@ -68,7 +67,6 @@
                 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 2-ci KURS CƏDVƏLİ</h1>
 
-            <!-- Week Navigation Controls -->
             <div class="flex flex-col items-center justify-center gap-3 mb-6">
                 <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md"></h3>
                 <div class="flex items-center gap-4 bg-gray-800 p-2 rounded-full shadow-lg border border-gray-700">
@@ -94,7 +92,6 @@
 
             <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4 px-2"></div>
 
-            <!-- Comments Section -->
             <div id="commentsSection" class="max-w-3xl mx-auto mt-12 pt-6 border-t border-gray-700">
                 <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
                 <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
@@ -117,7 +114,6 @@
         </div>
 
         <div id="pdfsSection" class="content hidden">
-            <!-- PDF Content (preserved) -->
             <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
                     <h3 class="text-xl font-bold mb-3 text-blue-300">English for Information Technology 1</h3>
@@ -156,7 +152,6 @@
             </div>
         </div>
 
-        <!-- Comments Section (Merged from kohne.html) -->
         <div id="comments_container"></div>
         </div>
     </main>
@@ -184,13 +179,18 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const rtdb = getDatabase(app); // Realtime Database instance
+        const rtdb = getDatabase(app);
         const manager = new SystemManager(db);
         const currentGroupId = "758_ITS";
         let currentSchedule = null;
-        let viewOffset = 0; // 0 = current week, -1 = prev, 1 = next
+        let viewOffset = 0;
 
-        // --- Comments Logic ---
+        function getBakuDate() {
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            return new Date(utc + (3600000 * 4));
+        }
+
         const commentsRef = ref(rtdb, "comments");
         let clientId = localStorage.getItem('clientId');
         if (!clientId) {
@@ -232,7 +232,7 @@
                 const commentDiv = document.createElement("div");
                 commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
                 const date = new Date(data.timestamp);
-                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
+                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Baku' });
                 commentDiv.innerHTML = `
             <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
             <small class="text-gray-500">${formattedDate}</small>
@@ -262,8 +262,7 @@
             }
         }
 
-        // --- Helpers ---
-        const startDate = new Date("2026-02-16"); // Updated to actual start
+        const startDate = new Date("2026-02-16T00:00:00+04:00");
 
         function startOfDayCopy(d) {
             const c = new Date(d);
@@ -275,9 +274,8 @@
             const ref = startOfDayCopy(startDate);
             const d = startOfDayCopy(date);
             const diffMs = d.getTime() - ref.getTime();
-            // Calculate week number (1-based)
             const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) + 1;
-            const type = (diffWeeks % 2 === 0) ? "alt" : "ust"; // Determine ALT/UST based on parity (Odd=UST, Even=ALT)
+            const type = (diffWeeks % 2 === 0) ? "alt" : "ust";
             return { type, number: diffWeeks > 0 ? diffWeeks : 1 };
         }
 
@@ -286,7 +284,6 @@
             return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
         }
 
-        // Standard Lesson Times (Start - End)
         const lessonSlots = [
             { start: "09:00", end: "10:20" },
             { start: "10:30", end: "11:50" },
@@ -296,24 +293,23 @@
         ];
 
         function isLessonActive(slotIndex) {
-            // slotIndex is 1-based from lesson data
             if (slotIndex < 1 || slotIndex > 5) return false;
 
-            const now = new Date();
+            const now = getBakuDate();
             const slot = lessonSlots[slotIndex - 1];
 
             const [sH, sM] = slot.start.split(':');
             const [eH, eM] = slot.end.split(':');
 
-            const startTime = new Date(); startTime.setHours(sH, sM, 0);
-            const endTime = new Date(); endTime.setHours(eH, eM, 0);
+            const startTime = getBakuDate();
+            startTime.setHours(parseInt(sH), parseInt(sM), 0);
+            
+            const endTime = getBakuDate();
+            endTime.setHours(parseInt(eH), parseInt(eM), 0);
 
             return now >= startTime && now <= endTime;
         }
 
-        // --- Render Logic ---
-
-        // Navigation Functions
         window.changeWeek = (delta) => {
             viewOffset += delta;
             renderScheduleKurs2();
@@ -324,10 +320,8 @@
             renderScheduleKurs2();
         };
 
-        // Copy Function
         window.copyDaySchedule = (dateStr, lessonsArr) => {
             if (!lessonsArr || lessonsArr.length === 0) return;
-            // Clean up lessons for text
             const textLines = lessonsArr.map(l => {
                 let clean = l;
                 if (l.startsWith('{')) clean = l.substring(l.indexOf('}') + 1).trim();
@@ -352,26 +346,18 @@
 
             container.innerHTML = "";
 
-            // Calculate base date (Today + offset * 7)
-            const today = new Date();
-            const viewDate = new Date();
+            const today = getBakuDate();
+            const viewDate = getBakuDate();
             viewDate.setDate(today.getDate() + (viewOffset * 7));
 
-            // Find start of this view's week (Monday) (?)
-            // Actually, keep the logic "Next 7 days starting from Today" or "Monday-Sunday"?
-            // User asked for "Previous/Next Weeks". Usually means Monday-Sunday blocks.
-            // Let's align to Monday for cleaner navigation.
-
-            const dayOfWeek = viewDate.getDay(); // 0 (Sun) - 6 (Sat)
-            const diffToMon = (dayOfWeek + 6) % 7; // How many days to subtract to get Monday
+            const dayOfWeek = viewDate.getDay();
+            const diffToMon = (dayOfWeek + 6) % 7;
             const mondayDate = new Date(viewDate);
             mondayDate.setDate(viewDate.getDate() - diffToMon);
 
-            // Determine Week Type based on Monday
             const weekInfo = hefteniTap(mondayDate);
             const weekType = weekInfo.type;
 
-            // Update Headers
             const wtEl = document.getElementById("weekType");
             if (wtEl) wtEl.innerHTML = `
                 <div class="flex flex-col items-center">
@@ -380,36 +366,27 @@
                 </div>
             `;
 
-            // Date Range String (Custom Format)
             const sunDate = new Date(mondayDate);
             sunDate.setDate(mondayDate.getDate() + 6);
 
             const azMonths = ["Yan", "Fev", "Mar", "Apr", "May", "İyun", "İyul", "Avq", "Sen", "Okt", "Noy", "Dek"];
-            // Format: 16 Fev - 22 Fev
             const startStr = `${mondayDate.getDate()} ${azMonths[mondayDate.getMonth()]}`;
             const endStr = `${sunDate.getDate()} ${azMonths[sunDate.getMonth()]}`;
 
             document.getElementById("dateRange").innerText = `${startStr} - ${endStr}`;
 
-            // Render 7 days starting from Monday
             for (let i = 0; i < 7; i++) {
                 const date = new Date(mondayDate);
                 date.setDate(mondayDate.getDate() + i);
-                const loopDayIndex = date.getDay(); // 0-6
-
-                // Only render Mon(1) to Fri(5)? Or show weekends too if desired?
-                // Let's show Mon-Fri mainly, maybe Sat/Sun if needed. Original code did 1-5.
-                // Keeping 1-5 for lessons.
+                const loopDayIndex = date.getDay();
 
                 if (loopDayIndex >= 1 && loopDayIndex <= 5) {
                     const loopWeekInfo = hefteniTap(date);
                     const loopWeekType = loopWeekInfo.type;
                     const lessons = currentSchedule && currentSchedule[loopWeekType] ? currentSchedule[loopWeekType][loopDayIndex] : [];
 
-                    // Check if this specific date is TODAY
                     const isTodayReal = (date.toDateString() === today.toDateString());
 
-                    // Lesson Formatting
                     const lessonHtml = (lessons && lessons.length > 0)
                         ? lessons.sort().map((l) => {
                             let display = l;
@@ -434,19 +411,16 @@
                                 }
                             }
 
-                            // 1. SMART BADGES
                             let typeBadge = "";
                             if (display.toLowerCase().includes("mühazirə")) {
                                 typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-900/50 text-purple-300 border border-purple-700/50 uppercase tracking-wider ml-2">Mühazirə</span>`;
-                                display = display.replace(/\(mühazirə\)/i, '').trim(); // Remove raw text
+                                display = display.replace(/\(mühazirə\)/i, '').trim();
                             } else if (display.toLowerCase().includes("seminar")) {
                                 typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-900/50 text-orange-300 border border-orange-700/50 uppercase tracking-wider ml-2">Seminar</span>`;
                                 display = display.replace(/\(seminar\)/i, '').trim();
                             }
 
-                            // 2. TEACHER PARSING
                             let content = display;
-                            // FIX: Clean splitting by " - " (space hyphen space) to support subjects like "Subject-2"
                             if (display.includes(' - ')) {
                                 const parts = display.split(' - ');
                                 const subj = parts[0].trim();
@@ -456,12 +430,8 @@
                                 content = `<span>${display}</span>${typeBadge}`;
                             }
 
-                            // 3. ACTIVE GLOW (Time Check)
-                            // We need to know which slot this is. 
-                            // If slotNum is available use it (adjust >3 logic), else try to guess from legacy string
                             let checkSlot = null;
                             if (slotNum) checkSlot = (slotNum > 3) ? (slotNum - 3) : slotNum;
-                            // legacy fallback: numberPrefix contains the number
                             else if (numberPrefix.includes('1')) checkSlot = 1;
                             else if (numberPrefix.includes('2')) checkSlot = 2;
                             else if (numberPrefix.includes('3')) checkSlot = 3;
@@ -476,14 +446,12 @@
                         }).join('')
                         : "<div class='mt-4 text-center py-6 bg-gray-800/50 rounded-xl border border-dashed border-gray-700'><p class='text-gray-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
 
-                    // Prepare data for copy
                     const dateStr = tarihFormatla(date).replace('<br>', '');
                     const lessonsData = JSON.stringify(lessons).replace(/"/g, '&quot;');
 
                     container.innerHTML += `
                         <div class='relative group overflow-hidden rounded-xl transition-all duration-300 ${isTodayReal ? 'bg-gradient-to-br from-gray-800 to-gray-800 border-2 border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)] transform scale-[1.02]' : 'bg-gray-800 border border-gray-700 hover:border-gray-600'}'>
                             
-                            <!-- Header -->
                             <div class="p-4 ${isTodayReal ? 'bg-blue-900/20' : 'bg-gray-900/50'} flex justify-between items-center border-b border-gray-700/50">
                                 <div>
                                     <h4 class="text-lg font-bold ${isTodayReal ? 'text-blue-400' : 'text-gray-200'}">
@@ -498,7 +466,6 @@
                                 </button>
                             </div>
 
-                            <!-- Body -->
                             <div class="p-4 pt-2 pb-5">
                                 ${lessonHtml}
                             </div>
@@ -508,7 +475,6 @@
             }
         }
 
-        // --- Kurs 1 Static (Legacy) ---
         const dersCedveliKurs1 = {
             "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["3)İnstrumental proqramlar (seminar) - Göyüşlü Rəvanə"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] },
             "ust": { 1: ["1)Xətti cəbr (mühazirə) - Səmədzadə Fərahim", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)Proqramlaşdırma (seminar) - Sənan Niyazi"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov", "3)Fizika Seminar (seminar) - Əlizadə Leyla"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] }
@@ -532,14 +498,12 @@
             renderWeek("ust");
         }
 
-        // --- Tabs / Navigation ---
         window.showSection = function (id) {
             document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
             const el = document.getElementById(id);
             if (el) el.classList.remove('hidden');
 
             if (id === 'pdfsSection' && document.getElementById("pdf1") && !document.getElementById("pdf1").src) {
-                // Load PDFs on demand
                 document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
                 document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
                 document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
@@ -555,9 +519,8 @@
             }
         };
 
-        // Init
         document.addEventListener('DOMContentLoaded', () => {
-            init(); // Load dynamic schedule
+            init();
         });
     </script>
 </body>
