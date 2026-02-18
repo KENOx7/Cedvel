@@ -1,25 +1,22 @@
 {
-  "name": "758/ITS Cədvəl",
-  "short_name": "Cədvəl",
-  "description": "758/ITS Qrupu üçün Dərs Cədvəli və Faydalı Alətlər",
-  "start_url": "./index.html",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#111827",
-  "theme_color": "#111827",
-  "icons": [
-    {
-      "src": "favicon.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "favicon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ]
+    "name": "758/ITS Cədvəl",
+    "short_name": "758/ITS",
+    "start_url": "./cedvel.html",
+    "display": "standalone",
+    "background_color": "#111827",
+    "theme_color": "#1F2937",
+    "orientation": "portrait",
+    "scope": "./",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }
