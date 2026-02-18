@@ -3,144 +3,161 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cədvəl</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#111827">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Cədvəl">
-
     <style>
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #1f2937; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        body { font-family: system-ui, -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-        
-        /* iOS Təlimat Animasiyası */
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .ios-hint-box { animation: pulse-border 2s infinite; }
+
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
     </style>
 </head>
 
-<body class="bg-gray-900 text-gray-200 antialiased font-sans pb-10 select-none">
-    
-    <header class="bg-gray-800/90 backdrop-blur-md border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg sticky top-0 z-50">
-        758/ITS
-    </header>
+<body class="bg-gray-900 text-gray-200 antialiased font-sans">
+    <header class="bg-gray-800 border-b-4 border-blue-500 text-white font-bold p-4 text-2xl text-center shadow-lg">
+        758/ITS</header>
 
-    <nav class="flex flex-wrap justify-center items-center gap-2 my-4 px-2">
-        <button onclick="showSection('kurs2Section')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">2-ci KURS</button>
-        <button onclick="window.location.href='https://kenox7.github.io/herkes/'" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">Qayıblar</button>
-        <button onclick="showSection('kurs1Section')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">1-ci kurs</button>
-        <button onclick="showSection('pdfsSection')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">PDF</button>
-        <button onclick="showSection('flappySection')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">Flappy</button>
-        <button onclick="showSection('bagikSection')" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-full text-sm shadow-md transition transform active:scale-95">Bagik</button>
+    <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
+        <button onclick="showSection('kurs2Section')"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">2-ci
+            KURS</button>
+        <button onclick="window.location.href='https://kenox7.github.io/herkes/'"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">Qayıblar</button>
+        <button onclick="showSection('kurs1Section')"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">1-ci
+            kurs</button>
+        <button onclick="showSection('pdfsSection')"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">PDF</button>
+        <button onclick="showSection('flappySection')"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">Flappy
+            Ramin</button>
+        <button onclick="showSection('bagikSection')"
+            class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-5 rounded-full transition transform hover:scale-105 shadow-md">Bagik
+            Run</button>
     </nav>
 
-    <main class="container mx-auto px-3">
+    <main class="container mx-auto px-4">
         <div id="loader" class="text-center py-10 hidden">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
             <p class="mt-2 text-gray-400">Cədvəl yüklənir...</p>
         </div>
 
         <div id="kurs2Section" class="content hidden">
-            <h1 class="text-3xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                2-ci KURS
-            </h1>
+            <h1
+                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                2-ci KURS CƏDVƏLİ</h1>
 
-            <div class="flex flex-col items-center justify-center gap-3 mb-4">
-                
-                <div id="weekType" class="text-center w-full"></div>
-
-                <div id="installAppContainer" class="hidden w-full max-w-sm transition-all duration-500 px-4">
-                    
-                    <button id="installBtn" class="hidden w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2 transform active:scale-95 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <div class="flex flex-col items-center justify-center gap-3 mb-6">
+                <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md"></h3>
+                <div class="flex items-center gap-4 bg-gray-800 p-2 rounded-full shadow-lg border border-gray-700">
+                    <button onclick="changeWeek(-1)"
+                        class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
-                        <span>Tətbiqi Yüklə</span>
                     </button>
-
-                    <div id="iosInstallHint" class="hidden bg-gray-800 border border-blue-500/50 p-3 rounded-xl ios-hint-box relative mt-2">
-                        <button onclick="closeIosHint()" class="absolute top-1 right-2 text-gray-400 text-lg">&times;</button>
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">📲</span>
-                            <div class="text-xs text-gray-300 text-left">
-                                <p class="font-bold text-white mb-1">iPhone-da yükləmək üçün:</p>
-                                <p>1. Aşağıdakı <span class="text-blue-400 font-bold">Paylaş</span> düyməsinə basın.</p>
-                                <p>2. <span class="text-gray-100 font-bold bg-gray-700 px-1 rounded">Ana Ekrana Əlavə Et</span> seçin.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 bg-gray-800 p-1.5 rounded-full shadow-lg border border-gray-700 mt-1">
-                    <button onclick="changeWeek(-1)" class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition active:scale-90">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                    </button>
-                    <span id="dateRange" class="text-gray-300 font-mono font-semibold text-sm min-w-[120px] text-center"></span>
-                    <button onclick="changeWeek(1)" class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition active:scale-90">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    <span id="dateRange" class="text-gray-300 font-mono font-semibold min-w-[140px] text-center"></span>
+                    <button onclick="changeWeek(1)"
+                        class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
                     </button>
                 </div>
-                <button onclick="resetToToday()" class="text-xs text-gray-500 hover:text-blue-400 underline decoration-dotted">Bugünə qayıt</button>
+                <button onclick="resetToToday()"
+                    class="text-xs text-gray-500 hover:text-blue-400 underline decoration-dotted">Bugünə qayıt</button>
             </div>
 
-            <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4 px-1"></div>
+            <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4 px-2"></div>
 
-            <div id="commentsSection" class="max-w-3xl mx-auto mt-10 pt-6 border-t border-gray-700">
-                <h2 class="text-2xl font-bold mb-4 text-center text-blue-300">Qeydlər</h2>
-                <form id="comment-form" class="flex flex-col gap-3 mb-6">
-                    <input type="text" id="name-input" placeholder="Adın..." required class="bg-gray-800 border border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:border-blue-500" />
-                    <div class="flex gap-2">
-                        <input type="text" id="comment-input" placeholder="Fikrin..." required class="flex-grow bg-gray-800 border border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:border-blue-500" />
-                        <button type="submit" class="bg-blue-600 text-white p-3 rounded-lg">✍️</button>
-                    </div>
+            <div id="commentsSection" class="max-w-3xl mx-auto mt-12 pt-6 border-t border-gray-700">
+                <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
+                <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
+                    <input type="text" id="name-input" placeholder="Adın..." required
+                        class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+                    <input type="text" id="comment-input" placeholder="Fikrini yaz..." required
+                        class="flex-grow bg-gray-700 border-2 border-gray-600 rounded-lg p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" />
+                    <button type="submit"
+                        class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">Göndər</button>
                 </form>
-                <div id="comments-list" class="space-y-3"></div>
+                <div id="comments-list"></div>
             </div>
         </div>
 
         <div id="kurs1Section" class="content hidden">
-            <h1 class="text-3xl font-extrabold mb-4 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">1-ci KURS</h1>
+            <h1
+                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                1-ci KURS CƏDVƏLİ</h1>
             <div id="schedule_kurs1" class="max-w-2xl mx-auto"></div>
         </div>
 
         <div id="pdfsSection" class="content hidden">
-            <div class="space-y-6 max-w-xl mx-auto">
-                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
-                    <h3 class="font-bold mb-2 text-blue-300">English for IT 1</h3>
-                    <a href="https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2" class="block w-full text-center bg-gray-700 hover:bg-gray-600 py-3 rounded-lg text-green-400 font-bold transition">⬇️ PDF Yüklə</a>
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-blue-300">English for Information Technology 1</h3>
+                    <iframe id="pdf1" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
+                    <div class="mt-4 flex gap-2">
+                        <a id="pdf1-download" target="_blank"
+                            class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
+                    </div>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
-                    <h3 class="font-bold mb-2 text-blue-300">Murphy (Qırmızı)</h3>
-                    <a href="https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e" class="block w-full text-center bg-gray-700 hover:bg-gray-600 py-3 rounded-lg text-green-400 font-bold transition">⬇️ PDF Yüklə</a>
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-700">
+                    <h3 class="text-xl font-bold mb-3 text-blue-300">Murphy (qırmızı kitab)</h3>
+                    <iframe id="pdf2" class="w-full h-96 rounded-md border-2 border-gray-600" loading="lazy"></iframe>
+                    <div class="mt-4 flex gap-2">
+                        <a id="pdf2-download" target="_blank"
+                            class="w-full text-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition-colors">Yüklə</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="flappySection" class="content hidden">
-            <h1 class="text-3xl font-bold mb-4 text-center text-blue-400">Flappy Ramin</h1>
-            <div id="flappyContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700"></div>
+            <h1
+                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                Flappy Ramin</h1>
+            <div id="flappyContainer"
+                class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700">
+            </div>
         </div>
 
         <div id="bagikSection" class="content hidden">
-            <h1 class="text-3xl font-bold mb-4 text-center text-purple-400">Bagik Run</h1>
-            <div id="bagikContainer" class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border border-gray-700"></div>
+            <h1
+                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                Bagik Run</h1>
+            <div id="bagikContainer"
+                class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700">
+            </div>
         </div>
 
+        <div id="comments_container"></div>
+        </div>
     </main>
 
-    <footer class="text-center p-6 mt-8 text-xs text-gray-600">
-        <p>Created by Kenan</p>
+    <footer class="text-center p-8 mt-10 text-gray-400">
+        <p>@by Kenan</p>
     </footer>
 
     <script type="module">
@@ -148,64 +165,6 @@
         import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
         import { SystemManager } from "./firestore_manager.js";
-
-        // --- PWA QURAŞDIRMA KODLARI (SƏNİN İSTƏDİYİN HİSSƏ) ---
-        
-        // Service Worker-i qeydiyyatdan keçiririk
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('SW Hazırdır'))
-                    .catch(err => console.log('SW Xətası:', err));
-            });
-        }
-
-        const installContainer = document.getElementById('installAppContainer');
-        const installBtn = document.getElementById('installBtn');
-        const iosHint = document.getElementById('iosInstallHint');
-        let deferredPrompt;
-
-        // Proqramın artıq quraşdırıldığını yoxlayırıq (Standalone rejimi)
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-
-        if (!isStandalone) {
-            // Android üçün "Yüklə" düyməsi məntiqi
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                installContainer.classList.remove('hidden');
-                installBtn.classList.remove('hidden');
-            });
-
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        installContainer.classList.add('hidden');
-                    }
-                    deferredPrompt = null;
-                }
-            });
-
-            // iOS (iPhone) üçün təlimat məntiqi
-            const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
-            if (isIos) {
-                // Əgər istifadəçi "bağla" düyməsini basmayıbsa göstər
-                if (!localStorage.getItem('iosHintDismissed')) {
-                    installContainer.classList.remove('hidden');
-                    iosHint.classList.remove('hidden');
-                }
-            }
-        }
-
-        // iOS təlimatını bağlamaq üçün funksiya (Window obyektinə atırıq ki HTML görsün)
-        window.closeIosHint = () => {
-            installContainer.classList.add('hidden');
-            localStorage.setItem('iosHintDismissed', 'true'); // Yadda saxla ki, bir daha göstərməsin
-        };
-
-        // --- FIREBASE VƏ CƏDVƏL KODLARI ---
 
         const firebaseConfig = {
             apiKey: "AIzaSyAtQ_laoPhn_31RgUFp5hkHPzAcYJSH9_8",
@@ -232,7 +191,6 @@
             return new Date(utc + (3600000 * 4));
         }
 
-        // --- COMMENTS SYSTEM ---
         const commentsRef = ref(rtdb, "comments");
         let clientId = localStorage.getItem('clientId');
         if (!clientId) {
@@ -254,6 +212,7 @@
                         timestamp: Date.now(),
                         clientId: clientId
                     });
+                    nameInput.value = "";
                     commentInput.value = "";
                 }
             });
@@ -262,6 +221,7 @@
         onValue(commentsRef, (snapshot) => {
             const commentsList = document.getElementById("comments-list");
             if (!commentsList) return;
+
             commentsList.innerHTML = "";
             const commentsArray = [];
             snapshot.forEach((childSnapshot) => {
@@ -269,20 +229,18 @@
             });
 
             commentsArray.sort((a, b) => b.timestamp - a.timestamp).forEach((data) => {
+                const commentDiv = document.createElement("div");
+                commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
                 const date = new Date(data.timestamp);
-                const formattedDate = date.toLocaleString("az-AZ", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-                commentsList.innerHTML += `
-                    <div class="bg-gray-800 p-3 rounded-lg border border-gray-700">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-blue-300 font-bold text-sm">${data.name}</span>
-                            <span class="text-gray-500 text-xs">${formattedDate}</span>
-                        </div>
-                        <p class="text-gray-300 text-sm">${data.text}</p>
-                    </div>`;
+                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Baku' });
+                commentDiv.innerHTML = `
+            <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
+            <small class="text-gray-500">${formattedDate}</small>
+            `;
+                commentsList.appendChild(commentDiv);
             });
         });
 
-        // --- SCHEDULE LOGIC ---
         async function init() {
             const loader = document.getElementById('loader');
             if (loader) loader.classList.remove('hidden');
@@ -306,151 +264,238 @@
 
         const startDate = new Date("2026-02-16T00:00:00+04:00");
 
+        function startOfDayCopy(d) {
+            const c = new Date(d);
+            c.setHours(0, 0, 0, 0);
+            return c;
+        }
+
         function hefteniTap(date) {
-            const start = new Date(startDate); start.setHours(0,0,0,0);
-            const d = new Date(date); d.setHours(0,0,0,0);
-            const diff = Math.floor((d - start) / (7 * 24 * 3600 * 1000)) + 1;
-            return { type: (diff % 2 === 0) ? "alt" : "ust", number: diff > 0 ? diff : 1 };
+            const ref = startOfDayCopy(startDate);
+            const d = startOfDayCopy(date);
+            const diffMs = d.getTime() - ref.getTime();
+            const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7)) + 1;
+            const type = (diffWeeks % 2 === 0) ? "alt" : "ust";
+            return { type, number: diffWeeks > 0 ? diffWeeks : 1 };
+        }
+
+        function tarihFormatla(date) {
+            const gunler = ["Bazar", "1-ci Gün<br> Bazar ertəsi", "2-ci Gün<br> Çərşənbə axşamı", "3-cü Gün<br> Çərşənbə", "4-cü Gün<br> Cümə axşamı", "5-ci Gün<br> Cümə", "Şənbə"];
+            return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
         }
 
         const lessonSlots = [
-            { start: "09:00", end: "10:20" }, { start: "10:30", end: "11:50" },
-            { start: "12:10", end: "13:30" }, { start: "13:40", end: "15:00" }, { start: "15:10", end: "16:30" }
+            { start: "09:00", end: "10:20" },
+            { start: "10:30", end: "11:50" },
+            { start: "12:10", end: "13:30" },
+            { start: "13:40", end: "15:00" },
+            { start: "15:10", end: "16:30" }
         ];
 
         function isLessonActive(slotIndex) {
             if (slotIndex < 1 || slotIndex > 5) return false;
+
             const now = getBakuDate();
             const slot = lessonSlots[slotIndex - 1];
+
             const [sH, sM] = slot.start.split(':');
             const [eH, eM] = slot.end.split(':');
-            const start = getBakuDate(); start.setHours(sH, sM, 0);
-            const end = getBakuDate(); end.setHours(eH, eM, 0);
-            return now >= start && now <= end;
+
+            const startTime = getBakuDate();
+            startTime.setHours(parseInt(sH), parseInt(sM), 0);
+            
+            const endTime = getBakuDate();
+            endTime.setHours(parseInt(eH), parseInt(eM), 0);
+
+            return now >= startTime && now <= endTime;
         }
 
-        window.changeWeek = (delta) => { viewOffset += delta; renderScheduleKurs2(); };
-        window.resetToToday = () => { viewOffset = 0; renderScheduleKurs2(); };
-
-        window.copyDaySchedule = (dateStr, lessonsArr) => {
-            if (!lessonsArr || !lessonsArr.length) return;
-            const text = lessonsArr.map(l => {
-                let clean = l.startsWith('{') ? l.substring(l.indexOf('}') + 1).trim() : l;
-                return `• ${clean}`;
-            }).join('\n');
-            navigator.clipboard.writeText(`📅 *${dateStr}*\n${text}\n\n758/ITS`).then(() => alert("Kopyalandı!"));
+        window.changeWeek = (delta) => {
+            viewOffset += delta;
+            renderScheduleKurs2();
         };
 
-        function formatAzDate(d) {
-            const months = ["Yan", "Fev", "Mar", "Apr", "May", "İyun", "İyul", "Avq", "Sen", "Okt", "Noy", "Dek"];
-            return `${d.getDate()} ${months[d.getMonth()]}`;
-        }
+        window.resetToToday = () => {
+            viewOffset = 0;
+            renderScheduleKurs2();
+        };
 
-        function getDayName(d) {
-             const days = ["Bazar", "B.ertəsi", "Ç.axşamı", "Çərşənbə", "C.axşamı", "Cümə", "Şənbə"];
-             return days[d.getDay()];
-        }
+        window.copyDaySchedule = (dateStr, lessonsArr) => {
+            if (!lessonsArr || lessonsArr.length === 0) return;
+            const textLines = lessonsArr.map(l => {
+                let clean = l;
+                if (l.startsWith('{')) clean = l.substring(l.indexOf('}') + 1).trim();
+                return `• ${clean}`;
+            }).join('\n');
+
+            const header = `📅 *${dateStr}* dərsləri:\n`;
+            const footer = `\n____________________\n758/ITS Cədvəl`;
+
+            const fullText = header + textLines + footer;
+
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert("Cədvəl kopyalandı! WhatsApp-da paylaşa bilərsiniz.");
+            }).catch(err => {
+                console.error("Copy failed", err);
+            });
+        };
 
         function renderScheduleKurs2() {
-            const container = document.getElementById("schedule_kurs2");
+            let container = document.getElementById("schedule_kurs2");
             if (!container) return;
+
             container.innerHTML = "";
 
             const today = getBakuDate();
-            let refDate = new Date(today);
-            
-            // Həftə sonudursa, gələn həftəyə keç
-            if (today.getDay() === 0 || today.getDay() === 6) {
-                // Bazar (0) -> +1 gün, Şənbə (6) -> +2 gün (Bazar ertəsinə çatmaq üçün)
-                refDate.setDate(today.getDate() + (today.getDay() === 6 ? 2 : 1));
-                if(viewOffset === 0) {
-                     // Əgər istifadəçi "bugünə" baxırsa və həftəsonudursa, avtomatik gələn həftəni göstər
-                }
-            }
+            const viewDate = getBakuDate();
+            viewDate.setDate(today.getDate() + (viewOffset * 7));
 
-            const viewDate = new Date(refDate);
-            viewDate.setDate(refDate.getDate() + (viewOffset * 7));
+            const dayOfWeek = viewDate.getDay();
+            const diffToMon = (dayOfWeek + 6) % 7;
+            const mondayDate = new Date(viewDate);
+            mondayDate.setDate(viewDate.getDate() - diffToMon);
 
-            // Həftənin Bazar ertəsini tap
-            const dayOfWeek = viewDate.getDay(); 
-            const diffToMon = (dayOfWeek + 6) % 7; 
-            const monday = new Date(viewDate);
-            monday.setDate(viewDate.getDate() - diffToMon);
+            const weekInfo = hefteniTap(mondayDate);
+            const weekType = weekInfo.type;
 
-            const weekInfo = hefteniTap(monday);
-            
-            // Həftə məlumatını yenilə
             const wtEl = document.getElementById("weekType");
             if (wtEl) wtEl.innerHTML = `
                 <div class="flex flex-col items-center">
-                    <span class="text-2xl font-black ${weekInfo.type === 'alt' ? 'text-yellow-400' : 'text-green-400'} uppercase tracking-widest">${weekInfo.type === 'alt' ? 'ALT HƏFTƏ' : 'ÜST HƏFTƏ'}</span>
-                    <span class="text-xs text-gray-400 font-mono mt-1">SEMESTRİN ${weekInfo.number}-Cİ HƏFTƏSİ</span>
-                </div>`;
+                    <span class="text-3xl font-bold ${weekType === 'alt' ? 'text-yellow-400' : 'text-green-400'} uppercase drop-shadow-sm">${weekType === 'alt' ? '🟡 ALT HƏFTƏ' : '🟢 ÜST HƏFTƏ'}</span>
+                    <span class="text-sm text-gray-400 font-mono tracking-widest mt-1">SEMESTRİN ${weekInfo.number}-Cİ HƏFTƏSİ</span>
+                </div>
+            `;
 
-            // Tarix aralığı
-            const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
-            document.getElementById("dateRange").innerText = `${formatAzDate(monday)} - ${formatAzDate(sunday)}`;
+            const sunDate = new Date(mondayDate);
+            sunDate.setDate(mondayDate.getDate() + 6);
 
-            // 5 Günlük Cədvəl
-            for (let i = 0; i < 5; i++) {
-                const date = new Date(monday);
-                date.setDate(monday.getDate() + i);
-                const dayIndex = i + 1; // 1-5
-                
-                const lessons = currentSchedule?.[weekInfo.type]?.[dayIndex] || [];
-                const isTodayReal = date.toDateString() === today.toDateString();
+            const azMonths = ["Yan", "Fev", "Mar", "Apr", "May", "İyun", "İyul", "Avq", "Sen", "Okt", "Noy", "Dek"];
+            const startStr = `${mondayDate.getDate()} ${azMonths[mondayDate.getMonth()]}`;
+            const endStr = `${sunDate.getDate()} ${azMonths[sunDate.getMonth()]}`;
 
-                const lessonHtml = lessons.length > 0 ? lessons.map(l => {
-                    let text = l, slot = null;
-                    if (l.startsWith('{')) {
-                        slot = parseInt(l.substring(1, l.indexOf('}')));
-                        text = l.substring(l.indexOf('}') + 1).trim();
-                    }
-                    // Düzəliş (legacy numbering 1), 2) silinməsi)
-                    text = text.replace(/^\d+\)/, '').trim();
+            document.getElementById("dateRange").innerText = `${startStr} - ${endStr}`;
 
-                    const active = isTodayReal && slot && isLessonActive(slot);
-                    return `
-                        <div class="relative p-3 rounded-lg mt-2 text-sm border ${active ? 'bg-green-900/40 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]' : 'bg-gray-700/30 border-gray-600'}">
-                            ${active ? '<div class="absolute top-1 right-2 w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>' : ''}
-                            ${slot ? `<span class="text-blue-400 font-bold mr-2">${slot > 3 ? slot-3 : slot})</span>` : ''}
-                            <span class="text-gray-200">${text}</span>
-                        </div>`;
-                }).join('') : "<div class='text-center text-gray-500 py-2 italic text-sm'>Dərs yoxdur</div>";
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(mondayDate);
+                date.setDate(mondayDate.getDate() + i);
+                const loopDayIndex = date.getDay();
 
-                const lessonsJson = JSON.stringify(lessons).replace(/"/g, '&quot;');
-                
-                container.innerHTML += `
-                    <div class="rounded-xl overflow-hidden border mb-3 transition-all ${isTodayReal ? 'border-blue-500 bg-gray-800 shadow-lg scale-[1.01]' : 'border-gray-700 bg-gray-800/60'}">
-                        <div class="p-3 ${isTodayReal ? 'bg-blue-900/30' : 'bg-gray-900/40'} flex justify-between items-center">
-                            <div>
-                                <span class="font-bold ${isTodayReal ? 'text-blue-300' : 'text-gray-300'}">${getDayName(date)}</span>
-                                <span class="text-xs text-gray-500 ml-2">${formatAzDate(date)}</span>
+                if (loopDayIndex >= 1 && loopDayIndex <= 5) {
+                    const loopWeekInfo = hefteniTap(date);
+                    const loopWeekType = loopWeekInfo.type;
+                    const lessons = currentSchedule && currentSchedule[loopWeekType] ? currentSchedule[loopWeekType][loopDayIndex] : [];
+
+                    const isTodayReal = (date.toDateString() === today.toDateString());
+
+                    const lessonHtml = (lessons && lessons.length > 0)
+                        ? lessons.sort().map((l) => {
+                            let display = l;
+                            let slotNum = null;
+
+                            if (l.startsWith('{')) {
+                                const endIdx = l.indexOf('}');
+                                slotNum = parseInt(l.substring(1, endIdx));
+                                display = l.substring(endIdx + 1).trim();
+                            }
+
+                            const hasLegacyNumbering = /^\d+\)/.test(display);
+                            let numberPrefix = "";
+                            if (!hasLegacyNumbering && slotNum) {
+                                const mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
+                                numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
+                            } else if (hasLegacyNumbering) {
+                                const parts = display.match(/^(\d+\))(.*)/);
+                                if (parts) {
+                                    numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${parts[1].replace(')', '')}</span>`;
+                                    display = parts[2];
+                                }
+                            }
+
+                            let typeBadge = "";
+                            if (display.toLowerCase().includes("mühazirə")) {
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-900/50 text-purple-300 border border-purple-700/50 uppercase tracking-wider ml-2">Mühazirə</span>`;
+                                display = display.replace(/\(mühazirə\)/i, '').trim();
+                            } else if (display.toLowerCase().includes("seminar")) {
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-900/50 text-orange-300 border border-orange-700/50 uppercase tracking-wider ml-2">Seminar</span>`;
+                                display = display.replace(/\(seminar\)/i, '').trim();
+                            }
+
+                            let content = display;
+                            if (display.includes(' - ')) {
+                                const parts = display.split(' - ');
+                                const subj = parts[0].trim();
+                                const teach = parts.slice(1).join(' - ').trim();
+                                content = `<span class="text-gray-100 font-semibold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-gray-400 mt-1 flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> ${teach}</span>`;
+                            } else {
+                                content = `<span>${display}</span>${typeBadge}`;
+                            }
+
+                            let checkSlot = null;
+                            if (slotNum) checkSlot = (slotNum > 3) ? (slotNum - 3) : slotNum;
+                            else if (numberPrefix.includes('1')) checkSlot = 1;
+                            else if (numberPrefix.includes('2')) checkSlot = 2;
+                            else if (numberPrefix.includes('3')) checkSlot = 3;
+
+                            const isActive = isTodayReal && checkSlot && isLessonActive(checkSlot);
+
+                            return `<div class="relative p-3 rounded-xl mt-3 text-sm flex items-start transition-all duration-500 overflow-hidden ${isActive ? 'bg-gradient-to-r from-green-900/40 to-gray-800 border-l-4 border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-gray-700/30 border-l-4 border-blue-500/30 hover:bg-gray-700/50'}">
+                                        ${isActive ? '<div class="absolute top-0 right-0 px-2 py-0.5 bg-green-600 text-[9px] font-bold text-white uppercase rounded-bl-lg shadow animate-pulse">Hazırda</div>' : ''}
+                                        <div class="mt-0.5">${numberPrefix}</div>
+                                        <div class="w-full pl-2">${content}</div>
+                                    </div>`;
+                        }).join('')
+                        : "<div class='mt-4 text-center py-6 bg-gray-800/50 rounded-xl border border-dashed border-gray-700'><p class='text-gray-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
+
+                    const dateStr = tarihFormatla(date).replace('<br>', '');
+                    const lessonsData = JSON.stringify(lessons).replace(/"/g, '&quot;');
+
+                    container.innerHTML += `
+                        <div class='relative group overflow-hidden rounded-xl transition-all duration-300 ${isTodayReal ? 'bg-gradient-to-br from-gray-800 to-gray-800 border-2 border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)] transform scale-[1.02]' : 'bg-gray-800 border border-gray-700 hover:border-gray-600'}'>
+                            
+                            <div class="p-4 ${isTodayReal ? 'bg-blue-900/20' : 'bg-gray-900/50'} flex justify-between items-center border-b border-gray-700/50">
+                                <div>
+                                    <h4 class="text-lg font-bold ${isTodayReal ? 'text-blue-400' : 'text-gray-200'}">
+                                        ${tarihFormatla(date)}
+                                    </h4>
+                                    ${isTodayReal ? '<span class="text-[10px] uppercase font-bold tracking-wider text-blue-500 animate-pulse">Bugün</span>' : ''}
+                                </div>
+                                <button onclick="copyDaySchedule('${dateStr}', ${lessonsData})" class="text-gray-500 hover:text-white bg-gray-700/50 hover:bg-blue-600 p-2 rounded-lg transition-colors" title="Kopyala">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                                    </svg>
+                                </button>
                             </div>
-                            ${lessons.length ? `<button onclick="copyDaySchedule('${getDayName(date)}', ${lessonsJson})" class="text-gray-500 hover:text-white">📋</button>` : ''}
+
+                            <div class="p-4 pt-2 pb-5">
+                                ${lessonHtml}
+                            </div>
                         </div>
-                        <div class="p-3 pt-1">${lessonHtml}</div>
-                    </div>`;
+                    `;
+                }
             }
         }
 
-        // --- STATİK KURS 1 & OYUNLAR ---
         const dersCedveliKurs1 = {
-             "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["3)İnstrumental proqramlar (seminar) - Göyüşlü Rəvanə"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] },
-             "ust": { 1: ["1)Xətti cəbr (mühazirə) - Səmədzadə Fərahim", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)Proqramlaşdırma (seminar) - Sənan Niyazi"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov", "3)Fizika Seminar (seminar) - Əlizadə Leyla"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] }
+            "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["3)İnstrumental proqramlar (seminar) - Göyüşlü Rəvanə"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] },
+            "ust": { 1: ["1)Xətti cəbr (mühazirə) - Səmədzadə Fərahim", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)Proqramlaşdırma (seminar) - Sənan Niyazi"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov", "3)Fizika Seminar (seminar) - Əlizadə Leyla"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] }
         };
 
         window.dersleriGosterKurs1 = function () {
-             let container = document.getElementById("schedule_kurs1");
-             if(!container) return;
-             container.innerHTML = "";
-             ["alt", "ust"].forEach(type => {
-                 container.innerHTML += `<h3 class="text-center font-bold text-yellow-500 mt-4 uppercase">${type} Həftə</h3>`;
-                 for(let i=1; i<=5; i++) {
-                     const ls = dersCedveliKurs1[type][i];
-                     container.innerHTML += `<div class="bg-gray-800 p-3 rounded mb-2 mt-1 border border-gray-700 text-sm"><div class="text-blue-300 font-bold mb-1">${i}-ci Gün</div>${ls ? ls.join('<br>') : 'Dərs yoxdur'}</div>`;
-                 }
-             });
+            let container = document.getElementById("schedule_kurs1");
+            if (!container) return;
+            container.innerHTML = "";
+            const gunler = ["", "1-ci Gün", "2-ci Gün", "3-cü Gün", "4-cü Gün", "5-ci Gün"];
+
+            const renderWeek = (weekType) => {
+                container.innerHTML += `<h2 class="text-2xl font-semibold my-4 mt-6 text-center text-yellow-400">${weekType.toUpperCase()} HƏFTƏ</h2>`;
+                for (let day = 1; day <= 5; day++) {
+                    const lessons = dersCedveliKurs1[weekType][day];
+                    const content = lessons ? lessons.map(l => `<div class="bg-gray-700/50 p-2 rounded mt-2">${l}</div>`).join('') : "Dərs yoxdur";
+                    container.innerHTML += `<div class="bg-gray-800 p-4 rounded-xl mb-4 border border-gray-700"><strong class="text-blue-300">${gunler[day]}</strong><div class="mt-2 text-gray-300">${content}</div></div>`;
+                }
+            };
+            renderWeek("alt");
+            renderWeek("ust");
         }
 
         window.showSection = function (id) {
@@ -458,16 +503,26 @@
             const el = document.getElementById(id);
             if (el) el.classList.remove('hidden');
 
-            if (id === 'flappySection' && !document.getElementById("flappyIframe")) {
-                document.getElementById("flappyContainer").innerHTML = '<iframe id="flappyIframe" src="https://kenox7.github.io/FlappyRaminn/" class="w-full h-full border-none"></iframe>';
+            if (id === 'pdfsSection' && document.getElementById("pdf1") && !document.getElementById("pdf1").src) {
+                document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
+                document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
+                document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
+                document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
+            } else if (id === 'flappySection' && !document.getElementById("flappyIframe")) {
+                const f = document.createElement("iframe"); f.id = "flappyIframe"; f.src = "https://kenox7.github.io/FlappyRaminn/"; f.className = "w-full h-full border-none";
+                document.getElementById("flappyContainer").appendChild(f);
             } else if (id === 'bagikSection' && !document.getElementById("bagikIframe")) {
-                document.getElementById("bagikContainer").innerHTML = '<iframe id="bagikIframe" src="https://kenox7.github.io/BagikRun/" class="w-full h-full border-none"></iframe>';
+                const b = document.createElement("iframe"); b.id = "bagikIframe"; b.src = "https://kenox7.github.io/BagikRun/"; b.className = "w-full h-full border-none";
+                document.getElementById("bagikContainer").appendChild(b);
             } else if (id === 'kurs1Section') {
                 dersleriGosterKurs1();
             }
         };
 
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+        });
     </script>
 </body>
+
 </html>
