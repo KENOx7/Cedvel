@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Cədvəl</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#111827">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="758/ITS">
     <style>
         ::-webkit-scrollbar {
             width: 8px;
@@ -29,6 +33,16 @@
 
         body {
             font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* PWA Button Animation */
+        @keyframes pulse-custom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btn-pulse {
+            animation: pulse-custom 2s infinite;
         }
     </style>
 </head>
@@ -63,25 +77,33 @@
         </div>
 
         <div id="kurs2Section" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <h1 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 2-ci KURS CƏDVƏLİ</h1>
 
             <div class="flex flex-col items-center justify-center gap-3 mb-6">
-                <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md"></h3>
+                <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md text-center"></h3>
+
+                <div id="pwa-install-container" class="hidden mt-3 mb-3">
+                    <button id="pwa-install-btn"
+                        class="btn-pulse bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 border border-green-400/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Tətbiqi Yüklə
+                    </button>
+                </div>
+
                 <div class="flex items-center gap-4 bg-gray-800 p-2 rounded-full shadow-lg border border-gray-700">
                     <button onclick="changeWeek(-1)"
                         class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
                     </button>
                     <span id="dateRange" class="text-gray-300 font-mono font-semibold min-w-[140px] text-center"></span>
                     <button onclick="changeWeek(1)"
                         class="p-2 rounded-full hover:bg-gray-700 text-blue-400 transition hover:scale-110 active:scale-95">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -107,8 +129,7 @@
         </div>
 
         <div id="kurs1Section" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <h1 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 1-ci KURS CƏDVƏLİ</h1>
             <div id="schedule_kurs1" class="max-w-2xl mx-auto"></div>
         </div>
@@ -135,8 +156,7 @@
         </div>
 
         <div id="flappySection" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <h1 class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 Flappy Ramin</h1>
             <div id="flappyContainer"
                 class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700">
@@ -144,8 +164,7 @@
         </div>
 
         <div id="bagikSection" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+            <h1 class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                 Bagik Run</h1>
             <div id="bagikContainer"
                 class="aspect-video max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden border-2 border-gray-700">
@@ -185,9 +204,12 @@
         let currentSchedule = null;
         let viewOffset = 0;
 
+        // --- SAAT ZONASI DÜZƏLİŞİ (UTC+4 Sabit) ---
         function getBakuDate() {
             const d = new Date();
+            // Cihazın UTC vaxtını tapırıq
             const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            // Üzərinə 4 saat gəlirik (Bakı)
             return new Date(utc + (3600000 * 4));
         }
 
@@ -232,7 +254,8 @@
                 const commentDiv = document.createElement("div");
                 commentDiv.className = "bg-gray-800 p-4 rounded-lg mb-3 border border-gray-700";
                 const date = new Date(data.timestamp);
-                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Baku' });
+                // Komment vaxtını göstərərkən də getBakuDate məntiqinə uyğunlaşdıra bilərik, amma toLocaleString burda OK-dir
+                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
                 commentDiv.innerHTML = `
             <p class="text-gray-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
             <small class="text-gray-500">${formattedDate}</small>
@@ -302,10 +325,10 @@
             const [eH, eM] = slot.end.split(':');
 
             const startTime = getBakuDate();
-            startTime.setHours(parseInt(sH), parseInt(sM), 0);
-            
+            startTime.setHours(parseInt(sH), parseInt(sM), 0, 0);
+
             const endTime = getBakuDate();
-            endTime.setHours(parseInt(eH), parseInt(eM), 0);
+            endTime.setHours(parseInt(eH), parseInt(eM), 0, 0);
 
             return now >= startTime && now <= endTime;
         }
@@ -400,8 +423,10 @@
 
                             const hasLegacyNumbering = /^\d+\)/.test(display);
                             let numberPrefix = "";
+                            // VİZUAL: Slot nömrəsini 1, 2, 3 kimi göstərmək üçün
+                            let mappedNum = slotNum;
                             if (!hasLegacyNumbering && slotNum) {
-                                const mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
+                                mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
                                 numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
                             } else if (hasLegacyNumbering) {
                                 const parts = display.match(/^(\d+\))(.*)/);
@@ -430,19 +455,26 @@
                                 content = `<span>${display}</span>${typeBadge}`;
                             }
 
-                            let checkSlot = null;
-                            if (slotNum) checkSlot = (slotNum > 3) ? (slotNum - 3) : slotNum;
-                            else if (numberPrefix.includes('1')) checkSlot = 1;
-                            else if (numberPrefix.includes('2')) checkSlot = 2;
-                            else if (numberPrefix.includes('3')) checkSlot = 3;
-
+                            // DƏQİQ SAAT YOXLANIŞI:
+                            // Vizual olaraq azaldırıq (mappedNum), amma saatı yoxlayanda əsl slot nömrəsindən (slotNum) istifadə edirik
+                            let checkSlot = slotNum; 
+                            
+                            // Əgər format {n} deyilsə, təxmin etməyə çalışırıq
+                            if (!checkSlot) {
+                                if (numberPrefix.includes('1')) checkSlot = 1;
+                                else if (numberPrefix.includes('2')) checkSlot = 2;
+                                else if (numberPrefix.includes('3')) checkSlot = 3;
+                            }
+                            
+                            // Əgər slot 4-dürsə (13:40), 4-ü göndəririk ki, lessonSlots[3]-ü yoxlasın.
+                            // Əvvəlki kodda burda (slotNum - 3) var idi deyə 1-ci dərsi yoxlayırdı.
                             const isActive = isTodayReal && checkSlot && isLessonActive(checkSlot);
 
                             return `<div class="relative p-3 rounded-xl mt-3 text-sm flex items-start transition-all duration-500 overflow-hidden ${isActive ? 'bg-gradient-to-r from-green-900/40 to-gray-800 border-l-4 border-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]' : 'bg-gray-700/30 border-l-4 border-blue-500/30 hover:bg-gray-700/50'}">
-                                        ${isActive ? '<div class="absolute top-0 right-0 px-2 py-0.5 bg-green-600 text-[9px] font-bold text-white uppercase rounded-bl-lg shadow animate-pulse">Hazırda</div>' : ''}
-                                        <div class="mt-0.5">${numberPrefix}</div>
-                                        <div class="w-full pl-2">${content}</div>
-                                    </div>`;
+                                            ${isActive ? '<div class="absolute top-0 right-0 px-2 py-0.5 bg-green-600 text-[9px] font-bold text-white uppercase rounded-bl-lg shadow animate-pulse">Hazırda</div>' : ''}
+                                            <div class="mt-0.5">${numberPrefix}</div>
+                                            <div class="w-full pl-2">${content}</div>
+                                        </div>`;
                         }).join('')
                         : "<div class='mt-4 text-center py-6 bg-gray-800/50 rounded-xl border border-dashed border-gray-700'><p class='text-gray-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
 
@@ -518,6 +550,54 @@
                 dersleriGosterKurs1();
             }
         };
+
+        // --- PWA Logic (YENİLƏNMİŞ) ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('ServiceWorker registration successful'))
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+
+        let deferredPrompt;
+        const installContainer = document.getElementById('pwa-install-container');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+        // Tətbiq kimi açılmayıbsa, düyməni göstər
+        if (!isStandalone) {
+             if (installContainer) installContainer.classList.remove('hidden');
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        installContainer.classList.add('hidden');
+                    }
+                    deferredPrompt = null;
+                } else if (isIOS) {
+                    // iOS üçün təlimat
+                    alert("Tətbiqi yükləmək üçün:\n1. Aşağıdakı 'Paylaş' (kvadrat və ox) düyməsinə basın.\n2. Aşağı sürüşdürün və 'Ana Ekrana Əlavə Et' (Add to Home Screen) seçin.");
+                } else {
+                    alert("Brauzer menyusundan 'Tətbiqi Quraşdır' seçin.");
+                }
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            if (installContainer) installContainer.classList.add('hidden');
+            console.log('PWA was installed');
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             init();
