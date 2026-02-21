@@ -674,6 +674,11 @@
                 if (e.target === modal) modal.remove();
             }
         }
+
+        // Tətbiq başlayanda init funksiyasını çağırırıq
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+        });
     </script>
 </body>
 
