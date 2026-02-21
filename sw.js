@@ -1,17 +1,21 @@
-const CACHE_NAME = 'cedvel-v2';
+const CACHE_NAME = 'cedvel-v4';
 const LOCAL_ASSETS = [
     './cedvel.html',
     './herkes.html',
     './firestore_manager.js',
     './site.webmanifest',
-    './favicon.png'
+    './favicon.png',
+    'https://cdn.tailwindcss.com',
+    'https://unpkg.com/@phosphor-icons/web'
 ];
 
 self.addEventListener('install', (event) => {
     // Tətbiq yükləndikdə əsas faylları yaddaşa (cache) atırıq
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(LOCAL_ASSETS);
+            return Promise.allSettled(
+                LOCAL_ASSETS.map(url => cache.add(url).catch(err => console.warn(`Cache failed for ${url}:`, err)))
+            );
         }).then(() => self.skipWaiting())
     );
 });
