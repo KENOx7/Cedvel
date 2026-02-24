@@ -377,4 +377,24 @@ export class SystemManager {
         const snap = await getDocs(q);
         return snap.docs.map(d => d.data().fullName).sort();
     }
+
+    // --- Grades Management ---
+
+    async addGrade(semesterId, groupId, studentName, subject, gradeValue) {
+        const studentId = await this.ensureStudentExists(studentName, groupId);
+
+        await addDoc(collection(this.db, "grades_log"), {
+            studentId,
+            studentName,
+            semesterId,
+            groupId,
+            subject,
+            grade: Number(gradeValue),
+            timestamp: serverTimestamp()
+        });
+    }
+
+    async deleteGrade(logId) {
+        await deleteDoc(doc(this.db, "grades_log", logId));
+    }
 }
