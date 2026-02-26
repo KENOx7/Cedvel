@@ -1,13 +1,13 @@
 // ============================================================
-// SERVICE WORKER - 758/ITS
+// SERVICE WORKER - 758/KM
 // Strategy:
-//   - App shell (HTML, JS): Network-first, cache as fallback
+//   - App shell (HTML, JS): Cache-first, update in background
 //   - CDN assets (Tailwind, Icons): Cache-first, long-lived
 //   - Firebase: NEVER cache, always live
 //   - Offline fallback: serve cached HTML if network fails
 // ============================================================
 
-const CACHE_NAME = 'cedvel-its-v5';  // bump version to force fresh install
+const CACHE_NAME = 'cedvel-km-v5';  // bump version to force fresh install
 
 // App shell files - cached at install time
 const PRECACHE_ASSETS = [
@@ -35,6 +35,7 @@ const NEVER_CACHE_PATTERNS = [
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(async (cache) => {
+            // Pre-cache app shell - ignore errors to avoid partial install blocking
             await Promise.allSettled(
                 [...PRECACHE_ASSETS, ...CDN_ASSETS].map(url =>
                     cache.add(url).catch(err => console.warn(`[SW] Pre-cache failed: ${url}`, err))
@@ -62,8 +63,10 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const url = event.request.url;
 
+    // Skip non-GET and Firebase/API requests completely
     if (event.request.method !== 'GET') return;
     if (NEVER_CACHE_PATTERNS.some(p => url.includes(p))) return;
+    // Skip chrome-extension or non-http requests
     if (!url.startsWith('http')) return;
 
     event.respondWith(handleFetch(event.request));
@@ -73,7 +76,7 @@ async function handleFetch(request) {
     const url = request.url;
     const cache = await caches.open(CACHE_NAME);
 
-    // For CDN assets: cache-first
+    // For CDN assets: cache-first (they're versioned/stable)
     const isCDN = CDN_ASSETS.some(cdn => url.startsWith(cdn) || url.includes('cdn.tailwindcss') || url.includes('unpkg.com'));
     if (isCDN) {
         const cached = await cache.match(request);
@@ -90,18 +93,22 @@ async function handleFetch(request) {
     }
 
     // For app shell: Network-first, fallback to cache
+    // This ensures fresh data when online, works offline
     try {
         const networkResponse = await fetch(request);
         if (networkResponse && networkResponse.ok) {
+            // Save fresh copy to cache
             cache.put(request, networkResponse.clone());
         }
         return networkResponse;
     } catch {
+        // Network failed - serve from cache
         const cached = await cache.match(request);
         if (cached) return cached;
 
+        // Last resort: serve index.html for navigation requests
         if (request.mode === 'navigate') {
-            const indexFallback = await cache.match('./index.html') || await cache.match('/758ITS/main/index.html');
+            const indexFallback = await cache.match('./index.html') || await cache.match('/758km/main/index.html');
             if (indexFallback) return indexFallback;
         }
 

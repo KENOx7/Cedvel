@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cədvəl</title>
+    <title>Cədvəl - 758/KM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="758/ITS">
+    <meta name="apple-mobile-web-app-title" content="758/KM">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +99,7 @@
 
     <header
         class="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-darkBg/80 border-b border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-extrabold p-4 text-2xl flex justify-between items-center shadow-sm">
-        <span>758/ITS</span>
+        <span>758/KM</span>
         <button onclick="toggleDarkMode()" id="theme-toggle" title="Mövzunu dəyişdir"
             class="relative w-12 h-12 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all overflow-hidden focus:outline-none">
             <svg id="theme-toggle-light"
@@ -126,15 +126,6 @@
             class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qayıblar</button>
         <button onclick="showSection('gradesSection')"
             class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qiymətlər</button>
-        <button onclick="showSection('kurs1Section')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">1-ci
-            kurs</button>
-        <button onclick="showSection('flappySection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Flappy
-            Ramin</button>
-        <button onclick="showSection('bagikSection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Bagik
-            Run</button>
     </nav>
 
     <main class="container mx-auto px-4">
@@ -152,15 +143,6 @@
                 <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md text-center"></h3>
 
                 <div id="pwa-install-container" class="hidden mt-3 mb-3">
-                    <button id="pwa-install-btn"
-                        class="btn-pulse bg-gradient-to-r from-green-600 to-teal-500 hover:from-green-700 hover:to-teal-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 border border-green-400/50">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        Tətbiqi Yüklə
-                    </button>
                 </div>
 
                 <div
@@ -188,65 +170,6 @@
             </div>
 
             <div id="schedule_kurs2" class="max-w-2xl mx-auto space-y-4 px-2"></div>
-
-            <!-- Qeydlər (cədvəlin altında) -->
-            <div id="commentsSection" class="max-w-3xl mx-auto mt-12 pt-6 border-t border-gray-700">
-                <h2 class="text-3xl font-bold mb-6 text-center text-blue-300">Qeydlər</h2>
-                <form id="comment-form" class="flex flex-col md:flex-row gap-4 mb-6">
-                    <input type="text" id="name-input" placeholder="Adın..." required
-                        class="flex-grow bg-slate-100 border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-2xl p-4 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-inner" />
-                    <input type="text" id="comment-input" placeholder="Fikrini yaz..." required
-                        class="flex-grow bg-slate-100 border border-slate-200 dark:border-slate-700 dark:bg-slate-800 rounded-2xl p-4 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-inner" />
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-2xl shadow-lg shadow-blue-500/30 active:scale-95 transition-colors">Göndər</button>
-                </form>
-                <div id="comments-list"></div>
-            </div>
-
-        </div>
-
-        <div id="gradesSection" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
-                QİYMƏTLƏR</h1>
-
-            <div class="max-w-4xl mx-auto space-y-6">
-                <!-- Identity Selection Box -->
-                <div
-                    class="bg-white dark:bg-darkCard p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
-                    <div class="flex items-center gap-3 w-full md:w-auto">
-                        <div class="p-3 bg-blue-100 dark:bg-blue-500/20 rounded-2xl text-blue-500 dark:text-blue-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-800 dark:text-gray-200">Sən kimsən?</h3>
-                            <p id="saved-grades-identity-text" class="text-xs text-slate-500 dark:text-gray-500">Seçim
-                                edilməyib</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                        <select id="student-grades-select"
-                            class="bg-slate-50 border border-slate-200 dark:bg-gray-700 dark:border-gray-600 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm w-full sm:w-64 focus:ring-2 focus:ring-blue-500 outline-none shadow-inner">
-                            <option value="">Tələbə seçin...</option>
-                        </select>
-                        <div class="flex gap-2 w-full md:w-auto">
-                            <button id="save-grades-identity-btn"
-                                class="flex-1 bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-blue-500/30">Yadda
-                                saxla</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="student-grades-result" class="space-y-4">
-                    <p
-                        class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">
-                        Zəhmət olmasa tələbə seçin və ya Yadda Saxlayın.</p>
-                </div>
-            </div>
         </div>
 
         <!-- YENİ: Qayıblar (Absences) Bölməsi -->
@@ -381,36 +304,50 @@
             </div>
         </div>
 
-        <div id="kurs1Section" class="content hidden">
+        <div id="gradesSection" class="content hidden">
             <h1
                 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
-                1-ci KURS CƏDVƏLİ</h1>
-            <div id="schedule_kurs1" class="max-w-2xl mx-auto space-y-4 px-2"></div>
-        </div>
+                QİYMƏTLƏR</h1>
 
-        <div id="pdfsSection" class="content hidden sr-only"></div>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Identity Selection Box -->
+                <div
+                    class="bg-white dark:bg-darkCard p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <div class="p-3 bg-blue-100 dark:bg-blue-500/20 rounded-2xl text-blue-500 dark:text-blue-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-gray-200">Sən kimsən?</h3>
+                            <p id="saved-grades-identity-text" class="text-xs text-slate-500 dark:text-gray-500">Seçim
+                                edilməyib</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <select id="student-grades-select"
+                            class="bg-slate-50 border border-slate-200 dark:bg-gray-700 dark:border-gray-600 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm w-full sm:w-64 focus:ring-2 focus:ring-blue-500 outline-none shadow-inner">
+                            <option value="">Tələbə seçin...</option>
+                        </select>
+                        <div class="flex gap-2 w-full md:w-auto">
+                            <button id="save-grades-identity-btn"
+                                class="flex-1 bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-blue-500/30">Yadda
+                                saxla</button>
+                        </div>
+                    </div>
+                </div>
 
-        <div id="flappySection" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                Flappy Ramin</h1>
-            <div id="flappyContainer"
-                class="aspect-video max-w-4xl mx-auto bg-white dark:bg-darkCard rounded-3xl shadow-sm overflow-hidden border border-slate-100 dark:border-slate-800">
+                <div id="student-grades-result" class="space-y-4">
+                    <p
+                        class="text-center text-slate-500 dark:text-gray-400 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">
+                        Zəhmət olmasa tələbə seçin və ya Yadda Saxlayın.</p>
+                </div>
             </div>
         </div>
 
-        <div id="bagikSection" class="content hidden">
-            <h1
-                class="text-4xl font-extrabold mb-6 text-center text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-                Bagik Run</h1>
-            <div id="bagikContainer"
-                class="aspect-video max-w-4xl mx-auto bg-white dark:bg-darkCard rounded-3xl shadow-sm overflow-hidden border border-slate-100 dark:border-slate-800">
-            </div>
-        </div>
-
-        <div id="comments_container"></div>
-
-        </div>
     </main>
 
     <footer class="text-center p-8 mt-10 text-slate-500 dark:text-gray-400">
@@ -419,8 +356,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
+        import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { SystemManager } from "./firestore_manager.js";
 
         const firebaseConfig = {
@@ -436,9 +372,8 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const rtdb = getDatabase(app);
         const manager = new SystemManager(db);
-        const currentGroupId = "758_ITS";
+        const currentGroupId = "758_KM";
         let currentSchedule = null;
         let viewOffset = 0;
         let windowActiveSemesterId = null;
@@ -453,7 +388,7 @@
         // GRADES LOGIC
         let currentGrades = [];
         let dynamicSubjects = [];
-        let staticStudents = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənov Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Əliyev Fuad Razim", "Orucov Nurlan Seymur"];
+        let staticStudents = ["Kərimov Kənan Süleyman", "Cahangirov Nicat Rövşən", "Laləyev Əli Nazim", "Əli Rza Sitarə Elşad", "Babayeva Səbinə Səməd", "Mehdiyev Ayxan Ceyhun", "Mirhacıyev Miryunis Çingiz", "Məlikov Əlabbas Kamran", "İsbatov Azər Ruslan", "Ocaqverdiyev Nihad Mehdi", "Qocayev İbrahim Ceyhun", "Həsənova Gülay Emil", "Bayramov Vüqar Şahbaz", "Rizayeva Gülnarə Əlifağa", "Gülüzadə Rəşad Elxan", "Cəfərli Nurcamal Tofiq", "Ağazadə Cavid Ramil", "Şəmşiyev Rəvan Zabil", "Zamanov Niyazi Əliçoban", "Diniyeva Səda Tofiq", "Nurməhəmmədov Ehtiram Akif", "Sarıyev Rəvan Vasif", "Babayev Şamil Ruslan", "Yadigarov Şamil Faiq", "Yusifov Rəşid Fikrət", "Abdullazadə Taryel Elçim", "Adıgözəlova Fidan Rövşən"];
 
         const studentSelect = document.getElementById('student-grades-select');
         const saveIdentityBtn = document.getElementById('save-grades-identity-btn');
@@ -479,7 +414,7 @@
                 studentSelect.innerHTML += `<option value="${s}">${s}</option>`;
             });
 
-            const savedStudent = localStorage.getItem(`savedIdentity_${currentGroupId}`);
+            const savedStudent = localStorage.getItem(`savedIdentity_${currentGroupId}_km`);
             if (savedStudent && list.includes(savedStudent)) {
                 studentSelect.value = savedStudent;
                 identityText.innerHTML = `<span class="text-green-500 font-bold">${savedStudent}</span>`;
@@ -494,18 +429,16 @@
                     currentGrades.push(data);
                 });
                 renderStudentGrades();
-            }, (error) => {
-                console.error("Grades onSnapshot error:", error);
             });
         }
 
         saveIdentityBtn.addEventListener('click', () => {
             if (studentSelect.value) {
-                localStorage.setItem(`savedIdentity_${currentGroupId}`, studentSelect.value);
+                localStorage.setItem(`savedIdentity_${currentGroupId}_km`, studentSelect.value);
                 identityText.innerHTML = `<span class="text-green-500 font-bold">${studentSelect.value}</span>`;
                 renderStudentGrades();
             } else {
-                localStorage.removeItem(`savedIdentity_${currentGroupId}`);
+                localStorage.removeItem(`savedIdentity_${currentGroupId}_km`);
                 identityText.textContent = "Seçim edilməyib";
                 renderStudentGrades();
             }
@@ -533,17 +466,19 @@
                 return;
             }
 
+            // Search td for desktop, h3 for mobile
             const cells = [...document.querySelectorAll('td'), ...document.querySelectorAll('h3')];
             for (let cell of cells) {
                 if (cell.textContent.trim() === studentName) {
+                    // Check if element is visible (since tailwind hidden duplicates exist)
                     if (cell.offsetParent !== null) {
-                        const yOffset = -150;
+                        const yOffset = -150; // offset for sticky header
                         const y = cell.getBoundingClientRect().top + window.scrollY + yOffset;
                         window.scrollTo({ top: y, behavior: 'smooth' });
 
                         const elToHighlight = cell.tagName === 'H3' ? (cell.closest('.border-slate-100') || cell.parentElement) : cell;
                         const originalBg = elToHighlight.style.backgroundColor;
-                        elToHighlight.style.backgroundColor = '#fde047';
+                        elToHighlight.style.backgroundColor = '#fde047'; // yellow-300
                         elToHighlight.style.transition = 'background-color 1s ease';
                         setTimeout(() => {
                             elToHighlight.style.backgroundColor = originalBg;
@@ -625,63 +560,11 @@
             resultDiv.innerHTML = html;
         }
 
-        // ===== QEYDLƏR (COMMENTS) MƏNTIQİ =====
-        const commentsRef = ref(rtdb, "comments");
-        let clientId = localStorage.getItem('clientId');
-        if (!clientId) {
-            clientId = 'client-' + Math.random().toString(36).substring(2, 11);
-            localStorage.setItem('clientId', clientId);
-        }
-
-        const commentForm = document.getElementById("comment-form");
-        if (commentForm) {
-            commentForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const nameInput = document.getElementById("name-input");
-                const commentInput = document.getElementById("comment-input");
-
-                if (nameInput.value.trim() !== "" && commentInput.value.trim() !== "") {
-                    // Firebase-ə yeni qeydin əlavə edilməsi
-                    push(commentsRef, {
-                        name: nameInput.value,
-                        text: commentInput.value,
-                        timestamp: Date.now(),
-                        clientId: clientId
-                    });
-                    // Formun təmizlənməsi
-                    nameInput.value = "";
-                    commentInput.value = "";
-                }
-            });
-        }
-
-        // Firebase-dən məlumatların anında (real-time) oxunması və ekrana yazdırılması
-        onValue(commentsRef, (snapshot) => {
-            const commentsList = document.getElementById("comments-list");
-            if (!commentsList) return;
-
-            commentsList.innerHTML = "";
-            const commentsArray = [];
-
-            snapshot.forEach((childSnapshot) => {
-                commentsArray.push(childSnapshot.val());
-            });
-
-            // Ən yeni qeydlər yuxarıda olacaq şəkildə sıralama
-            commentsArray.sort((a, b) => b.timestamp - a.timestamp).forEach((data) => {
-                const commentDiv = document.createElement("div");
-                commentDiv.className = "bg-white dark:bg-darkCard p-5 rounded-3xl mb-4 border border-slate-100 dark:border-slate-800 shadow-sm";
-
-                const date = new Date(data.timestamp);
-                const formattedDate = date.toLocaleString("az-AZ", { dateStyle: 'medium', timeStyle: 'short' });
-
-                commentDiv.innerHTML = `
-                    <p class="text-slate-800 dark:text-slate-200"><strong class="text-blue-300">${data.name}:</strong> ${data.text}</p>
-                    <small class="text-slate-400 dark:text-slate-500">${formattedDate}</small>
-                `;
-                commentsList.appendChild(commentDiv);
-            });
-        });
+        window.showSection = function (id) {
+            document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('hidden');
+        };
 
         // ===== QAYIBLAR (ABSENCES) MƏNTIQİ =====
         let absenceStudentsList = [];
@@ -699,7 +582,7 @@
 
             // Load students
             const dbStudents = await manager.getAllStudents(currentGroupId).catch(() => []);
-            const fallback = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənov Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Əliyev Fuad Razim", "Orucov Nurlan Seymur"];
+            const fallback = staticStudents;
             absenceStudentsList = dbStudents.length > 0 ? dbStudents : fallback;
 
             // Populate dropdown
@@ -709,7 +592,7 @@
             });
 
             // Restore saved identity
-            const savedAbs = localStorage.getItem('savedAbsIdentity_ITS');
+            const savedAbs = localStorage.getItem(`savedAbsIdentity_${currentGroupId}_km`);
             if (savedAbs && absenceStudentsList.includes(savedAbs)) {
                 absStudentSelect.value = savedAbs;
                 absIdentityText.innerHTML = `<span class="text-red-500 font-bold">${savedAbs}</span>`;
@@ -721,13 +604,12 @@
                 absSubjectsList = subRes.subjects || [];
                 absSubjectLimits = subRes.limits || {};
             } catch (e) {
-                console.error("Could not fetch subjects for absences:", e);
+                console.error("Could not fetch subjects for absences", e);
                 absSubjectsList = [];
                 absSubjectLimits = {};
+                renderAbsences(); // Render UI even if subjects fail to load
             }
 
-            // Immediately render the layout so it doesn't stay hidden if firebase is offline
-            renderAbsences();
 
             // Real-time absences listener
             const q = query(collection(db, "absences_log"), where("semesterId", "==", windowActiveSemesterId));
@@ -745,7 +627,7 @@
                 checkTodaysAbsences();
             }, (error) => {
                 console.error("Absences onSnapshot error:", error);
-                renderAbsences(); // Ensures fallback rendering
+                renderAbsences(); // Render UI on error to show a message or empty state
             });
         }
 
@@ -934,11 +816,11 @@
         saveAbsencesIdentityBtn.addEventListener('click', () => {
             const val = absStudentSelect.value;
             if (val) {
-                localStorage.setItem('savedAbsIdentity_ITS', val);
+                localStorage.setItem(`savedAbsIdentity_${currentGroupId}_km`, val);
                 absIdentityText.innerHTML = `<span class="text-red-500 font-bold">${val}</span>`;
                 renderAbsences();
             } else {
-                localStorage.removeItem('savedAbsIdentity_ITS');
+                localStorage.removeItem(`savedAbsIdentity_${currentGroupId}_km`);
                 absIdentityText.textContent = 'Seçim edilməyib';
                 renderAbsences();
             }
@@ -951,16 +833,14 @@
             const loader = document.getElementById('loader');
             if (loader) loader.classList.remove('hidden');
 
-            // 1. Dərhal LocalStorage-dan yükləməyə çalışırıq (Offline və sürətli açmaq üçün)
-            const cachedScheduleStr = localStorage.getItem(`schedule_${currentGroupId}`);
-            const cachedSemesterStr = localStorage.getItem('activeSemester');
+            const cachedScheduleStr = localStorage.getItem(`schedule_${currentGroupId}_km`);
+            const cachedSemesterStr = localStorage.getItem('activeSemester_km');
 
             if (cachedSemesterStr && cachedScheduleStr) {
                 try {
                     const cachedSemester = JSON.parse(cachedSemesterStr);
                     currentSchedule = JSON.parse(cachedScheduleStr);
                     renderScheduleKurs2();
-                    // Əgər cache varsa, loaderi bağlayaq, ancaq arxada yenilənmə davam etsin
                     if (loader) loader.classList.add('hidden');
                     const section = document.getElementById('kurs2Section');
                     if (section) section.classList.remove('hidden');
@@ -969,32 +849,27 @@
                 }
             }
 
-            // 2. Arxa planda Firebase-dən yeni məlumatları yoxlayıb yeniləyirik
             try {
                 const semester = await manager.getActiveSemester();
                 if (semester) {
                     windowActiveSemesterId = semester.id;
                     const newSchedule = await manager.getGroupSchedule(semester.id, currentGroupId);
 
-                    // Fərq varsa yeniləyib ekrana veririk
                     if (JSON.stringify(newSchedule) !== cachedScheduleStr || JSON.stringify(semester) !== cachedSemesterStr) {
                         currentSchedule = newSchedule;
-                        localStorage.setItem('activeSemester', JSON.stringify(semester));
-                        localStorage.setItem(`schedule_${currentGroupId}`, JSON.stringify(newSchedule));
-                        // Yalnız əgər cache boş idisə və ya fərq varsa yenidən render edək
+                        localStorage.setItem('activeSemester_km', JSON.stringify(semester));
+                        localStorage.setItem(`schedule_${currentGroupId}_km`, JSON.stringify(newSchedule));
                         renderScheduleKurs2();
                     }
                 } else {
                     const el = document.getElementById('schedule_kurs2');
                     if (el) el.innerHTML = "<p class='text-center text-slate-500 dark:text-gray-400'>Aktiv Semestr Yoxdur.</p>";
-                    localStorage.removeItem('activeSemester');
-                    localStorage.removeItem(`schedule_${currentGroupId}`);
+                    localStorage.removeItem('activeSemester_km');
+                    localStorage.removeItem(`schedule_${currentGroupId}_km`);
                 }
             } catch (e) {
                 console.error("Firebase fetch error (Offline ola bilər):", e);
-                // Əgər offset 0-dırsa internet xətası verə bilərik, amma cache ilə işləyirsə səssiz qalır.
             } finally {
-                // Initialize grades and absences ONLY AFTER semester check
                 loadGradesInitialData();
                 loadAbsencesData();
 
@@ -1003,7 +878,6 @@
                 if (section) section.classList.remove('hidden');
             }
 
-            // Həftəsonu (Şənbə və ya Bazar) isə avtomatik gələn həftəni göstər
             const today = getBakuDate();
             if (today.getDay() === 0 || today.getDay() === 6) {
                 if (viewOffset === 0) {
@@ -1080,7 +954,7 @@
             }).join('\n');
 
             const header = `📅 *${dateStr}* dərsləri:\n`;
-            const footer = `\n____________________\n758/ITS Cədvəl`;
+            const footer = `\n____________________\n758/KM Cədvəl`;
 
             const fullText = header + textLines + footer;
 
@@ -1151,7 +1025,6 @@
 
                             const hasLegacyNumbering = /^\d+\)/.test(display);
                             let numberPrefix = "";
-                            // VİZUAL: Slot nömrəsini 1, 2, 3 kimi göstərmək üçün
                             let mappedNum = slotNum;
                             if (!hasLegacyNumbering && slotNum) {
                                 mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
@@ -1220,138 +1093,50 @@
             }
         }
 
-        const dersCedveliKurs1 = {
-            "alt": { 1: ["1)IT əsasları (seminar) - Kazımov Ramin", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)IT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["3)İnstrumental proqramlar (seminar) - Göyüşlü Rəvanə"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] },
-            "ust": { 1: ["1)Xətti cəbr (mühazirə) - Səmədzadə Fərahim", "2)Diferensial tənliklər (mühazirə) - Eyyubov Ramazan", "3)Fizika (mühazirə) - Əlizadə Leyla"], 2: ["1)Xətti cəbr (seminar) - Səmədzadə Fərahim", "2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)Proqramlaşdırma (seminar) - Sənan Niyazi"], 3: ["2)XDİAK-2 (seminar) - Abbasova Nuridə", "3)İT əsasları-2 (mühazirə) - Kazımov Ramin"], 4: ["2)Diferensial tənliklər (seminar) - Ramazan Eyyubov", "3)Fizika Seminar (seminar) - Əlizadə Leyla"], 5: ["2)Proqramlaşdırma əsasları (mühazirə) - Sənan Niyazi", "3)İnstrumental proqramlar (mühazirə) - Göyüşlü Rəvanə"] }
-        };
-
-        window.dersleriGosterKurs1 = function () {
-            let container = document.getElementById("schedule_kurs1");
-            if (!container) return;
-            container.innerHTML = "";
-            const gunler = ["", "1-ci Gün", "2-ci Gün", "3-cü Gün", "4-cü Gün", "5-ci Gün"];
-
-            const renderWeek = (weekType) => {
-                const isAlt = weekType === 'alt';
-                container.innerHTML += `
-                <div class="flex flex-col items-center mt-8 mb-4">
-                    <span class="text-3xl font-bold ${isAlt ? 'text-yellow-400' : 'text-green-400'} uppercase drop-shadow-sm">
-                        ${isAlt ? 'ALT HƏFTƏ' : 'ÜST HƏFTƏ'}
-                    </span>
-                </div>`;
-
-                for (let day = 1; day <= 5; day++) {
-                    const lessons = dersCedveliKurs1[weekType][day];
-
-                    if (lessons) {
-                        const lessonHtml = lessons.map(l => {
-                            let display = l;
-                            let slotNum = null;
-                            if (l.startsWith('{')) {
-                                const endIdx = l.indexOf('}');
-                                slotNum = parseInt(l.substring(1, endIdx));
-                                display = l.substring(endIdx + 1).trim();
-                            }
-
-                            const hasLegacyNumbering = /^\d+\)/.test(display);
-                            let numberPrefix = "";
-                            if (!hasLegacyNumbering && slotNum) {
-                                let mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
-                                numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
-                            } else if (hasLegacyNumbering) {
-                                const parts = display.match(/^(\d+\))(.*)/);
-                                if (parts) {
-                                    numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${parts[1].replace(')', '')}</span>`;
-                                    display = parts[2];
-                                }
-                            }
-
-                            let typeBadge = "";
-                            if (display.toLowerCase().includes("mühazirə")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`;
-                                display = display.replace(/\(mühazirə\)/i, '').trim();
-                            } else if (display.toLowerCase().includes("seminar")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
-                                display = display.replace(/\(seminar\)/i, '').trim();
-                            }
-
-                            let content = display;
-                            if (display.includes(' - ')) {
-                                const parts = display.split(' - ');
-                                const subj = parts[0].trim();
-                                const teach = parts.slice(1).join(' - ').trim();
-                                content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1 flex items-center gap-2"><div class="p-1 rounded-full bg-slate-200 dark:bg-slate-700"><svg class="w-3 h-3 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div> <span class="text-slate-600 dark:text-slate-400 font-medium">${teach}</span></span>`;
-                            } else {
-                                content = `<span>${display}</span>${typeBadge}`;
-                            }
-
-                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start transition-all duration-300 overflow-hidden bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50">
-                                            <div class="mt-0.5">${numberPrefix}</div>
-                                            <div class="absolute left-0 top-3 bottom-3 w-1.5 bg-blue-500 rounded-r-lg"></div>
-                                            <div class="w-full pl-4 py-1">${content}</div>
-                                        </div>`;
-                        }).join('');
-
-                        container.innerHTML += `
-                        <div class='relative group overflow-hidden transition-all duration-300 bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md rounded-3xl mt-4'>
-                            <div class="p-4 bg-slate-50/50 dark:bg-darkBg/50 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
-                                <div>
-                                    <h4 class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-200">
-                                        ${gunler[day]}
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-2 pb-5">
-                                ${lessonHtml}
-                            </div>
-                        </div>`;
-                    }
-                }
-            };
-            renderWeek("alt");
-            renderWeek("ust");
-        }
-
         window.showSection = function (id) {
             document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
             const el = document.getElementById(id);
             if (el) el.classList.remove('hidden');
-
-            if (id === 'pdfsSection' && document.getElementById("pdf1") && !document.getElementById("pdf1").src) {
-                document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
-                document.getElementById("pdf1-download").href = "https://drive.google.com/uc?export=download&id=1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2";
-                document.getElementById("pdf2").src = "https://drive.google.com/file/d/16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e/preview";
-                document.getElementById("pdf2-download").href = "https://drive.google.com/uc?export=download&id=16RVdE5pbYHQap9Em_sIZN2v8T0IJpT_e";
-            } else if (id === 'flappySection' && !document.getElementById("flappyIframe")) {
-                const f = document.createElement("iframe"); f.id = "flappyIframe"; f.src = "https://kenox7.github.io/FlappyRaminn/"; f.className = "w-full h-full border-none";
-                document.getElementById("flappyContainer").appendChild(f);
-            } else if (id === 'bagikSection' && !document.getElementById("bagikIframe")) {
-                const b = document.createElement("iframe"); b.id = "bagikIframe"; b.src = "https://kenox7.github.io/BagikRun/"; b.className = "w-full h-full border-none";
-                document.getElementById("bagikContainer").appendChild(b);
-            } else if (id === 'kurs1Section') {
-                dersleriGosterKurs1();
-            }
         };
 
-        // --- PWA Logic (YENİLƏNMİŞ V3) ---
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
                     .then(reg => {
                         console.log('[SW] Registered');
+                        // Check for updates when page loads
                         reg.update();
+                        // Guard: only reload ONCE after an actual SW update, not on every activation.
+                        // Without this guard, skipWaiting() in sw.js causes an infinite reload loop
+                        // on mobile browsers (especially Chrome Android).
+                        let swUpdated = false;
+                        reg.addEventListener('updatefound', () => {
+                            const newWorker = reg.installing;
+                            if (newWorker) {
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'activated') {
+                                        swUpdated = true;
+                                    }
+                                });
+                            }
+                        });
                         navigator.serviceWorker.addEventListener('controllerchange', () => {
-                            window.location.reload();
+                            if (swUpdated) {
+                                swUpdated = false;
+                                console.log('[SW] Controller changed after update - reloading once');
+                                window.location.reload();
+                            }
                         });
                     })
                     .catch(err => console.warn('[SW] Registration failed:', err));
             });
         }
 
-        // When internet reconnects, reload to get fresh Firebase data
+        // When internet reconnects, silently refresh Firebase data WITHOUT a page reload.
+        // A full reload here caused a loop on phones that frequently switch networks.
         window.addEventListener('online', () => {
-            console.log('[Network] Online again - reloading for fresh data');
-            window.location.reload();
+            console.log('[Network] Online again - refreshing data silently');
+            init().catch(err => console.warn('[Network] Silent refresh failed:', err));
         });
 
         let deferredPrompt;
@@ -1360,18 +1145,13 @@
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
-        // Android/Desktop: Wait for event
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             deferredPrompt = e;
-            // Update UI to notify the user they can add to home screen
             if (installContainer) installContainer.classList.remove('hidden');
             console.log("Install prompt captured");
         });
 
-        // iOS: Show immediately if not installed (since event doesn't fire)
         if (isIOS && !isStandalone) {
             if (installContainer) installContainer.classList.remove('hidden');
         }
@@ -1389,7 +1169,6 @@
                 } else if (isIOS) {
                     showIOSInstruction();
                 } else {
-                    // Fallback
                     alert("Tətbiqi quraşdırmaq üçün brauzer menyusundan 'Tətbiqi Quraşdır' seçin.\n(Qeyd: Əgər bu mesajı görürsünüzsə, brauzerinizdə 'favicon.png' ikonu və ya HTTPS bağlantısı yoxdur.)");
                 }
             });
@@ -1398,7 +1177,6 @@
         function showIOSInstruction() {
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black/80 z-[60] flex flex-col justify-end pb-10 items-center text-center p-4 animate-fade-in';
-            // Arrow pointing down
             modal.innerHTML = `
                 <div class="bg-gray-800 rounded-xl p-6 max-w-sm mb-4 border border-gray-700 shadow-2xl relative w-full mx-4">
                     <button onclick="this.parentElement.parentElement.remove()" class="absolute top-2 right-2 text-slate-500 dark:text-gray-400 hover:text-white">
