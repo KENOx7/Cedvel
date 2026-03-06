@@ -118,24 +118,44 @@
         </button>
     </header>
 
+
     <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
-        <button onclick="showSection('kurs2Section')"
-            class="whitespace-nowrap bg-blue-600 text-white font-bold py-2.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:scale-105 active:scale-95">2-ci
-            KURS</button>
-        <button onclick="showSection('absencesSection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qayıblar</button>
-        <button onclick="showSection('gradesSection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Qiymətlər</button>
-        <button onclick="showSection('kurs1Section')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">1-ci
-            kurs</button>
-        <button onclick="showSection('flappySection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Flappy
-            Ramin</button>
-        <button onclick="showSection('bagikSection')"
-            class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">Bagik
-            Run</button>
+    <button onclick="showSection('kurs2Section')"
+        class="whitespace-nowrap bg-blue-600 text-white font-bold py-2.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:scale-105 active:scale-95">
+        2-ci KURS
+    </button>
+
+    <button onclick="showSection('absencesSection')"
+        class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        Qayıblar
+    </button>
+
+    <button onclick="showSection('gradesSection')"
+        class="relative whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        Qiymətlər
+        
+        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
+            Yeni
+        </span>
+    </button>
+
+    <button onclick="showSection('kurs1Section')"
+        class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        1-ci kurs
+    </button>
+
+    <button onclick="showSection('flappySection')"
+        class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        Flappy Ramin
+    </button>
+
+    <button onclick="showSection('bagikSection')"
+        class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        Bagik Run
+    </button>
     </nav>
+
+    
 
     <main class="container mx-auto px-4">
         <div id="loader" class="text-center py-10 hidden">
@@ -1435,5 +1455,6 @@
         });
     </script>
 </body>
+
 
 </html>
