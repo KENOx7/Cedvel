@@ -856,7 +856,7 @@
                     if (count === 0) return `<td class="py-3 px-2 text-center text-slate-300 dark:text-slate-600 text-lg">–</td>`;
                     let cls = 'text-yellow-500 font-bold text-lg';
                     let extra = '';
-                    if (count > limit) { cls = 'text-red-500 font-extrabold text-lg animate-pulse'; extra = '<div class="text-[8px] text-red-500 font-bold leading-none">KƏSİLDİ</div>'; }
+                    if (count >= limit) { cls = 'text-red-500 font-extrabold text-lg animate-pulse'; extra = '<div class="text-[8px] text-red-500 font-bold leading-none">KƏSİLDİ</div>'; }
                     else if (count >= limit - 1) cls = 'text-red-400 font-bold text-lg';
                     else if (count >= limit - 2) cls = 'text-orange-400 font-bold text-lg';
                     return `<td class="py-3 px-2 text-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" onclick="window._absShowDetails(${stIdx},${subIdx})"><span class="${cls}">${count}</span>${extra}</td>`;
@@ -878,7 +878,7 @@
                     const limit = getLimit(sub);
                     const pct = Math.min((count / limit) * 100, 100);
                     let barColor = 'bg-yellow-400', textColor = 'text-yellow-500', badge = '';
-                    if (count = limit) { barColor = 'bg-red-500'; textColor = 'text-red-500'; badge = '<span class="text-[9px] font-bold text-red-500 ml-1">KƏSİLDİ</span>'; }
+                    if (count >= limit) { barColor = 'bg-red-500'; textColor = 'text-red-500'; badge = '<span class="text-[9px] font-bold text-red-500 ml-1">KƏSİLDİ</span>'; }
                     else if (count >= limit - 1) { barColor = 'bg-red-400'; textColor = 'text-red-400'; }
                     else if (count >= limit - 2) { barColor = 'bg-orange-400'; textColor = 'text-orange-400'; }
                     subHtml += `<div class="cursor-pointer" onclick="window._absShowDetails(${stIdx},${subIdx})">
@@ -1458,5 +1458,3 @@
 
 
 </html>
-
-
