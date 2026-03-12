@@ -878,7 +878,7 @@
                     const limit = getLimit(sub);
                     const pct = Math.min((count / limit) * 100, 100);
                     let barColor = 'bg-yellow-400', textColor = 'text-yellow-500', badge = '';
-                    if (count >= limit) { barColor = 'bg-red-500'; textColor = 'text-red-500'; badge = '<span class="text-[9px] font-bold text-red-500 ml-1">KƏSİLDİ</span>'; }
+                    if (count = limit) { barColor = 'bg-red-500'; textColor = 'text-red-500'; badge = '<span class="text-[9px] font-bold text-red-500 ml-1">KƏSİLDİ</span>'; }
                     else if (count >= limit - 1) { barColor = 'bg-red-400'; textColor = 'text-red-400'; }
                     else if (count >= limit - 2) { barColor = 'bg-orange-400'; textColor = 'text-orange-400'; }
                     subHtml += `<div class="cursor-pointer" onclick="window._absShowDetails(${stIdx},${subIdx})">
@@ -1458,4 +1458,5 @@
 
 
 </html>
+
 
