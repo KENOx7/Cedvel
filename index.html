@@ -472,6 +472,7 @@
 
         // GRADES LOGIC
         let currentGrades = [];
+        let currentColloquiums = [];
         let dynamicSubjects = [];
         let staticStudents = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənova Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Əliyev Fuad Razim", "Orucov Nurlan Seymur"];
 
@@ -516,6 +517,20 @@
                 renderStudentGrades();
             }, (error) => {
                 console.error("Grades onSnapshot error:", error);
+            });
+
+            // Colloquium listener
+            const qColl = query(collection(db, "colloquium_log"), orderBy("timestamp", "desc"));
+            onSnapshot(qColl, (snapshot) => {
+                currentColloquiums = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (data.groupId !== currentGroupId) return;
+                    currentColloquiums.push(data);
+                });
+                renderStudentGrades();
+            }, (error) => {
+                console.error("Colloquium onSnapshot error:", error);
             });
         }
 
@@ -588,57 +603,85 @@
 
             let html = '';
             const studentRecords = currentGrades.filter(g => g.studentName === selectedStudent && g.semesterId === windowActiveSemesterId);
+            const studentColloquiums = currentColloquiums.filter(c => c.studentName === selectedStudent && c.semesterId === windowActiveSemesterId);
 
             const subjectMap = {};
             dynamicSubjects.forEach(s => subjectMap[s] = []);
 
             studentRecords.forEach(rec => {
-                // Ignore grades for subjects not in dynamicSubjects just in case
                 if (subjectMap[rec.subject] !== undefined) {
                     subjectMap[rec.subject].push(rec.grade);
                 } else {
-                    // If a grade exists for a subject not dynamically registered, show it anyway
                     subjectMap[rec.subject] = [rec.grade];
                 }
             });
 
+            // Build colloquium map
+            const colloquiumMap = {};
+            studentColloquiums.forEach(c => {
+                colloquiumMap[c.subject] = c.score;
+            });
+
             for (const [subject, grades] of Object.entries(subjectMap)) {
-                if (grades.length === 0) {
+                const collScore = colloquiumMap[subject];
+                const hasColloquium = collScore !== undefined && collScore !== null;
+
+                if (grades.length === 0 && !hasColloquium) {
                     html += `
                     <div class="bg-slate-50 dark:bg-slate-800/40 p-5 rounded-3xl border border-dashed border-slate-200 dark:border-slate-700 flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all opacity-70">
                         <div>
                             <h3 class="font-bold text-lg text-slate-600 dark:text-slate-400">${subject}</h3>
                             <p class="text-sm text-slate-400 dark:text-gray-500 mt-2">Heç bir qiymət daxil edilməyib.</p>
                         </div>
-                        <div class="bg-slate-100 dark:bg-slate-900/50 py-3 px-6 rounded-2xl text-center min-w-[120px] border border-slate-200 dark:border-slate-800/50">
-                            <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN</span>
-                            <span class="text-2xl font-extrabold text-slate-400 dark:text-gray-600">-</span>
+                        <div class="flex gap-3">
+                            <div class="bg-slate-100 dark:bg-slate-900/50 py-3 px-4 rounded-2xl text-center min-w-[80px] border border-slate-200 dark:border-slate-800/50">
+                                <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">Kollekvium</span>
+                                <span class="text-lg font-extrabold text-slate-400 dark:text-gray-600">-</span>
+                            </div>
+                            <div class="bg-slate-100 dark:bg-slate-900/50 py-3 px-4 rounded-2xl text-center min-w-[80px] border border-slate-200 dark:border-slate-800/50">
+                                <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN</span>
+                                <span class="text-2xl font-extrabold text-slate-400 dark:text-gray-600">-</span>
+                            </div>
                         </div>
                     </div>`;
                     continue;
                 }
 
-                // Calculation rule: Math.round((sum / count) * 2)
-               const sum = grades.reduce((a, b) => a + Number(b), 0);
-               const finalScore = Math.round((sum / grades.length) * 2);
+                // Calculation rule: Math.round((sum / count) * 2) + colloquiumScore
+                const sum = grades.reduce((a, b) => a + Number(b), 0);
+                const avgScore = grades.length > 0 ? Math.round((sum / grades.length) * 2) : 0;
+                const totalScore = avgScore + (hasColloquium ? Number(collScore) : 0);
 
-               // Düzəliş ediləcək sətir:
-               const scoreColor = grades.length >= 3 ? 'text-green-500' : 'text-red-500';
+                const scoreColor = grades.length >= 3 ? 'text-green-500' : (grades.length > 0 ? 'text-red-500' : 'text-slate-400');
 
-                const minGradesWarning = grades.length < 3
+                const minGradesWarning = grades.length > 0 && grades.length < 3
                     ? `<p class="text-xs text-orange-500 dark:text-orange-400 mt-1.5 flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg> Minimum 3 qiymət olmalıdır (${grades.length}/3)</p>`
                     : '';
 
+                const gradesDisplay = grades.length > 0
+                    ? `<p class="text-sm text-slate-500 dark:text-gray-400 mt-2">Alınan qiymətlər: <strong class="text-blue-500 dark:text-blue-400">${grades.join(', ')}</strong></p>`
+                    : `<p class="text-sm text-slate-400 dark:text-gray-500 mt-2">Qiymət yoxdur</p>`;
+
                 html += `
                 <div class="bg-white dark:bg-darkCard p-5 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col md:flex-row justify-between md:items-center gap-4 transition-all hover:shadow-md hover:-translate-y-1">
-                    <div>
+                    <div class="flex-grow">
                         <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200">${subject}</h3>
-                        <p class="text-sm text-slate-500 dark:text-gray-400 mt-2">Alınan qiymətlər: <strong class="text-blue-500 dark:text-blue-400">${grades.join(', ')}</strong></p>
+                        ${gradesDisplay}
                         ${minGradesWarning}
                     </div>
-                    <div class="bg-slate-50 dark:bg-slate-900/50 py-3 px-6 rounded-2xl text-center min-w-[120px] border border-slate-100 dark:border-slate-800/50">
-                        <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN (S/C)*2</span>
-                        <span class="text-3xl font-extrabold ${scoreColor}">${finalScore}</span>
+                    <div class="flex gap-3 flex-shrink-0">
+                        <div class="bg-teal-50 dark:bg-teal-900/20 py-3 px-4 rounded-2xl text-center min-w-[80px] border border-teal-200 dark:border-teal-800/50">
+                            <span class="block text-[10px] text-teal-600 dark:text-teal-400 uppercase tracking-widest font-bold mb-1">Kollekvium</span>
+                            <span class="text-lg font-extrabold ${hasColloquium ? 'text-teal-500' : 'text-slate-400 dark:text-gray-600'}">${hasColloquium ? collScore : '-'}</span>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 py-3 px-4 rounded-2xl text-center min-w-[80px] border border-blue-200 dark:border-blue-800/50">
+                            <span class="block text-[10px] text-blue-600 dark:text-blue-400 uppercase tracking-widest font-bold mb-1">Ortalama</span>
+                            <span class="text-lg font-extrabold ${scoreColor}">${grades.length > 0 ? avgScore : '-'}</span>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-900/50 py-3 px-6 rounded-2xl text-center min-w-[100px] border border-slate-100 dark:border-slate-800/50">
+                            <span class="block text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-widest font-bold mb-1">YEKUN</span>
+                            <span class="text-3xl font-extrabold ${totalScore > 0 ? 'text-green-500' : 'text-slate-400'}">${(grades.length > 0 || hasColloquium) ? totalScore : '-'}</span>
+                        </div>
                     </div>
                 </div>`;
             }

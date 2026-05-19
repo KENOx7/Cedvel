@@ -397,4 +397,41 @@ export class SystemManager {
     async deleteGrade(logId) {
         await deleteDoc(doc(this.db, "grades_log", logId));
     }
+
+    // --- Colloquium Management ---
+
+    async addColloquium(semesterId, groupId, studentName, subject, score) {
+        const studentId = await this.ensureStudentExists(studentName, groupId);
+
+        const q = query(
+            collection(this.db, "colloquium_log"),
+            where("studentName", "==", studentName),
+            where("subject", "==", subject),
+            where("semesterId", "==", semesterId),
+            where("groupId", "==", groupId)
+        );
+        const existing = await getDocs(q);
+
+        if (!existing.empty) {
+            const docRef = existing.docs[0].ref;
+            await updateDoc(docRef, {
+                score: Number(score),
+                timestamp: serverTimestamp()
+            });
+        } else {
+            await addDoc(collection(this.db, "colloquium_log"), {
+                studentId,
+                studentName,
+                semesterId,
+                groupId,
+                subject,
+                score: Number(score),
+                timestamp: serverTimestamp()
+            });
+        }
+    }
+
+    async deleteColloquium(logId) {
+        await deleteDoc(doc(this.db, "colloquium_log", logId));
+    }
 }
