@@ -514,32 +514,31 @@
                 identityText.innerHTML = `<span class="text-green-500 font-bold">${savedStudent}</span>`;
             }
 
-            const qGrades = query(collection(db, "grades_log"), orderBy("timestamp", "desc"));
-            onSnapshot(qGrades, (snapshot) => {
+            // Grades — bir dəfəlik oxu (onSnapshot əvəzinə getDocs)
+            try {
+                const qGrades = query(collection(db, "grades_log"), where("semesterId", "==", windowActiveSemesterId));
+                const snapG = await getDocs(qGrades);
                 currentGrades = [];
-                snapshot.forEach(doc => {
+                snapG.forEach(doc => {
                     const data = doc.data();
                     if (data.groupId !== currentGroupId) return;
                     currentGrades.push(data);
                 });
                 renderStudentGrades();
-            }, (error) => {
-                console.error("Grades onSnapshot error:", error);
-            });
+            } catch (e) { console.error("Grades load error:", e); }
 
-            // Colloquium listener
-            const qColl = query(collection(db, "colloquium_log"), orderBy("timestamp", "desc"));
-            onSnapshot(qColl, (snapshot) => {
+            // Colloquiums — bir dəfəlik oxu
+            try {
+                const qColl = query(collection(db, "colloquium_log"), where("semesterId", "==", windowActiveSemesterId));
+                const snapC = await getDocs(qColl);
                 currentColloquiums = [];
-                snapshot.forEach(doc => {
+                snapC.forEach(doc => {
                     const data = doc.data();
                     if (data.groupId !== currentGroupId) return;
                     currentColloquiums.push(data);
                 });
                 renderStudentGrades();
-            }, (error) => {
-                console.error("Colloquium onSnapshot error:", error);
-            });
+            } catch (e) { console.error("Colloquium load error:", e); }
         }
 
         saveIdentityBtn.addEventListener('click', () => {
@@ -800,9 +799,10 @@
             // Immediately render the layout so it doesn't stay hidden if firebase is offline
             renderAbsences();
 
-            // Real-time absences listener
-            const q = query(collection(db, "absences_log"), where("semesterId", "==", windowActiveSemesterId));
-            onSnapshot(q, (snapshot) => {
+            // Bir dəfəlik oxu (onSnapshot əvəzinə getDocs — quota qorumaq üçün)
+            try {
+                const q = query(collection(db, "absences_log"), where("semesterId", "==", windowActiveSemesterId));
+                const snapshot = await getDocs(q);
                 allAbsences = snapshot.docs
                     .map(d => ({ id: d.id, ...d.data() }))
                     .filter(d => {
@@ -814,10 +814,10 @@
                 renderAbsences();
                 renderAbsenceRanking();
                 checkTodaysAbsences();
-            }, (error) => {
-                console.error("Absences onSnapshot error:", error);
+            } catch (error) {
+                console.error("Absences load error:", error);
                 renderAbsences(); // Ensures fallback rendering
-            });
+            }
         }
 
         function absProcessData() {
