@@ -1022,6 +1022,16 @@
             const loader = document.getElementById('loader');
             if (loader) loader.classList.remove('hidden');
 
+            let scrolledToToday = false;
+            const scrollToTodayOnce = () => {
+                if (scrolledToToday) return;
+                const todayCard = document.getElementById('today-day-card');
+                if (todayCard) {
+                    scrolledToToday = true;
+                    todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            };
+
             // 1. Dərhal LocalStorage-dan yükləməyə çalışırıq (Offline və sürətli açmaq üçün)
             const cachedScheduleStr = localStorage.getItem(`schedule_${currentGroupId}`);
             const cachedSemesterStr = localStorage.getItem('activeSemester');
@@ -1035,11 +1045,8 @@
                     if (loader) loader.classList.add('hidden');
                     const section = document.getElementById('kurs2Section');
                     if (section) section.classList.remove('hidden');
-                    // Bugünkü karta scroll et
-                    setTimeout(() => {
-                        const todayCard = document.getElementById('today-day-card');
-                        if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 300);
+                    // Bugünkü karta yalnız bir dəfə scroll et
+                    setTimeout(scrollToTodayOnce, 300);
                 } catch (e) {
                     console.error("Cache parsing error", e);
                 }
@@ -1077,11 +1084,8 @@
                 if (loader) loader.classList.add('hidden');
                 const section = document.getElementById('kurs2Section');
                 if (section) section.classList.remove('hidden');
-                // Bugünkü karta scroll et (Firebase-dən gəlsə)
-                setTimeout(() => {
-                    const todayCard = document.getElementById('today-day-card');
-                    if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
+                // Əgər cache-dən scroll olunmayıbsa indi scroll et
+                setTimeout(scrollToTodayOnce, 300);
             }
 
             // Həftəsonu (Şənbə və ya Bazar) isə avtomatik gələn həftəni göstər
@@ -1336,6 +1340,7 @@
 
                 if (loopDayIndex >= 1 && loopDayIndex <= 5) {
                     const loopWeekInfo = hefteniTap(date);
+                    const loopWeekType = loopWeekInfo.type;
                     let lessons = currentSchedule && currentSchedule[loopWeekType] ? (currentSchedule[loopWeekType][loopDayIndex] || []) : [];
                     // HARDCODE SILINECEK
                     if (lessons && Array.isArray(lessons)) {
