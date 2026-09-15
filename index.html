@@ -119,7 +119,7 @@
     </header>
 
 
-    <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
+    <nav class="hidden md:flex flex-wrap justify-center items-center gap-3 my-6 px-4">
     <button onclick="showSection('kurs2Section')"
         class="whitespace-nowrap bg-blue-600 text-white font-bold py-2.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:scale-105 active:scale-95">
         3-cü KURS
@@ -133,10 +133,6 @@
     <button onclick="showSection('gradesSection')"
         class="relative whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
         Qiymətlər
-        
-        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
-            Yeni
-        </span>
     </button>
 
     <button onclick="showSection('kurs1Section')"
@@ -162,7 +158,7 @@
 
     
 
-    <main class="container mx-auto px-4">
+    <main class="container mx-auto px-4 pb-28">
         <div id="loader" class="text-center py-10 hidden">
             <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
             <p class="mt-2 text-slate-500 dark:text-gray-400">Cədvəl yüklənir...</p>
@@ -170,7 +166,7 @@
 
         <div id="kurs2Section" class="content hidden">
             <h1
-                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+                class="text-4xl font-extrabold mb-2 mt-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
                 3-cü KURS CƏDVƏLİ</h1>
 
             <div class="flex flex-col items-center justify-center gap-3 mb-6">
@@ -232,7 +228,7 @@
 
         <div id="gradesSection" class="content hidden">
             <h1
-                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+                class="text-4xl font-extrabold mb-6 mt-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
                 QİYMƏTLƏR</h1>
 
             <div class="max-w-4xl mx-auto space-y-6">
@@ -277,7 +273,7 @@
         <!-- YENİ: Qayıblar (Absences) Bölməsi -->
         <div id="absencesSection" class="content hidden">
             <h1
-                class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+                class="text-4xl font-extrabold mb-6 mt-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
                 QAYIBLAR</h1>
 
             <div class="max-w-4xl mx-auto space-y-6">
@@ -1039,6 +1035,11 @@
                     if (loader) loader.classList.add('hidden');
                     const section = document.getElementById('kurs2Section');
                     if (section) section.classList.remove('hidden');
+                    // Bugünkü karta scroll et
+                    setTimeout(() => {
+                        const todayCard = document.getElementById('today-day-card');
+                        if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
                 } catch (e) {
                     console.error("Cache parsing error", e);
                 }
@@ -1076,6 +1077,11 @@
                 if (loader) loader.classList.add('hidden');
                 const section = document.getElementById('kurs2Section');
                 if (section) section.classList.remove('hidden');
+                // Bugünkü karta scroll et (Firebase-dən gəlsə)
+                setTimeout(() => {
+                    const todayCard = document.getElementById('today-day-card');
+                    if (todayCard) todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
             }
 
             // Həftəsonu (Şənbə və ya Bazar) isə avtomatik gələn həftəni göstər
@@ -1166,6 +1172,120 @@
             });
         };
 
+        function renderLessonCardHTML(l, i, isTodayReal) {
+            let slotNum = null;
+            let display = l;
+
+            if (l.startsWith('{')) {
+                const endIdx = l.indexOf('}');
+                slotNum = parseInt(l.substring(1, endIdx));
+                display = l.substring(endIdx + 1).trim();
+            }
+
+            const hasLegacyNumbering = /^\d+\)/.test(display);
+            let mappedNum = slotNum;
+            if (!hasLegacyNumbering && slotNum) {
+                mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
+            } else if (hasLegacyNumbering) {
+                const parts = display.match(/^(\d+\))(.*)/);
+                if (parts) {
+                    mappedNum = parts[1].replace(')', '');
+                    display = parts[2].trim();
+                }
+            }
+            if (!mappedNum) mappedNum = i + 1;
+
+            let typeBadge = "";
+            if (display.toLowerCase().includes("mühazirə")) {
+                typeBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-100 dark:bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-200 dark:border-purple-500/30 uppercase tracking-wider">Mühazirə</span>`;
+                display = display.replace(/\(mühazirə\)/i, '').trim();
+            } else if (display.toLowerCase().includes("seminar")) {
+                typeBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-300 border border-orange-200 dark:border-orange-500/30 uppercase tracking-wider">Seminar</span>`;
+                display = display.replace(/\(seminar\)/i, '').trim();
+            } else if (display.toLowerCase().includes("laboratoriya") || /\(lab\)/i.test(display)) {
+                typeBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30 uppercase tracking-wider">Laboratoriya</span>`;
+                display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim();
+            }
+
+            let subj = display;
+            let meta = "";
+            if (display.includes(' - ')) {
+                const parts = display.split(' - ');
+                subj = parts[0].trim();
+                meta = parts.slice(1).join(' - ').trim();
+            }
+
+            let teacher = meta;
+            let timeStr = "";
+            let roomStr = "";
+
+            const pMatch = meta.match(/^(.*?)(?:\s*\((.*)\))?$/);
+            if (pMatch) {
+                teacher = pMatch[1].trim();
+                if (pMatch[2]) {
+                    let inside = pMatch[2].trim();
+                    const tMatch = inside.match(/\b\d{1,2}:\d{2}(?:\s*-\s*\d{1,2}:\d{2})?\b/);
+                    if (tMatch) {
+                        timeStr = tMatch[0];
+                        inside = inside.replace(tMatch[0], '').replace(/^,\s*|,\s*$/g, '').trim();
+                    }
+                    if (inside) {
+                        roomStr = inside.replace(/^,\s*|,\s*$/g, '').trim();
+                    }
+                }
+            }
+
+            if (roomStr) {
+                if (/^otaq\b/i.test(roomStr)) {
+                    roomStr = roomStr.replace(/^otaq/i, 'Otaq').trim();
+                } else if (!roomStr.startsWith('...')) {
+                    roomStr = 'Otaq ' + roomStr;
+                }
+            }
+
+            const isCurrentActive = isTodayReal && slotNum && isLessonActive(slotNum);
+            const activeCardBorder = isCurrentActive 
+                ? 'border-blue-500 ring-2 ring-blue-400/40 bg-blue-50/50 dark:bg-blue-900/20' 
+                : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700';
+
+            return `
+            <div class="relative p-3.5 rounded-2xl mt-3 transition-all duration-300 border ${activeCardBorder} shadow-xs hover:shadow-md flex flex-col gap-2">
+                <!-- Üst Sətir: Nömrə, Fənn Adı və Növü -->
+                <div class="flex items-start gap-2.5">
+                    <div class="flex-shrink-0 w-7 h-7 rounded-xl bg-blue-500/10 dark:bg-blue-400/15 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center border border-blue-500/20 shadow-xs">
+                        ${mappedNum}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <h5 class="text-slate-900 dark:text-white font-bold text-base leading-snug tracking-tight break-words">${subj}</h5>
+                            ${typeBadge}
+                            ${isCurrentActive ? '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-green-500 text-white animate-pulse">İNDİ</span>' : ''}
+                        </div>
+                        ${teacher ? `
+                        <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
+                            <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <span class="truncate">${teacher}</span>
+                        </div>` : ''}
+                    </div>
+                </div>
+
+                <!-- Alt Sətir: Saat və Otaq Bölməsi -->
+                ${(timeStr || roomStr) ? `
+                <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200/60 dark:border-slate-700/50 text-xs">
+                    ${timeStr ? `
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-300 font-semibold border border-blue-200/60 dark:border-blue-500/20">
+                        <svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>${timeStr.replace('-', ' - ')}</span>
+                    </span>` : ''}
+                    ${roomStr ? `
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-purple-50 dark:bg-purple-500/10 text-purple-700 dark:text-purple-300 font-semibold border border-purple-200/60 dark:border-purple-500/20">
+                        <svg class="w-3.5 h-3.5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <span>${roomStr}</span>
+                    </span>` : ''}
+                </div>` : ''}
+            </div>`;
+        }
+
         function renderScheduleKurs2() {
             let container = document.getElementById("schedule_kurs2");
             if (!container) return;
@@ -1211,76 +1331,48 @@
                     const loopWeekType = loopWeekInfo.type;
                     const lessons = currentSchedule && currentSchedule[loopWeekType] ? currentSchedule[loopWeekType][loopDayIndex] : [];
 
+                    const tomorrow = getBakuDate();
+                    tomorrow.setDate(today.getDate() + 1);
+
                     const isTodayReal = (date.toDateString() === today.toDateString());
+                    const isTomorrowReal = (date.toDateString() === tomorrow.toDateString());
 
                     const lessonHtml = (lessons && lessons.length > 0)
-                        ? lessons.sort().map((l) => {
-                            let display = l;
-                            let slotNum = null;
-
-                            if (l.startsWith('{')) {
-                                const endIdx = l.indexOf('}');
-                                slotNum = parseInt(l.substring(1, endIdx));
-                                display = l.substring(endIdx + 1).trim();
-                            }
-
-                            const hasLegacyNumbering = /^\d+\)/.test(display);
-                            let numberPrefix = "";
-                            // VİZUAL: Slot nömrəsini 1, 2, 3 kimi göstərmək üçün
-                            let mappedNum = slotNum;
-                            if (!hasLegacyNumbering && slotNum) {
-                                mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
-                                numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
-                            } else if (hasLegacyNumbering) {
-                                const parts = display.match(/^(\d+\))(.*)/);
-                                if (parts) {
-                                    numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${parts[1].replace(')', '')}</span>`;
-                                    display = parts[2];
-                                }
-                            }
-
-                            let typeBadge = "";
-                            if (display.toLowerCase().includes("mühazirə")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`;
-                                display = display.replace(/\(mühazirə\)/i, '').trim();
-                            } else if (display.toLowerCase().includes("seminar")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
-                                display = display.replace(/\(seminar\)/i, '').trim();
-                            } else if (display.toLowerCase().includes("laboratoriya") || /\(lab\)/i.test(display)) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`;
-                                display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim();
-                            }
-
-                            let content = display;
-                            if (display.includes(' - ')) {
-                                const parts = display.split(' - ');
-                                const subj = parts[0].trim();
-                                const teach = parts.slice(1).join(' - ').trim();
-                                content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1 flex items-center gap-2"><div class="p-1 rounded-full bg-slate-200 dark:bg-slate-700"><svg class="w-3 h-3 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div> <span class="text-slate-600 dark:text-slate-400 font-medium">${teach}</span></span>`;
-                            } else {
-                                content = `<span>${display}</span>${typeBadge}`;
-                            }
-
-                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start transition-all duration-300 overflow-hidden bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50">
-                                            <div class="mt-0.5">${numberPrefix}</div>
-                                            <div class="absolute left-0 top-3 bottom-3 w-1.5 bg-blue-500 rounded-r-lg"></div>
-                                            <div class="w-full pl-4 py-1">${content}</div>
-                                        </div>`;
-                        }).join('')
+                        ? lessons.sort().map((l, i) => renderLessonCardHTML(l, i, isTodayReal)).join('')
                         : "<div class='mt-4 text-center py-6 bg-white dark:bg-darkCard rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 shadow-sm'><p class='text-slate-400 dark:text-slate-500 italic text-sm'>Bu gün dərslər yoxdur, istirahət vaxtıdır! 🎮</p></div>";
 
                     const dateStr = tarihFormatla(date).replace('<br>', '');
                     const lessonsData = JSON.stringify(lessons).replace(/"/g, '&quot;');
 
+                    let cardBorderCls = "bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md rounded-3xl";
+                    let headerBgCls = "bg-slate-50/50 dark:bg-darkBg/50 border-b border-slate-100 dark:border-slate-800";
+                    let titleCls = "text-slate-800 dark:text-slate-200";
+                    let badgeHtml = "";
+                    let cardIdAttr = "";
+
+                    if (isTodayReal) {
+                        cardBorderCls = "bg-white dark:bg-darkCard border-2 border-emerald-500 shadow-xl shadow-emerald-500/15 ring-2 ring-emerald-500/20 transform scale-[1.01] rounded-3xl";
+                        headerBgCls = "bg-emerald-50/70 dark:bg-emerald-950/30 border-b border-emerald-200/80 dark:border-emerald-800/50";
+                        titleCls = "text-emerald-700 dark:text-emerald-300 font-extrabold";
+                        badgeHtml = `<span class="inline-flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 animate-pulse border border-emerald-300 dark:border-emerald-500/40 shadow-xs"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Bugün</span>`;
+                        cardIdAttr = 'id="today-day-card"';
+                    } else if (isTomorrowReal) {
+                        cardBorderCls = "bg-white dark:bg-darkCard border-2 border-red-500 shadow-xl shadow-red-500/15 ring-2 ring-red-500/20 rounded-3xl";
+                        headerBgCls = "bg-red-50/70 dark:bg-red-950/30 border-b border-red-200/80 dark:border-red-800/50";
+                        titleCls = "text-red-700 dark:text-red-300 font-extrabold";
+                        badgeHtml = `<span class="inline-flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-red-100 dark:bg-red-500/20 text-red-700 dark:text-red-300 animate-pulse border border-red-300 dark:border-red-500/40 shadow-xs"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Sabah</span>`;
+                        cardIdAttr = 'id="tomorrow-day-card"';
+                    }
+
                     container.innerHTML += `
-                        <div class='relative group overflow-hidden transition-all duration-300 ${isTodayReal ? 'bg-white dark:bg-darkCard border border-blue-200 dark:border-slate-800 shadow-lg shadow-blue-500/10 transform scale-[1.02] ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-100 dark:ring-offset-darkBg rounded-3xl' : 'bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md rounded-3xl'}'>
+                        <div ${cardIdAttr} class='relative group overflow-hidden transition-all duration-300 ${cardBorderCls}'>
                             
-                            <div class="p-4 ${isTodayReal ? 'bg-blue-50/50 dark:bg-blue-500/10' : 'bg-slate-50/50 dark:bg-darkBg/50'} flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+                            <div class="p-4 ${headerBgCls} flex justify-between items-center">
                                 <div>
-                                    <h4 class="text-xl font-extrabold tracking-tight ${isTodayReal ? 'text-blue-600 dark:text-blue-400' : 'text-slate-800 dark:text-slate-200'}">
+                                    <h4 class="text-xl font-extrabold tracking-tight ${titleCls}">
                                         ${tarihFormatla(date)}
                                     </h4>
-                                    ${isTodayReal ? '<span class="text-[10px] uppercase font-bold tracking-wider text-blue-500 animate-pulse">Bugün</span>' : ''}
+                                    ${badgeHtml}
                                 </div>
                                 <button onclick="copyDaySchedule('${dateStr}', ${lessonsData})" class="text-slate-500 dark:text-slate-400 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 p-2 rounded-lg transition-colors" title="Kopyala">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1322,56 +1414,7 @@
                     const lessons = dersCedveliKurs1[weekType][day];
 
                     if (lessons) {
-                        const lessonHtml = lessons.map(l => {
-                            let display = l;
-                            let slotNum = null;
-                            if (l.startsWith('{')) {
-                                const endIdx = l.indexOf('}');
-                                slotNum = parseInt(l.substring(1, endIdx));
-                                display = l.substring(endIdx + 1).trim();
-                            }
-
-                            const hasLegacyNumbering = /^\d+\)/.test(display);
-                            let numberPrefix = "";
-                            if (!hasLegacyNumbering && slotNum) {
-                                let mappedNum = (slotNum > 3) ? (slotNum - 3) : slotNum;
-                                numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${mappedNum}</span>`;
-                            } else if (hasLegacyNumbering) {
-                                const parts = display.match(/^(\d+\))(.*)/);
-                                if (parts) {
-                                    numberPrefix = `<span class="text-blue-400 font-bold mr-2 text-lg">${parts[1].replace(')', '')}</span>`;
-                                    display = parts[2];
-                                }
-                            }
-
-                            let typeBadge = "";
-                            if (display.toLowerCase().includes("mühazirə")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`;
-                                display = display.replace(/\(mühazirə\)/i, '').trim();
-                            } else if (display.toLowerCase().includes("seminar")) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
-                                display = display.replace(/\(seminar\)/i, '').trim();
-                            } else if (display.toLowerCase().includes("laboratoriya") || /\(lab\)/i.test(display)) {
-                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`;
-                                display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim();
-                            }
-
-                            let content = display;
-                            if (display.includes(' - ')) {
-                                const parts = display.split(' - ');
-                                const subj = parts[0].trim();
-                                const teach = parts.slice(1).join(' - ').trim();
-                                content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1 flex items-center gap-2"><div class="p-1 rounded-full bg-slate-200 dark:bg-slate-700"><svg class="w-3 h-3 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div> <span class="text-slate-600 dark:text-slate-400 font-medium">${teach}</span></span>`;
-                            } else {
-                                content = `<span>${display}</span>${typeBadge}`;
-                            }
-
-                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start transition-all duration-300 overflow-hidden bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50">
-                                            <div class="mt-0.5">${numberPrefix}</div>
-                                            <div class="absolute left-0 top-3 bottom-3 w-1.5 bg-blue-500 rounded-r-lg"></div>
-                                            <div class="w-full pl-4 py-1">${content}</div>
-                                        </div>`;
-                        }).join('');
+                        const lessonHtml = lessons.map((l, i) => renderLessonCardHTML(l, i, false)).join('');
 
                         container.innerHTML += `
                         <div class='relative group overflow-hidden transition-all duration-300 bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md rounded-3xl mt-4'>
@@ -1426,18 +1469,7 @@
                     for (let day = 1; day <= 5; day++) {
                         const lessons = weekData[day] || [];
                         if (!lessons.length) continue;
-                        const lessonHtml = lessons.map(l => {
-                            let display = l, numberPrefix = '';
-                            if (l.startsWith('{')) { const ei = l.indexOf('}'); const sn = parseInt(l.substring(1, ei)); display = l.substring(ei + 1).trim(); const mn = (sn > 3) ? (sn - 3) : sn; numberPrefix = `<span class="text-amber-400 font-bold mr-2 text-lg">${mn}</span>`; }
-                            let typeBadge = '';
-                            if (display.toLowerCase().includes('mühazirə')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`; display = display.replace(/\(mühazirə\)/i, '').trim(); }
-                            else if (display.toLowerCase().includes('seminar')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`; display = display.replace(/\(seminar\)/i, '').trim(); }
-                            else if (display.toLowerCase().includes('laboratoriya') || /\(lab\)/i.test(display)) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`; display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim(); }
-                            let content = display;
-                            if (display.includes(' - ')) { const parts = display.split(' - '); const subj = parts[0].trim(); const teach = parts.slice(1).join(' - ').trim(); content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1">${teach}</span>`; }
-                            else { content = `<span>${display}</span>${typeBadge}`; }
-                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50"><div class="mt-0.5">${numberPrefix}</div><div class="absolute left-0 top-3 bottom-3 w-1.5 bg-amber-500 rounded-r-lg"></div><div class="w-full pl-4 py-1">${content}</div></div>`;
-                        }).join('');
+                        const lessonHtml = lessons.map((l, i) => renderLessonCardHTML(l, i, false)).join('');
                         containerEl.innerHTML += `<div class="relative bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm rounded-3xl mt-4"><div class="p-4 bg-slate-50/50 dark:bg-darkBg/50 border-b border-slate-100 dark:border-slate-800"><h4 class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-200">${days[day]}</h4></div><div class="p-4 pt-2 pb-5">${lessonHtml}</div></div>`;
                     }
                 });
@@ -1451,6 +1483,30 @@
             document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
             const el = document.getElementById(id);
             if (el) el.classList.remove('hidden');
+
+            // Bottom Nav aktiv düymə stilini yenilə
+            document.querySelectorAll('.bottom-nav-btn').forEach(b => {
+                b.classList.remove('text-blue-600', 'dark:text-blue-400', 'font-bold');
+                b.classList.add('text-slate-500', 'dark:text-slate-400', 'font-normal');
+                const icon = b.querySelector('.nav-icon');
+                if (icon) icon.classList.remove('bg-blue-50', 'dark:bg-blue-900/30', 'scale-110');
+            });
+
+            const activeBtn = document.getElementById(`nav-item-${id}`);
+            if (activeBtn) {
+                activeBtn.classList.add('text-blue-600', 'dark:text-blue-400', 'font-bold');
+                activeBtn.classList.remove('text-slate-500', 'dark:text-slate-400', 'font-normal');
+                const icon = activeBtn.querySelector('.nav-icon');
+                if (icon) icon.classList.add('bg-blue-50', 'dark:bg-blue-900/30', 'scale-110');
+            } else if (['kurs2ArchiveSection', 'flappySection', 'bagikSection'].includes(id)) {
+                const otherBtn = document.getElementById('nav-item-other');
+                if (otherBtn) {
+                    otherBtn.classList.add('text-blue-600', 'dark:text-blue-400', 'font-bold');
+                    otherBtn.classList.remove('text-slate-500', 'dark:text-slate-400', 'font-normal');
+                    const icon = otherBtn.querySelector('.nav-icon');
+                    if (icon) icon.classList.add('bg-blue-50', 'dark:bg-blue-900/30', 'scale-110');
+                }
+            }
 
             if (id === 'pdfsSection' && document.getElementById("pdf1") && !document.getElementById("pdf1").src) {
                 document.getElementById("pdf1").src = "https://drive.google.com/file/d/1nis8yYs2h62nUswOa8qfGGlmHwZUZ0R2/preview";
@@ -1468,6 +1524,70 @@
             } else if (id === 'kurs2ArchiveSection') {
                 loadAndRenderArchive();
             }
+        };
+
+        window.switchTab = function (id) {
+            window.showSection(id);
+            if (id === 'kurs2Section') {
+                // Scroll to today's card
+                setTimeout(() => {
+                    const todayCard = document.getElementById('today-day-card');
+                    if (todayCard) {
+                        todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 80);
+            } else {
+                // Scroll to top for other sections
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        window.goToToday = function () {
+            const kurs2 = document.getElementById('kurs2Section');
+            if (kurs2 && kurs2.classList.contains('hidden')) {
+                window.showSection('kurs2Section');
+            }
+            if (viewOffset !== 0) {
+                viewOffset = 0;
+                renderScheduleKurs2();
+            }
+            setTimeout(() => {
+                const todayCard = document.getElementById('today-day-card');
+                if (todayCard) {
+                    todayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 60);
+        };
+
+        window.openOtherSheet = function () {
+            const sheet = document.getElementById('other-sheet');
+            const backdrop = document.getElementById('other-sheet-backdrop');
+            if (!sheet || !backdrop) return;
+            backdrop.classList.remove('hidden');
+            sheet.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                sheet.classList.remove('translate-y-full');
+            }, 10);
+        };
+
+        window.closeOtherSheet = function () {
+            const sheet = document.getElementById('other-sheet');
+            const backdrop = document.getElementById('other-sheet-backdrop');
+            if (!sheet || !backdrop) return;
+            backdrop.classList.add('opacity-0');
+            sheet.classList.add('translate-y-full');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+                sheet.classList.add('hidden');
+            }, 300);
+        };
+
+        window.selectOtherOption = function (sectionId) {
+            closeOtherSheet();
+            window.showSection(sectionId);
         };
 
         // --- PWA Logic (YENİLƏNMİŞ V3) ---
@@ -1571,6 +1691,97 @@
             init();
         });
     </script>
+
+    <!-- FAB silindi -->
+
+    <!-- Mobil Aşağı Sabit Menyu (Bottom Navigation Bar) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-darkBg/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800 shadow-2xl py-1.5 px-3 flex justify-around items-center max-w-lg mx-auto md:hidden">
+        <!-- Cədvəl -->
+        <button onclick="switchTab('kurs2Section')" id="nav-item-kurs2Section" class="bottom-nav-btn flex-1 flex flex-col items-center gap-1 text-blue-600 dark:text-blue-400 font-bold transition-transform active:scale-90 py-1">
+            <div class="nav-icon p-1 rounded-xl bg-blue-50 dark:bg-blue-900/30 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-[11px] tracking-tight">Cədvəl</span>
+        </button>
+
+        <!-- Qayıblar -->
+        <button onclick="switchTab('absencesSection')" id="nav-item-absencesSection" class="bottom-nav-btn flex-1 flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 transition-transform active:scale-90 py-1">
+            <div class="nav-icon p-1 rounded-xl transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            </div>
+            <span class="text-[11px] tracking-tight">Qayıblar</span>
+        </button>
+
+        <!-- Qiymətlər -->
+        <button onclick="switchTab('gradesSection')" id="nav-item-gradesSection" class="bottom-nav-btn flex-1 flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 transition-transform active:scale-90 py-1">
+            <div class="nav-icon p-1 rounded-xl transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+            </div>
+            <span class="text-[11px] tracking-tight">Qiymətlər</span>
+        </button>
+
+        <!-- Digər -->
+        <button onclick="openOtherSheet()" id="nav-item-other" class="bottom-nav-btn flex-1 flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 transition-transform active:scale-90 py-1">
+            <div class="nav-icon p-1 rounded-xl transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            </div>
+            <span class="text-[11px] tracking-tight">Digər</span>
+        </button>
+    </nav>
+
+    <!-- Digər Bölmələr Modal / Bottom Sheet -->
+    <div id="other-sheet-backdrop" onclick="closeOtherSheet()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden transition-opacity duration-300 opacity-0"></div>
+    <div id="other-sheet" class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-darkCard rounded-t-3xl border-t border-slate-200 dark:border-slate-800 shadow-2xl p-6 max-w-lg mx-auto transform translate-y-full transition-transform duration-300 hidden">
+        <div class="w-12 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto mb-5"></div>
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Digər Bölmələr</h3>
+            <button onclick="closeOtherSheet()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="space-y-3 pb-2">
+            <!-- 2-ci Kurs (Arxiv) -->
+            <button onclick="selectOtherOption('kurs2ArchiveSection')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-blue-50 dark:hover:bg-blue-900/20 border border-slate-200/80 dark:border-slate-700/60 transition group active:scale-[0.98]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
+                        📁
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">2-ci Kurs Cədvəli</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Arxiv dərslər</p>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Flappy Ramin -->
+            <button onclick="selectOtherOption('flappySection')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 border border-slate-200/80 dark:border-slate-700/60 transition group active:scale-[0.98]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
+                        🎮
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">Flappy Ramin</h4>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-yellow-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+
+            <!-- Bagik Run -->
+            <button onclick="selectOtherOption('bagikSection')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-green-50 dark:hover:bg-green-900/20 border border-slate-200/80 dark:border-slate-700/60 transition group active:scale-[0.98]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-green-500/10 text-green-600 dark:text-green-400 flex items-center justify-center font-bold text-lg group-hover:scale-110 transition-transform">
+                        🎮
+                    </div>
+                    <div class="text-left">
+                        <h4 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Bagik Run</h4>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-slate-400 group-hover:text-green-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
 </body>
 
 
