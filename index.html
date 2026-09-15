@@ -1155,6 +1155,10 @@
         window.copyDaySchedule = (dateStr, lessonsArr) => {
             if (!lessonsArr || lessonsArr.length === 0) return;
             const textLines = lessonsArr.map(l => {
+                // HARDCODE SILINECEK
+                if (typeof l === 'string' && l.includes('Kompüter qrafikası')) {
+                    l = l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508');
+                }
                 let clean = l;
                 if (l.startsWith('{')) clean = l.substring(l.indexOf('}') + 1).trim();
                 return `• ${clean}`;
@@ -1173,6 +1177,10 @@
         };
 
         function renderLessonCardHTML(l, i, isTodayReal) {
+            // HARDCODE SILINECEK
+            if (typeof l === 'string' && l.includes('Kompüter qrafikası')) {
+                l = l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508');
+            }
             let slotNum = null;
             let display = l;
 
@@ -1328,8 +1336,11 @@
 
                 if (loopDayIndex >= 1 && loopDayIndex <= 5) {
                     const loopWeekInfo = hefteniTap(date);
-                    const loopWeekType = loopWeekInfo.type;
-                    const lessons = currentSchedule && currentSchedule[loopWeekType] ? currentSchedule[loopWeekType][loopDayIndex] : [];
+                    let lessons = currentSchedule && currentSchedule[loopWeekType] ? (currentSchedule[loopWeekType][loopDayIndex] || []) : [];
+                    // HARDCODE SILINECEK
+                    if (lessons && Array.isArray(lessons)) {
+                        lessons = lessons.map(l => (typeof l === 'string' && l.includes('Kompüter qrafikası')) ? l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508') : l);
+                    }
 
                     const tomorrow = getBakuDate();
                     tomorrow.setDate(today.getDate() + 1);
