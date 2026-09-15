@@ -1246,6 +1246,9 @@
                             } else if (display.toLowerCase().includes("seminar")) {
                                 typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
                                 display = display.replace(/\(seminar\)/i, '').trim();
+                            } else if (display.toLowerCase().includes("laboratoriya") || /\(lab\)/i.test(display)) {
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`;
+                                display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim();
                             }
 
                             let content = display;
@@ -1348,6 +1351,9 @@
                             } else if (display.toLowerCase().includes("seminar")) {
                                 typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`;
                                 display = display.replace(/\(seminar\)/i, '').trim();
+                            } else if (display.toLowerCase().includes("laboratoriya") || /\(lab\)/i.test(display)) {
+                                typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`;
+                                display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim();
                             }
 
                             let content = display;
@@ -1426,6 +1432,7 @@
                             let typeBadge = '';
                             if (display.toLowerCase().includes('mühazirə')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`; display = display.replace(/\(mühazirə\)/i, '').trim(); }
                             else if (display.toLowerCase().includes('seminar')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`; display = display.replace(/\(seminar\)/i, '').trim(); }
+                            else if (display.toLowerCase().includes('laboratoriya') || /\(lab\)/i.test(display)) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 uppercase tracking-wider ml-2">Laboratoriya</span>`; display = display.replace(/\(laboratoriya\)/i, '').replace(/\(lab\)/i, '').trim(); }
                             let content = display;
                             if (display.includes(' - ')) { const parts = display.split(' - '); const subj = parts[0].trim(); const teach = parts.slice(1).join(' - ').trim(); content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1">${teach}</span>`; }
                             else { content = `<span>${display}</span>${typeBadge}`; }
