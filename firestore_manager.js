@@ -375,7 +375,7 @@ export class SystemManager {
     async getAllStudents(groupId) {
         const q = query(collection(this.db, "students"), where("groupId", "==", groupId));
         const snap = await getDocs(q);
-        return snap.docs.map(d => d.data().fullName).sort();
+        return snap.docs.map(d => d.data().fullName);
     }
 
     // --- Grades Management ---

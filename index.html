@@ -144,6 +144,11 @@
         1-ci kurs
     </button>
 
+    <button onclick="showSection('kurs2ArchiveSection')"
+        class="whitespace-nowrap bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-700/50 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        📁 2-ci Kurs
+    </button>
+
     <button onclick="showSection('flappySection')"
         class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
         Flappy Ramin
@@ -401,6 +406,18 @@
             </div>
         </div>
 
+        <div id="kurs2ArchiveSection" class="content hidden">
+            <h1
+                class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">
+                2-ci KURS &mdash; ARXİV</h1>
+            <p class="text-center text-slate-400 dark:text-amber-700/60 text-sm mb-6">Kəçmiş semestr cədvəli (arxiv)</p>
+            <div id="archive-loader" class="text-center py-10">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-amber-400"></div>
+                <p class="mt-2 text-slate-500 dark:text-gray-400">Arxiv yüklənir...</p>
+            </div>
+            <div id="schedule_kurs2archive" class="max-w-2xl mx-auto space-y-4 px-2"></div>
+        </div>
+
         <div id="kurs1Section" class="content hidden">
             <h1
                 class="text-4xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
@@ -474,7 +491,7 @@
         let currentGrades = [];
         let currentColloquiums = [];
         let dynamicSubjects = [];
-        let staticStudents = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənova Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Əliyev Fuad Razim", "Orucov Nurlan Seymur"];
+        let staticStudents = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənova Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Orucov Nurlan Seymur"];
 
         const studentSelect = document.getElementById('student-grades-select');
         const saveIdentityBtn = document.getElementById('save-grades-identity-btn');
@@ -495,8 +512,10 @@
                 dbStudents = await manager.getAllStudents(currentGroupId);
             } catch (e) { console.error("Could not fetch students", e); }
 
-            const list = dbStudents.length > 0 ? dbStudents : staticStudents;
-            list.sort().forEach(s => {
+            // staticStudents sırasını qoru, DB-də əlavə tələbə varsa sona əlavə et
+            const list = [...staticStudents];
+            dbStudents.forEach(s => { if (!list.includes(s)) list.push(s); });
+            list.forEach(s => {
                 studentSelect.innerHTML += `<option value="${s}">${s}</option>`;
             });
 
@@ -761,16 +780,17 @@
         async function loadAbsencesData() {
             if (!windowActiveSemesterId) return;
 
-            // Load students
+            // Load students — staticStudents sırasını qoru
             const dbStudents = await manager.getAllStudents(currentGroupId).catch(() => []);
-            const fallback = ["İsayev Ramal Rəfayıl", "Qulamov Kamil Amil", "Abbaszadə Salman Məsud", "Heydərli Heydər Sabir", "Mikayılova Lalə Samir", "Seyidov Nurəli Mirnayıb", "Kübərov Rahid Mahmud", "Bayramov Məmməd Vaqif", "Həsənov Mənzər İlqar", "Rüstəmov Elgün Ceyhun", "Xasayeva Nərmin Azər", "İbalı Cəmilə Rəfail", "Mirzəyeva Nüşabə Hacıəli", "Muradova Leyla Qadir", "Əhmədov Kənan Ceyhun", "Sultanlı Nihad Sərhad", "Əsgərov Elnar Vüsal", "Hüseynli Nərgiz Mütəllim", "Mirişov Nihad Murad", "Ağalizadə Səid Elman", "Hüseynova Firuzə Sənan", "Ağakərimov Fəqan Alim", "Əliyev Fuad Razim", "Orucov Nurlan Seymur"];
-            absenceStudentsList = dbStudents.length > 0 ? dbStudents : fallback;
+            absenceStudentsList = [...staticStudents];
+            dbStudents.forEach(s => { if (!absenceStudentsList.includes(s)) absenceStudentsList.push(s); });
 
             // Populate dropdown
             absStudentSelect.innerHTML = '<option value="">Tələbə seçin...</option>';
-            [...absenceStudentsList].sort().forEach(s => {
+            absenceStudentsList.forEach(s => {
                 absStudentSelect.innerHTML += `<option value="${s}">${s}</option>`;
             });
+
 
             // Restore saved identity
             const savedAbs = localStorage.getItem('savedAbsIdentity_ITS');
@@ -871,7 +891,7 @@
                 return;
             }
 
-            window._absStudentsSorted = [...absenceStudentsList].sort();
+            window._absStudentsSorted = [...absenceStudentsList]; // Qəydiyyat sırası (sıra nömrəsi ilə)
 
             // Collect all subjects across all absences + from dynamic list
             const allSubs = [...absSubjectsList];
@@ -1375,6 +1395,59 @@
             renderWeek("alt");
             renderWeek("ust");
         }
+        // === ARXİV CƏDVƏLİ YÜKLƏMƏ ===
+        let archiveLoaded = false;
+        async function loadAndRenderArchive() {
+            if (archiveLoaded) return;
+            const loaderEl = document.getElementById('archive-loader');
+            const containerEl = document.getElementById('schedule_kurs2archive');
+            if (!containerEl) return;
+            try {
+                const archivedSemesters = await manager.getArchivedSemesters();
+                if (!archivedSemesters || archivedSemesters.length === 0) {
+                    if (loaderEl) loaderEl.innerHTML = '<p class="text-slate-400 dark:text-gray-500 py-6">Arxivlənmiş semestr tapılmadı.</p>';
+                    return;
+                }
+                // Ən son arxivlənmiş semestri al
+                const sorted = archivedSemesters.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+                const archiveSem = sorted[0];
+                const archiveSchedule = await manager.getGroupSchedule(archiveSem.id, currentGroupId);
+                if (loaderEl) loaderEl.classList.add('hidden');
+                const hasAlt = archiveSchedule?.alt && Object.keys(archiveSchedule.alt).some(d => archiveSchedule.alt[d]?.length > 0);
+                const hasUst = archiveSchedule?.ust && Object.keys(archiveSchedule.ust).some(d => archiveSchedule.ust[d]?.length > 0);
+                if (!hasAlt && !hasUst) {
+                    containerEl.innerHTML = '<p class="text-center text-slate-400 dark:text-gray-500 py-10 border border-dashed border-slate-200 dark:border-slate-700 rounded-3xl">Arxiv cədvəl məlumatı mövcud deyil (silinib).</p>';
+                    return;
+                }
+                archiveLoaded = true;
+                const days = { 1: "Bazar ertəsi", 2: "Çərşənbə axşamı", 3: "Çərşənbə", 4: "Cümə axşamı", 5: "Cümə" };
+                ['alt', 'ust'].forEach(wt => {
+                    const weekData = archiveSchedule[wt] || {};
+                    const hasLessons = Object.keys(weekData).some(d => weekData[d]?.length > 0);
+                    if (!hasLessons) return;
+                    containerEl.innerHTML += `<div class="flex flex-col items-center mt-4 mb-2"><span class="text-2xl font-bold ${wt === 'alt' ? 'text-yellow-400' : 'text-green-400'} uppercase">${wt === 'alt' ? 'ALT HƏFTƏ' : 'ÜST HƏFTƏ'}</span></div>`;
+                    for (let day = 1; day <= 5; day++) {
+                        const lessons = weekData[day] || [];
+                        if (!lessons.length) continue;
+                        const lessonHtml = lessons.map(l => {
+                            let display = l, numberPrefix = '';
+                            if (l.startsWith('{')) { const ei = l.indexOf('}'); const sn = parseInt(l.substring(1, ei)); display = l.substring(ei + 1).trim(); const mn = (sn > 3) ? (sn - 3) : sn; numberPrefix = `<span class="text-amber-400 font-bold mr-2 text-lg">${mn}</span>`; }
+                            let typeBadge = '';
+                            if (display.toLowerCase().includes('mühazirə')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 uppercase tracking-wider ml-2">Mühazirə</span>`; display = display.replace(/\(mühazirə\)/i, '').trim(); }
+                            else if (display.toLowerCase().includes('seminar')) { typeBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/20 uppercase tracking-wider ml-2">Seminar</span>`; display = display.replace(/\(seminar\)/i, '').trim(); }
+                            let content = display;
+                            if (display.includes(' - ')) { const parts = display.split(' - '); const subj = parts[0].trim(); const teach = parts.slice(1).join(' - ').trim(); content = `<span class="text-slate-900 dark:text-white font-bold text-base">${subj}</span>${typeBadge}<span class="block text-sm text-slate-500 dark:text-gray-400 mt-1">${teach}</span>`; }
+                            else { content = `<span>${display}</span>${typeBadge}`; }
+                            return `<div class="relative p-3 rounded-2xl mt-3 text-sm flex items-start bg-slate-50 border border-slate-100 dark:border-none dark:bg-slate-800/50"><div class="mt-0.5">${numberPrefix}</div><div class="absolute left-0 top-3 bottom-3 w-1.5 bg-amber-500 rounded-r-lg"></div><div class="w-full pl-4 py-1">${content}</div></div>`;
+                        }).join('');
+                        containerEl.innerHTML += `<div class="relative bg-white dark:bg-darkCard border border-slate-200 dark:border-slate-800 shadow-sm rounded-3xl mt-4"><div class="p-4 bg-slate-50/50 dark:bg-darkBg/50 border-b border-slate-100 dark:border-slate-800"><h4 class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-200">${days[day]}</h4></div><div class="p-4 pt-2 pb-5">${lessonHtml}</div></div>`;
+                    }
+                });
+            } catch (e) {
+                console.error('Archive load error:', e);
+                if (loaderEl) loaderEl.innerHTML = '<p class="text-red-400 py-6">Arxiv yüklənərkən xəta baş verdi.</p>';
+            }
+        }
 
         window.showSection = function (id) {
             document.querySelectorAll('.content').forEach(c => c.classList.add('hidden'));
@@ -1394,6 +1467,8 @@
                 document.getElementById("bagikContainer").appendChild(b);
             } else if (id === 'kurs1Section') {
                 dersleriGosterKurs1();
+            } else if (id === 'kurs2ArchiveSection') {
+                loadAndRenderArchive();
             }
         };
 
