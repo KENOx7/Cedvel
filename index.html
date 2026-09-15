@@ -122,7 +122,7 @@
     <nav class="flex flex-wrap justify-center items-center gap-3 my-6 px-4">
     <button onclick="showSection('kurs2Section')"
         class="whitespace-nowrap bg-blue-600 text-white font-bold py-2.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:scale-105 active:scale-95">
-        2-ci KURS
+        3-cü KURS
     </button>
 
     <button onclick="showSection('absencesSection')"
@@ -140,7 +140,7 @@
     </button>
 
     <button onclick="showSection('kurs1Section')"
-        class="whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
+        class="hidden whitespace-nowrap bg-white dark:bg-darkCard text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 font-semibold py-2.5 px-6 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-sm">
         1-ci kurs
     </button>
 
@@ -166,7 +166,7 @@
         <div id="kurs2Section" class="content hidden">
             <h1
                 class="text-4xl font-extrabold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
-                2-ci KURS CƏDVƏLİ</h1>
+                3-cü KURS CƏDVƏLİ</h1>
 
             <div class="flex flex-col items-center justify-center gap-3 mb-6">
                 <h3 id="weekType" class="text-2xl text-yellow-400 font-bold drop-shadow-md text-center"></h3>
@@ -1077,7 +1077,7 @@
             }
         }
 
-        const startDate = new Date("2026-02-16T00:00:00+04:00");
+        const startDate = new Date("2026-09-15T00:00:00+04:00");
 
         function startOfDayCopy(d) {
             const c = new Date(d);
