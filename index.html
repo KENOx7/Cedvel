@@ -506,15 +506,8 @@
                 dynamicSubjects = subRes.subjects || [];
             } catch (e) { console.error("Could not fetch subjects", e); }
 
-            // Populate students dropdown
-            let dbStudents = [];
-            try {
-                dbStudents = await manager.getAllStudents(currentGroupId);
-            } catch (e) { console.error("Could not fetch students", e); }
-
-            // staticStudents sırasını qoru, DB-də əlavə tələbə varsa sona əlavə et
+            // Populate students dropdown (Yalnız rəsmi təsdiqlənmiş tələbə siyahısından istifadə et)
             const list = [...staticStudents];
-            dbStudents.forEach(s => { if (!list.includes(s)) list.push(s); });
             list.forEach(s => {
                 studentSelect.innerHTML += `<option value="${s}">${s}</option>`;
             });
@@ -780,10 +773,8 @@
         async function loadAbsencesData() {
             if (!windowActiveSemesterId) return;
 
-            // Load students — staticStudents sırasını qoru
-            const dbStudents = await manager.getAllStudents(currentGroupId).catch(() => []);
+            // Load students — yalnız rəsmi təsdiqlənmiş tələbə siyahısından istifadə et
             absenceStudentsList = [...staticStudents];
-            dbStudents.forEach(s => { if (!absenceStudentsList.includes(s)) absenceStudentsList.push(s); });
 
             // Populate dropdown
             absStudentSelect.innerHTML = '<option value="">Tələbə seçin...</option>';
@@ -820,7 +811,7 @@
                     .map(d => ({ id: d.id, ...d.data() }))
                     .filter(d => {
                         if (d.groupId && d.groupId !== currentGroupId) return false;
-                        if (!d.groupId && !absenceStudentsList.includes(d.studentName)) return false;
+                        if (!absenceStudentsList.includes(d.studentName)) return false;
                         return true;
                     });
                 absProcessData();
