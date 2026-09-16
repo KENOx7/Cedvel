@@ -1120,32 +1120,6 @@
             return `${gunler[date.getDay()]}, ${date.toLocaleDateString('az-AZ')}`;
         }
 
-        const lessonSlots = [
-            { start: "09:00", end: "10:20" },
-            { start: "10:30", end: "11:50" },
-            { start: "12:10", end: "13:30" },
-            { start: "13:40", end: "15:00" },
-            { start: "15:10", end: "16:30" }
-        ];
-
-        function isLessonActive(slotIndex) {
-            if (slotIndex < 1 || slotIndex > 5) return false;
-
-            const now = getBakuDate();
-            const slot = lessonSlots[slotIndex - 1];
-
-            const [sH, sM] = slot.start.split(':');
-            const [eH, eM] = slot.end.split(':');
-
-            const startTime = getBakuDate();
-            startTime.setHours(parseInt(sH), parseInt(sM), 0, 0);
-
-            const endTime = getBakuDate();
-            endTime.setHours(parseInt(eH), parseInt(eM), 0, 0);
-
-            return now >= startTime && now <= endTime;
-        }
-
         window.changeWeek = (delta) => {
             viewOffset += delta;
             renderScheduleKurs2();
@@ -1159,10 +1133,6 @@
         window.copyDaySchedule = (dateStr, lessonsArr) => {
             if (!lessonsArr || lessonsArr.length === 0) return;
             const textLines = lessonsArr.map(l => {
-                // HARDCODE SILINECEK
-                if (typeof l === 'string' && l.includes('Kompüter qrafikası')) {
-                    l = l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508');
-                }
                 let clean = l;
                 if (l.startsWith('{')) clean = l.substring(l.indexOf('}') + 1).trim();
                 return `• ${clean}`;
@@ -1181,10 +1151,6 @@
         };
 
         function renderLessonCardHTML(l, i, isTodayReal) {
-            // HARDCODE SILINECEK
-            if (typeof l === 'string' && l.includes('Kompüter qrafikası')) {
-                l = l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508');
-            }
             let slotNum = null;
             let display = l;
 
@@ -1255,13 +1221,10 @@
                 }
             }
 
-            const isCurrentActive = isTodayReal && slotNum && isLessonActive(slotNum);
-            const activeCardBorder = isCurrentActive 
-                ? 'border-blue-500 ring-2 ring-blue-400/40 bg-blue-50/50 dark:bg-blue-900/20' 
-                : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700';
+            const cardBorder = 'border-slate-200/80 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/40 hover:border-slate-300 dark:hover:border-slate-700';
 
             return `
-            <div class="relative p-3.5 rounded-2xl mt-3 transition-all duration-300 border ${activeCardBorder} shadow-xs hover:shadow-md flex flex-col gap-2">
+            <div class="relative p-3.5 rounded-2xl mt-3 transition-all duration-300 border ${cardBorder} shadow-xs hover:shadow-md flex flex-col gap-2">
                 <!-- Üst Sətir: Nömrə, Fənn Adı və Növü -->
                 <div class="flex items-start gap-2.5">
                     <div class="flex-shrink-0 w-7 h-7 rounded-xl bg-blue-500/10 dark:bg-blue-400/15 text-blue-600 dark:text-blue-400 font-extrabold text-sm flex items-center justify-center border border-blue-500/20 shadow-xs">
@@ -1271,7 +1234,6 @@
                         <div class="flex flex-wrap items-center gap-1.5">
                             <h5 class="text-slate-900 dark:text-white font-bold text-base leading-snug tracking-tight break-words">${subj}</h5>
                             ${typeBadge}
-                            ${isCurrentActive ? '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-green-500 text-white animate-pulse">İNDİ</span>' : ''}
                         </div>
                         ${teacher ? `
                         <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">
@@ -1341,11 +1303,7 @@
                 if (loopDayIndex >= 1 && loopDayIndex <= 5) {
                     const loopWeekInfo = hefteniTap(date);
                     const loopWeekType = loopWeekInfo.type;
-                    let lessons = currentSchedule && currentSchedule[loopWeekType] ? (currentSchedule[loopWeekType][loopDayIndex] || []) : [];
-                    // HARDCODE SILINECEK
-                    if (lessons && Array.isArray(lessons)) {
-                        lessons = lessons.map(l => (typeof l === 'string' && l.includes('Kompüter qrafikası')) ? l.replace(/Otaq \.\.\./gi, 'Otaq 508').replace(/\.\.\./g, '508') : l);
-                    }
+                    const lessons = currentSchedule && currentSchedule[loopWeekType] ? (currentSchedule[loopWeekType][loopDayIndex] || []) : [];
 
                     const tomorrow = getBakuDate();
                     tomorrow.setDate(today.getDate() + 1);
